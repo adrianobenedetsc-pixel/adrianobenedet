@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual da Riqueza Conforme Salomão – Adriano Benedet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* RESET */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+/* TOKENS */
+:root {
+  --gold:       #D4AF37;
+  --gold-light: #F5E27A;
+  --gold-mid:   #B8961E;
+  --gold-dark:  #8B6914;
+  --gold-deep:  #4A3000;
+  --bg:         #070500;
+  --bg-alt:     #0C0900;
+  --text:       #E8DFAF;
+  --muted:      #7A6A3A;
+  --faint:      #3A3020;
+  --border:     #2A1E00;
+}
+
+/* BASE */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+a { color:inherit; text-decoration:none; }
+p { margin-bottom:1.2rem; }
+p:last-child { margin-bottom:0; }
+strong { color:var(--gold); font-weight:600; }
+
+/* ORNAMENT LINES */
+.line { display:block; width:100%; height:1px; }
+.lg { background: linear-gradient(to right, transparent 0%, var(--gold-dark) 30%, var(--gold) 50%, var(--gold-dark) 70%, transparent 100%); }
+.lt { background: linear-gradient(to right, transparent 0%, var(--gold-deep) 30%, var(--gold-dark) 50%, var(--gold-deep) 70%, transparent 100%); }
+.orn { display:flex; flex-direction:column; gap:4px; max-width:340px; margin:0 auto; }
+
+/* WRAPPERS */
+.w  { max-width:860px; margin:0 auto; padding:5rem 2rem; }
+.ws { max-width:640px; margin:0 auto; padding:5rem 2rem; }
+
+/* TYPOGRAPHY */
+.eyebrow {
+  display:block;
+  font-family:'Cinzel', serif;
+  font-size:10px;
+  letter-spacing:8px;
+  color:var(--gold-dark);
+  text-transform:uppercase;
+  text-align:center;
+  margin-bottom:1rem;
+}
+h1,h2,h3 { font-family:'Cinzel', serif; color:var(--gold); line-height:1.15; }
+h1 { font-size:clamp(2rem,6vw,4.2rem); font-weight:700; letter-spacing:2px; }
+h2 { font-size:clamp(1.5rem,3.5vw,2.2rem); font-weight:600; text-align:center; margin-bottom:2rem; }
+h3 { font-size:1rem; font-weight:600; letter-spacing:1px; margin-bottom:0.4rem; }
+.sub { font-family:'Cinzel',serif; font-size:clamp(0.7rem,1.4vw,0.9rem); color:var(--gold-dark); letter-spacing:6px; text-align:center; }
+
+/* BUTTON */
+.btn {
+  display:inline-block;
+  font-family:'Cinzel', serif;
+  font-size:0.9rem;
+  font-weight:700;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  padding:1.1rem 3.2rem;
+  cursor:pointer;
+  background: linear-gradient(to bottom, #F5E27A 0%, #D4AF37 40%, #B8961E 70%, #8B6914 100%);
+  color:#0A0600;
+  border:none;
+  position:relative;
+  outline:none;
+  transition:filter 0.2s;
+}
+.btn:hover { filter:brightness(1.08); }
+.btn::before { content:''; position:absolute; inset:-4px; border:1px solid var(--gold-dark); pointer-events:none; }
+.btn::after  { content:''; position:absolute; inset:-8px; border:1px solid var(--gold-deep); pointer-events:none; }
+
+/* ── HERO ── */
+#hero {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:5rem 2rem 4rem;
+  position:relative;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 40%, #1C1400 0%, var(--bg) 70%),
+    linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+}
+.hero-frame { position:absolute; inset:20px; border:1px solid var(--gold-deep); pointer-events:none; }
+.hero-frame::after { content:''; position:absolute; inset:6px; border:1px solid #1A1200; }
+.hero-eyebrow { font-family:'Cinzel',serif; font-size:10px; letter-spacing:8px; color:var(--gold-dark); text-transform:uppercase; margin-bottom:2rem; position:relative; }
+.hero-title { position:relative; margin-bottom:0.6rem; }
+.hero-sub { font-family:'Cinzel',serif; font-size:clamp(0.7rem,1.4vw,0.9rem); letter-spacing:7px; color:var(--gold-dark); position:relative; margin-bottom:2.5rem; }
+.seal { width:min(240px,60vw); margin:2rem auto; position:relative; }
+.hero-hook { font-size:clamp(1.1rem,2.2vw,1.5rem); font-style:italic; color:var(--text); max-width:600px; margin:0 auto 1rem; position:relative; }
+.hero-desc { font-size:1rem; color:var(--muted); max-width:500px; margin:0 auto 2.5rem; position:relative; }
+.hero-badge { font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:6px; color:var(--faint); margin-bottom:2.5rem; position:relative; }
+
+/* ── AVISO ── */
+.aviso-wrap { background-color:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.aviso-box { border:1px solid var(--gold-dark); padding:2.5rem 2rem; text-align:center; position:relative; max-width:680px; margin:0 auto; }
+.aviso-box::before { content:''; position:absolute; inset:6px; border:1px solid var(--gold-deep); pointer-events:none; }
+.aviso-label { font-family:'Cinzel',serif; font-size:9px; letter-spacing:8px; color:var(--gold-dark); display:block; margin-bottom:1rem; }
+.aviso-q { font-size:clamp(1.1rem,2vw,1.4rem); font-style:italic; color:var(--text); margin-bottom:1rem; line-height:1.5; }
+.aviso-cont { font-size:1rem; color:var(--muted); }
+.aviso-cont span { color:var(--gold); }
+
+/* ── QUOTE BLOCK ── */
+.qblk { border-left:2px solid var(--gold-dark); padding:1.2rem 1.8rem; background-color:rgba(212,175,55,0.03); margin:2rem 0; }
+.qblk p { font-size:1.25rem; font-style:italic; color:var(--text); margin-bottom:0.4rem; }
+.qblk cite { font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:3px; color:var(--muted); font-style:normal; }
+
+/* ── PAIN LIST ── */
+.pain { list-style:none; margin:2rem 0; display:flex; flex-direction:column; gap:0.8rem; }
+.pain li { padding:1rem 1.4rem; border-left:2px solid var(--gold-deep); background-color:rgba(212,175,55,0.025); font-size:1rem; color:var(--text); line-height:1.5; }
+.pain li::before { content:'— '; color:var(--gold-dark); }
+
+/* ── ALT BG ── */
+.alt { background-color:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+
+/* ── VOLUMES ── */
+.vgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2rem; margin-top:3rem; }
+.vcard { border:1px solid var(--border); padding:1.4rem 1.5rem; background-color:var(--bg); position:relative; }
+.vcard::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right, transparent, var(--gold-dark), transparent); }
+.vn  { font-family:'Cinzel',serif; font-size:9px; letter-spacing:5px; color:var(--gold-dark); display:block; margin-bottom:0.3rem; }
+.vt  { font-family:'Cinzel',serif; font-size:0.95rem; color:var(--gold); display:block; margin-bottom:0.15rem; }
+.vo  { font-size:0.85rem; font-style:italic; color:var(--muted); display:block; margin-bottom:0.7rem; }
+.vd  { font-size:0.88rem; color:var(--muted); line-height:1.55; }
+
+/* ── CAPITAIS ── */
+.cgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-top:2.5rem; }
+.citem { text-align:center; padding:1.4rem 0.8rem; border:1px solid var(--border); }
+.cnum { display:block; font-family:'Cinzel',serif; font-size:1.8rem; font-weight:400; color:var(--gold-dark); line-height:1; margin-bottom:0.5rem; }
+.cname { font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:2px; color:var(--gold); }
+
+/* ── GET LIST ── */
+.glist { list-style:none; margin-top:2rem; }
+.glist li { display:flex; gap:1rem; padding:1rem 0; border-bottom:1px solid var(--border); font-size:0.98rem; color:var(--text); align-items:flex-start; line-height:1.6; }
+.glist li:first-child { border-top:1px solid var(--border); }
+.gico { color:var(--gold); font-family:'Cinzel',serif; font-size:0.75rem; padding-top:3px; flex-shrink:0; min-width:18px; }
+
+/* ── AUTHOR ── */
+.agrid { display:grid; grid-template-columns:110px 1fr; gap:2.5rem; align-items:start; margin-top:1rem; }
+@media (max-width:580px) { .agrid { grid-template-columns:1fr; } .aseal { margin:0 auto; width:110px; } }
+
+/* ── RULES ── */
+.rlist { display:flex; flex-direction:column; gap:0.8rem; margin-top:2.5rem; }
+.ritem { display:flex; gap:1.4rem; padding:1.1rem 1.4rem; border-left:2px solid var(--gold-dark); background-color:rgba(212,175,55,0.02); align-items:flex-start; font-size:0.95rem; line-height:1.55; }
+.rn { font-family:'Cinzel',serif; color:var(--gold-dark); min-width:1.8rem; flex-shrink:0; }
+
+/* ── CTA ── */
+#cta {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 50%, #1C1400 0%, var(--bg) 70%),
+    linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+  padding:6rem 2rem;
+  text-align:center;
+}
+.obox { border:1px solid var(--gold-dark); padding:2.5rem 2rem; max-width:560px; margin:3rem auto; position:relative; background-color:rgba(12,9,0,0.9); }
+.obox::before { content:''; position:absolute; inset:7px; border:1px solid var(--gold-deep); pointer-events:none; }
+.olabel { font-family:'Cinzel',serif; font-size:9px; letter-spacing:7px; color:var(--gold-dark); display:block; margin-bottom:1rem; }
+.otitle { font-family:'Cinzel',serif; font-size:1.2rem; color:var(--gold); margin-bottom:0.4rem; }
+.oinfo  { font-size:0.88rem; color:var(--muted); margin-bottom:2rem; }
+.oprice { font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:4px; color:var(--gold-dark); display:block; margin-bottom:0.3rem; }
+.oaccess { font-size:0.85rem; color:var(--muted); margin-bottom:2rem; }
+
+/* FOOTER */
+footer { text-align:center; padding:2.5rem 2rem; border-top:1px solid var(--border); }
+footer p { font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:3px; color:var(--faint); margin-bottom:0.4rem; }
+footer p:last-child { font-size:0.7rem; letter-spacing:5px; color:var(--gold-deep); }
+
+/* RESPONSIVE */
+@media (max-width:600px) {
+  .w,.ws { padding:3.5rem 1.4rem; }
+  .vgrid { grid-template-columns:1fr; }
+  .cgrid { grid-template-columns:repeat(2,1fr); }
+  .ritem { padding:1rem; }
+  .agrid { grid-template-columns:1fr; }
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-frame"></div>
+
+  <p class="hero-eyebrow">Adriano Benedet apresenta</p>
+
+  <h1 class="hero-title">Manual da Riqueza<br>Conforme Salomão</h1>
+  <p class="hero-sub">Um sistema completo de poder e prosperidade</p>
+
+  <div class="orn" style="margin-bottom:2rem;">
+    <span class="line lg"></span>
+    <span class="line lt"></span>
+    <span class="line lg"></span>
+  </div>
+
+  <!-- Selo de Salomão — fiel à capa original -->
+  <div class="seal">
+    <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gs1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#F5E27A"/>
+          <stop offset="30%"  stop-color="#D4AF37"/>
+          <stop offset="60%"  stop-color="#FFD700"/>
+          <stop offset="100%" stop-color="#A07800"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Círculo externo duplo -->
+      <circle cx="130" cy="130" r="120" fill="none" stroke="url(#gs1)" stroke-width="1.2"/>
+      <circle cx="130" cy="130" r="112" fill="none" stroke="#3A2A00" stroke-width="0.5"/>
+
+      <!-- Triângulo 1 — apontando para cima (cx=130 cy=130, R=95) -->
+      <!-- topo: 130,35  inf-dir: 212,177  inf-esq: 48,177 -->
+      <polygon points="130,35 212,177 48,177"
+               fill="#D4AF37" fill-opacity="0.04"
+               stroke="url(#gs1)" stroke-width="1.5"/>
+
+      <!-- Triângulo 2 — apontando para baixo -->
+      <!-- base-esq: 48,83  base-dir: 212,83  inf: 130,225 -->
+      <polygon points="48,83 212,83 130,225"
+               fill="#D4AF37" fill-opacity="0.04"
+               stroke="url(#gs1)" stroke-width="1.5"/>
+
+      <!-- Hexágono central preenchido (vértices = interseções dos triângulos) -->
+      <!-- Para R=95 hexágono interno ≈ R*0.577 = 54.8 -->
+      <!-- vértices: topo(130,75) dir-sup(177,102) dir-inf(177,158) baixo(130,185) esq-inf(83,158) esq-sup(83,102) -->
+      <polygon points="130,75 177,102 177,158 130,185 83,158 83,102"
+               fill="#1A1400" stroke="url(#gs1)" stroke-width="1.2"/>
+
+      <!-- Triângulos externos nas 6 pontas (fill dourado suave) -->
+      <!-- ponta topo -->
+      <polygon points="130,35 113,68 147,68"   fill="#D4AF37" fill-opacity="0.15"/>
+      <!-- ponta dir-sup -->
+      <polygon points="212,83 177,102 196,130" fill="#D4AF37" fill-opacity="0.15"/>
+      <!-- ponta dir-inf -->
+      <polygon points="212,177 177,158 196,130" fill="#D4AF37" fill-opacity="0.15"/>
+      <!-- ponta baixo -->
+      <polygon points="130,225 147,192 113,192" fill="#D4AF37" fill-opacity="0.15"/>
+      <!-- ponta esq-inf -->
+      <polygon points="48,177 83,158 64,130"   fill="#D4AF37" fill-opacity="0.15"/>
+      <!-- ponta esq-sup -->
+      <polygon points="48,83 83,102 64,130"    fill="#D4AF37" fill-opacity="0.15"/>
+
+      <!-- Núcleo — 4 camadas (igual à capa) -->
+      <circle cx="130" cy="130" r="22" fill="#0A0800" stroke="url(#gs1)" stroke-width="1.5"/>
+      <circle cx="130" cy="130" r="14" fill="#D4AF37" opacity="0.9"/>
+      <circle cx="130" cy="130" r="7"  fill="#080600"/>
+      <circle cx="130" cy="130" r="3"  fill="url(#gs1)"/>
+
+      <!-- Pontos dourados nos 6 vértices do hexágono -->
+      <circle cx="130" cy="75"  r="3.5" fill="url(#gs1)"/>
+      <circle cx="177" cy="102" r="3.5" fill="url(#gs1)"/>
+      <circle cx="177" cy="158" r="3.5" fill="url(#gs1)"/>
+      <circle cx="130" cy="185" r="3.5" fill="url(#gs1)"/>
+      <circle cx="83"  cy="158" r="3.5" fill="url(#gs1)"/>
+      <circle cx="83"  cy="102" r="3.5" fill="url(#gs1)"/>
+    </svg>
+  </div>
+
+  <p class="hero-hook">"Este livro não é sobre pedir.<br>É sobre se tornar."</p>
+  <p class="hero-desc">137 sementes de poder extraídas dos textos que Salomão deixou — destiladas em 10 volumes para quem quer sair da posição de servo.</p>
+  <p class="hero-badge">10 VOLUMES · 137 PRINCÍPIOS · EDIÇÃO COMPLETA</p>
+
+  <a href="#cta" class="btn">Quero o Manual</a>
+</section>
+
+
+<!-- ══ AVISO ══════════════════════════════════════════ -->
+<div class="aviso-wrap">
+  <div class="w">
+    <div class="aviso-box">
+      <span class="aviso-label">Aviso</span>
+      <p class="aviso-q">"Se você veio buscar orações e velas coloridas,<br>feche este livro."</p>
+      <p class="aviso-cont">Se você veio buscar <span>chaves para abrir portas que estavam trancadas</span>, continue.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DOR ════════════════════════════════════════════ -->
+<div class="w">
+  <span class="eyebrow">O problema real</span>
+  <h2>Você está servindo a quem?</h2>
+  <p style="text-align:center; color:var(--muted); max-width:580px; margin:0 auto 1.5rem;">Provérbios 22:7 não é uma sugestão. É uma sentença que opera agora mesmo na sua vida — independente de você acreditar ou não.</p>
+
+  <div class="qblk">
+    <p>"O rico domina sobre os pobres, e o devedor é servo do credor."</p>
+    <cite>Provérbios 22:7</cite>
+  </div>
+
+  <p>Não é julgamento moral. É <strong>mecânica</strong>. O universo tem ordem. Você está, neste momento, ocupando uma posição nessa hierarquia — e a questão não é se você aceita isso. É o que você vai fazer com essa informação.</p>
+
+  <ul class="pain">
+    <li>Você chega no fim do mês no zero — ou no negativo</li>
+    <li>Você trabalha mais do que qualquer um e ainda não chegou onde quer</li>
+    <li>Você já comprou curso, lei da atração, autoajuda — e nada mudou de verdade</li>
+    <li>Você sabe que tem mais capacidade do que está manifestando</li>
+    <li>Você sente que algo está errado no sistema, mas não consegue nomear o quê</li>
+  </ul>
+
+  <p style="text-align:center; font-style:italic; color:var(--muted); margin-top:2rem;">O sistema não está errado. Você só não tem o manual.</p>
+</div>
+
+
+<!-- ══ SOLUÇÃO ════════════════════════════════════════ -->
+<div class="alt">
+  <div class="ws">
+    <span class="eyebrow">A solução</span>
+    <h2>Engenharia, não fé.<br>Estrutura, não fantasia.</h2>
+
+    <p>Durante séculos os textos mais poderosos atribuídos a Salomão ficaram enterrados sob camadas de moralismo, ritual e interpretação piedosa. O princípio operacional estava lá — mas ninguém fez o trabalho de <strong>extrair a semente</strong>.</p>
+    <p>Este manual fez esse trabalho.</p>
+    <p>Sem velas. Sem sangue. Sem invocações em línguas mortas. Apenas <strong>137 princípios destilados</strong> de 10 fontes — bíblicas, apócrifas e da tradição grimória — que funcionam no mundo real, hoje, com o que você tem à mão.</p>
+
+    <div class="qblk" style="margin-top:2.5rem;">
+      <p>"Não estou falando de fé. Estou falando de estrutura."</p>
+      <cite>Adriano Benedet — Nota do Autor</cite>
+    </div>
+
+    <p>O fluxo tem ordem: <strong>Alto → Identidade → Canalização → Manifestação</strong>. Cada volume constrói sobre o anterior. Cada capítulo entrega o princípio, a extração e o que você faz amanhã de manhã.</p>
+  </div>
+</div>
+
+
+<!-- ══ 10 VOLUMES ═════════════════════════════════════ -->
+<div class="w">
+  <span class="eyebrow">A obra completa</span>
+  <h2>10 Volumes.<br>Um Sistema Completo.</h2>
+  <p style="text-align:center; color:var(--muted); max-width:520px; margin:0 auto;">O pulmão vem antes do cérebro. O sangue antes do espírito. A chave antes do inventário. Cada volume é um órgão.</p>
+
+  <div class="vgrid">
+
+    <div class="vcard">
+      <span class="vn">Volume I</span>
+      <span class="vt">Provérbios</span>
+      <span class="vo">O Pulmão</span>
+      <p class="vd">Ação repetida, ritmo diário, mão diligente. 9 sementes — incluindo a primícia como alavanca e o devedor como servo.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume II</span>
+      <span class="vt">Eclesiastes</span>
+      <span class="vo">O Cérebro</span>
+      <p class="vd">Desapego estratégico, visão panorâmica. 12 sementes — o "tudo é vapor" como filosofia de desapego operacional.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume III</span>
+      <span class="vt">Cântico dos Cânticos</span>
+      <span class="vo">O Sangue</span>
+      <p class="vd">Energia circulante, desejo, atração. 10 sementes — a força do desejo como motor de criação de riqueza.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume IV</span>
+      <span class="vt">Sabedoria de Salomão</span>
+      <span class="vo">O Espírito</span>
+      <p class="vd">Integração, inteligência, ordem do real. 12 sementes — medida, número e peso como tecnologia de realidade.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume V</span>
+      <span class="vt">Hygromanteia</span>
+      <span class="vo">O Método</span>
+      <p class="vd">Tecnologia, transmissão, aplicação prática. A tradição técnica salomônica destilada em protocolos reais.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume VI</span>
+      <span class="vt">Clavícula de Salomão</span>
+      <span class="vo">A Chave</span>
+      <p class="vd">Sistematização, organização, autoridade. Dias planetários, pantáculos e o Anel de Salomão como tecnologia de poder.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume VII</span>
+      <span class="vt">Testamento de Salomão</span>
+      <span class="vo">A Aplicação</span>
+      <p class="vd">Estudo de caso: como Salomão identificou e neutralizou as forças que tentavam destruir sua construção.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume VIII</span>
+      <span class="vt">Lemegeton</span>
+      <span class="vo">O Inventário</span>
+      <p class="vd">Catálogo de recursos e hierarquia. 72 entidades destiladas em funções reais — prospecção, negociação, proteção, aprendizado.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume IX</span>
+      <span class="vt">Abramelin</span>
+      <span class="vo">O Caminho Longo</span>
+      <p class="vd">Preparação prolongada, transformação de identidade. O sistema de 18 meses que transforma quem você é antes do que você tem.</p>
+    </div>
+
+    <div class="vcard">
+      <span class="vn">Volume X</span>
+      <span class="vt">Grimorium Verum</span>
+      <span class="vo">A Negociação</span>
+      <p class="vd">Pacto, troca, reciprocidade. A tecnologia do acordo — como entrar e sair de negociações com autoridade e resultado.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══ 7 CAPITAIS ═════════════════════════════════════ -->
+<div class="alt">
+  <div class="w">
+    <span class="eyebrow">O que é riqueza</span>
+    <h2>7 Formas de Capital.<br>Não apenas dinheiro.</h2>
+    <p style="text-align:center; color:var(--muted); max-width:520px; margin:0 auto;">Um homem pode ser rico em uma forma e miserável em outra. Este manual busca o equilíbrio entre todas as sete.</p>
+
+    <div class="cgrid">
+      <div class="citem"><span class="cnum">I</span><span class="cname">Financeiro</span></div>
+      <div class="citem"><span class="cnum">II</span><span class="cname">Saúde</span></div>
+      <div class="citem"><span class="cnum">III</span><span class="cname">Tempo</span></div>
+      <div class="citem"><span class="cnum">IV</span><span class="cname">Atenção</span></div>
+      <div class="citem"><span class="cnum">V</span><span class="cname">Influência</span></div>
+      <div class="citem"><span class="cnum">VI</span><span class="cname">Reputação</span></div>
+      <div class="citem"><span class="cnum">VII</span><span class="cname">Autocontrole</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ O QUE VOCÊ RECEBE ══════════════════════════════ -->
+<div class="ws">
+  <span class="eyebrow">O que está dentro</span>
+  <h2>O que você encontra<br>neste Manual</h2>
+
+  <ul class="glist">
+    <li><span class="gico">✦</span><span><strong>137 sementes de riqueza</strong> extraídas de textos que atravessaram séculos — com extração em camadas, classificação no fluxo e aplicação prática em cada uma</span></li>
+    <li><span class="gico">✦</span><span><strong>10 volumes completos</strong> cobrindo desde os Provérbios bíblicos até os grimórios mais temidos — destilados em princípios que funcionam sem ritual</span></li>
+    <li><span class="gico">✦</span><span><strong>Práticas aplicáveis</strong> ao final de cada volume — menos de 10 minutos, sem material, sem exceção</span></li>
+    <li><span class="gico">✦</span><span><strong>O sistema de 7 capitais</strong> — framework completo para pensar riqueza de forma integrada: dinheiro, saúde, tempo, atenção, influência, reputação e autocontrole</span></li>
+    <li><span class="gico">✦</span><span><strong>O fluxo operacional</strong> — Alto → Identidade → Canalização → Manifestação — aplicado a cada princípio extraído</span></li>
+    <li><span class="gico">✦</span><span><strong>Apêndices completos:</strong> glossário hebraico, grego e latino; índice remissivo das 137 sementes; tabela das 28 Mansões da Lua; bibliografia das 8 fontes originais</span></li>
+  </ul>
+
+  <p style="text-align:center; font-style:italic; color:var(--muted); margin-top:2rem;">Sem rituais com sangue. Sem velas coloridas. Sem julgamento moral. Sem politicamente correto.</p>
+</div>
+
+
+<!-- ══ AUTOR ══════════════════════════════════════════ -->
+<div class="alt">
+  <div class="w">
+    <span class="eyebrow">Quem escreveu</span>
+    <h2>Adriano Benedet</h2>
+
+    <div class="agrid">
+      <div class="aseal">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ga1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#F5E27A"/>
+              <stop offset="30%"  stop-color="#D4AF37"/>
+              <stop offset="60%"  stop-color="#FFD700"/>
+              <stop offset="100%" stop-color="#A07800"/>
+            </linearGradient>
+          </defs>
+          <!-- Círculos externos -->
+          <circle cx="60" cy="60" r="55" fill="none" stroke="url(#ga1)" stroke-width="1"/>
+          <circle cx="60" cy="60" r="51" fill="none" stroke="#3A2A00" stroke-width="0.4"/>
+          <!-- Triângulo para cima: topo(60,16) dir(97,81) esq(23,81) -->
+          <polygon points="60,16 97,81 23,81"
+                   fill="#D4AF37" fill-opacity="0.04"
+                   stroke="url(#ga1)" stroke-width="1.2"/>
+          <!-- Triângulo para baixo: esq(23,39) dir(97,39) baixo(60,104) -->
+          <polygon points="23,39 97,39 60,104"
+                   fill="#D4AF37" fill-opacity="0.04"
+                   stroke="url(#ga1)" stroke-width="1.2"/>
+          <!-- Hexágono: topo(60,35) dr(82,47) dr(82,73) baixo(60,85) esq(38,73) esq(38,47) -->
+          <polygon points="60,35 82,47 82,73 60,85 38,73 38,47"
+                   fill="#1A1400" stroke="url(#ga1)" stroke-width="1"/>
+          <!-- Triângulos externos -->
+          <polygon points="60,16 52,32 68,32"   fill="#D4AF37" fill-opacity="0.15"/>
+          <polygon points="97,39 82,47 90,60"   fill="#D4AF37" fill-opacity="0.15"/>
+          <polygon points="97,81 82,73 90,60"   fill="#D4AF37" fill-opacity="0.15"/>
+          <polygon points="60,104 68,88 52,88"  fill="#D4AF37" fill-opacity="0.15"/>
+          <polygon points="23,81 38,73 30,60"   fill="#D4AF37" fill-opacity="0.15"/>
+          <polygon points="23,39 38,47 30,60"   fill="#D4AF37" fill-opacity="0.15"/>
+          <!-- Núcleo 4 camadas -->
+          <circle cx="60" cy="60" r="11" fill="#0A0800" stroke="url(#ga1)" stroke-width="1.2"/>
+          <circle cx="60" cy="60" r="7"  fill="#D4AF37" opacity="0.9"/>
+          <circle cx="60" cy="60" r="3.5" fill="#080600"/>
+          <circle cx="60" cy="60" r="1.5" fill="url(#ga1)"/>
+          <!-- Pontos nos vértices do hexágono -->
+          <circle cx="60" cy="35" r="2"  fill="url(#ga1)"/>
+          <circle cx="82" cy="47" r="2"  fill="url(#ga1)"/>
+          <circle cx="82" cy="73" r="2"  fill="url(#ga1)"/>
+          <circle cx="60" cy="85" r="2"  fill="url(#ga1)"/>
+          <circle cx="38" cy="73" r="2"  fill="url(#ga1)"/>
+          <circle cx="38" cy="47" r="2"  fill="url(#ga1)"/>
+        </svg>
+      </div>
+
+      <div>
+        <p style="font-style:italic;">"Nunca me encaixei em lugar algum. Sempre fui o estranho, o que perguntava demais, o que não aceitava respostas prontas. Buscador do conhecimento. Apaixonado pela verdade — não pela verdade que consola, mas pela que liberta."</p>
+        <p>Adriano Benedet dedicou anos ao estudo sistemático dos textos atribuídos a Salomão — não como crente, mas como engenheiro. Removeu o moralismo. Removeu o ritual. Extraiu o princípio operacional.</p>
+        <p>O resultado é esta obra: um manual de campo para quem quer sair da posição de servo e se tornar governante de si mesmo e do próprio destino.</p>
+        <p style="margin:0;">"Salomão não me ensinou a acreditar. <strong>Ensinou-me a ver.</strong>"</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ 6 REGRAS ═══════════════════════════════════════ -->
+<div class="ws">
+  <span class="eyebrow">O método</span>
+  <h2>As 6 Regras Fixas<br>da Extração</h2>
+  <p style="text-align:center; color:var(--muted);">Todo o processo de extração das 137 sementes seguiu 6 regras, aplicadas sem exceção:</p>
+
+  <div class="rlist">
+    <div class="ritem"><span class="rn">I.</span><div><strong>Sem viés moral.</strong> <span style="color:var(--muted);">Riqueza é energia neutra. Não julgamos os princípios pelos padrões atuais.</span></div></div>
+    <div class="ritem"><span class="rn">II.</span><div><strong>Sem complexidade mágica desnecessária.</strong> <span style="color:var(--muted);">A semente deve funcionar no mundo real, hoje, com o que você tem à mão.</span></div></div>
+    <div class="ritem"><span class="rn">III.</span><div><strong>Sem politicamente correto.</strong> <span style="color:var(--muted);">Nada foi removido porque "pode ofender". O texto fala de domínio, servidão, hierarquia. Isso permanece.</span></div></div>
+    <div class="ritem"><span class="rn">IV.</span><div><strong>Extrai a semente oculta.</strong> <span style="color:var(--muted);">Vai além da camada superficial. O princípio operacional está por baixo das palavras.</span></div></div>
+    <div class="ritem"><span class="rn">V.</span><div><strong>Riqueza é ferramenta.</strong> <span style="color:var(--muted);">Não é certa ou errada. É energia neutra que flui para quem sabe manejá-la.</span></div></div>
+    <div class="ritem"><span class="rn">VI.</span><div><strong>O fluxo tem ordem.</strong> <span style="color:var(--muted);">Alto → Identidade → Canalização → Manifestação. Sempre nessa sequência.</span></div></div>
+  </div>
+</div>
+
+
+<!-- ══ CTA FINAL ══════════════════════════════════════ -->
+<section id="cta">
+
+  <div class="orn" style="margin-bottom:3rem;">
+    <span class="line lg"></span>
+    <span class="line lt"></span>
+    <span class="line lg"></span>
+  </div>
+
+  <span class="eyebrow">A decisão</span>
+  <h2 style="font-size:clamp(1.8rem,4.5vw,2.8rem); margin-bottom:1rem;">Torne-se alguém<br>que merece a riqueza.</h2>
+  <p style="font-style:italic; color:var(--muted); font-size:1.1rem;">A riqueza virá como consequência.</p>
+
+  <div class="obox">
+    <span class="olabel">Edição Completa</span>
+    <p class="otitle">Manual da Riqueza Conforme Salomão</p>
+    <p class="oinfo">10 Volumes · 137 Princípios · Formato Digital</p>
+    <span class="oprice">[ INSIRA O PREÇO AQUI ]</span>
+    <p class="oaccess">Acesso imediato após confirmação</p>
+    <a href="#" class="btn">Adquirir Agora</a>
+  </div>
+
+  <div class="orn" style="margin-top:3rem; margin-bottom:2rem;">
+    <span class="line lg"></span>
+  </div>
+
+  <p style="font-family:'Cinzel',serif; font-size:0.82rem; letter-spacing:3px; color:var(--muted);">Boa leitura. Melhor aplicação.</p>
+  <p style="font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:5px; color:var(--gold-dark); margin-top:0.4rem;">— Adriano Benedet</p>
+</section>
+
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer>
+  <p>Manual da Riqueza Conforme Salomão</p>
+  <p>Adriano Benedet · Todos os direitos reservados</p>
+</footer>
+
+
+</body>
+</html>
