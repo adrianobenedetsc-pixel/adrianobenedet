@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Devedor Profissional — Edição Técnica Completa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:       #C9A84C;
+  --gold-light: #F0D878;
+  --gold-dark:  #7a6228;
+  --gold-dim:   #9a7d3a;
+  --black:      #0a0a0a;
+  --dark:       #111111;
+  --dark2:      #161300;
+  --mid:        #2a2a2a;
+  --gray:       #888888;
+  --light-gray: #cccccc;
+  --white:      #ffffff;
+  --cream:      #faf8f2;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--black);
+  color:var(--light-gray);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:17px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── GRID TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(26,20,0,0.35) 29px,rgba(26,20,0,0.35) 30px);
+  pointer-events:none;z-index:0;
+}
+
+/* ── UTILITIES ── */
+.gold{color:var(--gold);}
+.gold-light{color:var(--gold-light);}
+.cinzel{font-family:'Cinzel',serif;}
+section{position:relative;z-index:1;}
+
+/* ── GOLD LINES ── */
+.gold-line{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
+.gold-line-thin{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gold-dark) 20%,var(--gold-dark) 80%,transparent);margin-top:3px;}
+.gold-line-short{width:80px;height:1px;background:var(--gold);margin:0 auto;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes shimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
+@keyframes pulse{0%,100%{opacity:0.6;}50%{opacity:1;}}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+.anim-up{opacity:0;animation:fadeUp 0.8s ease forwards;}
+.anim-up:nth-child(1){animation-delay:0.1s;}
+.anim-up:nth-child(2){animation-delay:0.25s;}
+.anim-up:nth-child(3){animation-delay:0.4s;}
+.anim-up:nth-child(4){animation-delay:0.55s;}
+.anim-up:nth-child(5){animation-delay:0.7s;}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:80px 24px 60px;
+  position:relative;
+  overflow:hidden;
+}
+
+#hero::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.hero-badge{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:5px;
+  color:var(--black);
+  background:var(--gold);
+  padding:8px 28px;
+  margin-bottom:40px;
+  animation:fadeIn 1s ease forwards;
+}
+
+.hero-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(36px,6vw,76px);
+  font-weight:900;
+  color:var(--gold-light);
+  letter-spacing:3px;
+  line-height:1.05;
+  margin-bottom:12px;
+  animation:fadeUp 1s ease 0.2s both;
+}
+
+.hero-subtitle{
+  font-family:'Cinzel',serif;
+  font-size:clamp(14px,2vw,20px);
+  font-weight:400;
+  letter-spacing:8px;
+  color:var(--gold-dim);
+  margin-bottom:32px;
+  animation:fadeUp 1s ease 0.35s both;
+}
+
+.hero-divider{
+  width:320px;max-width:90%;
+  display:flex;align-items:center;gap:16px;
+  margin:0 auto 40px;
+  animation:fadeIn 1s ease 0.5s both;
+}
+.hero-divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-dark));}
+.hero-divider-line.r{background:linear-gradient(to left,transparent,var(--gold-dark));}
+.hero-divider-dot{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);}
+
+.hero-hook{
+  font-size:clamp(18px,2.5vw,26px);
+  font-style:italic;
+  color:var(--light-gray);
+  max-width:700px;
+  margin:0 auto 48px;
+  line-height:1.6;
+  animation:fadeUp 1s ease 0.5s both;
+}
+.hero-hook em{color:var(--gold);font-style:normal;font-weight:600;}
+
+.cta-btn{
+  display:inline-block;
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:4px;
+  color:var(--black);
+  background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark),var(--gold));
+  background-size:200% auto;
+  padding:18px 52px;
+  text-decoration:none;
+  border:none;cursor:pointer;
+  animation:fadeUp 1s ease 0.65s both, shimmer 3s linear 2s infinite;
+  transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;
+}
+.cta-btn::before{
+  content:'';position:absolute;inset:-2px;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold-dark));
+  z-index:-1;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,168,76,0.3);}
+
+.hero-sub-cta{
+  font-family:'Cinzel',serif;
+  font-size:10px;letter-spacing:3px;
+  color:var(--gold-dark);
+  margin-top:16px;
+  animation:fadeIn 1s ease 0.9s both;
+}
+
+/* ══════════════════════════════════════════
+   PAIN STRIP
+══════════════════════════════════════════ */
+#pain{
+  background:var(--dark2);
+  border-top:1px solid var(--gold-dark);
+  border-bottom:1px solid var(--gold-dark);
+  padding:60px 24px;
+  text-align:center;
+}
+
+.pain-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(13px,2vw,16px);
+  letter-spacing:6px;
+  color:var(--gray);
+  margin-bottom:40px;
+}
+
+.pain-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:0;
+  max-width:900px;
+  margin:0 auto;
+}
+
+.pain-item{
+  padding:28px 24px;
+  border-right:1px solid rgba(201,168,76,0.15);
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:16px;
+  color:var(--gray);
+  line-height:1.6;
+}
+.pain-item:last-child{border-right:none;}
+.pain-item strong{color:var(--light-gray);font-style:normal;display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;margin-bottom:8px;}
+
+/* ══════════════════════════════════════════
+   WHAT IS IT
+══════════════════════════════════════════ */
+#what{
+  padding:100px 24px;
+  max-width:1000px;
+  margin:0 auto;
+  text-align:center;
+}
+
+.section-label{
+  font-family:'Cinzel',serif;
+  font-size:10px;letter-spacing:6px;
+  color:var(--gold-dim);
+  margin-bottom:20px;
+}
+
+.section-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(24px,4vw,44px);
+  font-weight:700;
+  color:var(--gold-light);
+  letter-spacing:2px;
+  line-height:1.15;
+  margin-bottom:16px;
+}
+
+.section-body{
+  font-size:clamp(16px,2vw,19px);
+  color:var(--gray);
+  max-width:680px;
+  margin:0 auto 48px;
+  line-height:1.8;
+}
+.section-body em{color:var(--gold);font-style:normal;font-weight:600;}
+
+.what-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2px;
+  margin-top:60px;
+}
+
+.what-card{
+  background:var(--dark);
+  border:1px solid rgba(201,168,76,0.12);
+  padding:36px 28px;
+  text-align:left;
+  position:relative;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.what-card:hover{border-color:var(--gold-dark);transform:translateY(-4px);}
+.what-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--gold-dark),var(--gold),var(--gold-dark));
+  opacity:0;transition:opacity 0.3s;
+}
+.what-card:hover::before{opacity:1;}
+
+.what-icon{
+  font-family:'Cinzel',serif;
+  font-size:28px;font-weight:900;
+  color:var(--gold);
+  margin-bottom:16px;
+  display:block;
+}
+
+.what-card h3{
+  font-family:'Cinzel',serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:2px;color:var(--light-gray);
+  margin-bottom:12px;
+}
+
+.what-card p{
+  font-size:15px;color:var(--gray);line-height:1.7;
+}
+
+/* ══════════════════════════════════════════
+   NUMBERS (social proof)
+══════════════════════════════════════════ */
+#numbers{
+  background:var(--dark2);
+  border-top:1px solid var(--gold-dark);
+  border-bottom:1px solid var(--gold-dark);
+  padding:70px 24px;
+}
+
+.numbers-inner{
+  max-width:1000px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:0;text-align:center;
+}
+
+.number-item{
+  padding:28px 20px;
+  border-right:1px solid rgba(201,168,76,0.15);
+}
+.number-item:last-child{border-right:none;}
+
+.number-val{
+  font-family:'Cinzel',serif;
+  font-size:clamp(32px,5vw,52px);
+  font-weight:900;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;margin-bottom:8px;
+}
+
+.number-label{
+  font-family:'Cinzel',serif;
+  font-size:10px;letter-spacing:3px;
+  color:var(--gray);
+}
+
+.number-sub{
+  font-size:13px;color:var(--gold-dark);
+  margin-top:4px;font-style:italic;
+}
+
+/* ══════════════════════════════════════════
+   CONTENT BREAKDOWN
+══════════════════════════════════════════ */
+#content{
+  padding:100px 24px;
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.content-header{text-align:center;margin-bottom:64px;}
+
+.parts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(440px,1fr));
+  gap:2px;
+}
+
+.part-block{
+  background:var(--dark);
+  border:1px solid rgba(201,168,76,0.1);
+  padding:0;
+  overflow:hidden;
+}
+
+.part-header{
+  background:var(--black);
+  border-bottom:1px solid rgba(201,168,76,0.2);
+  padding:20px 28px;
+  display:flex;align-items:center;gap:16px;
+}
+
+.part-num{
+  font-family:'Cinzel',serif;
+  font-size:11px;font-weight:700;
+  letter-spacing:3px;color:var(--black);
+  background:var(--gold);
+  padding:4px 10px;
+  white-space:nowrap;
+}
+
+.part-name{
+  font-family:'Cinzel',serif;
+  font-size:12px;font-weight:700;
+  letter-spacing:2px;color:var(--gold-light);
+}
+
+.part-chapters{padding:20px 28px;}
+
+.chapter-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(201,168,76,0.07);
+  font-size:14px;color:var(--gray);
+}
+.chapter-item:last-child{border-bottom:none;}
+.chapter-item::before{
+  content:'›';
+  color:var(--gold-dark);
+  font-size:16px;flex-shrink:0;margin-top:1px;
+}
+
+/* ══════════════════════════════════════════
+   PROOF QUOTE (análise do material)
+══════════════════════════════════════════ */
+#proof{
+  background:var(--dark2);
+  border-top:2px solid var(--gold-dark);
+  border-bottom:2px solid var(--gold-dark);
+  padding:80px 24px;
+  position:relative;overflow:hidden;
+}
+#proof::before{
+  content:'"';
+  position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+  font-family:'Cinzel',serif;font-size:240px;font-weight:900;
+  color:rgba(201,168,76,0.04);line-height:1;
+  pointer-events:none;
+}
+
+.proof-inner{max-width:800px;margin:0 auto;text-align:center;}
+
+.proof-tag{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;
+  color:var(--gold-dim);margin-bottom:32px;
+}
+
+.proof-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(19px,2.5vw,26px);
+  font-style:italic;
+  color:var(--light-gray);
+  line-height:1.7;
+  margin-bottom:32px;
+}
+.proof-quote em{color:var(--gold-light);font-style:normal;font-weight:600;}
+
+.proof-source{
+  font-family:'Cinzel',serif;font-size:10px;
+  letter-spacing:3px;color:var(--gold-dark);
+}
+
+.proof-cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2px;margin-top:56px;
+}
+
+.proof-card{
+  background:var(--dark);
+  border:1px solid rgba(201,168,76,0.1);
+  padding:28px 24px;text-align:left;
+}
+
+.proof-card-label{
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;
+  color:var(--gold-dim);margin-bottom:12px;
+}
+
+.proof-card-text{
+  font-size:15px;color:var(--gray);line-height:1.65;
+}
+.proof-card-text strong{color:var(--gold);font-weight:600;}
+
+/* ══════════════════════════════════════════
+   WHAT YOU LEARN
+══════════════════════════════════════════ */
+#learn{
+  padding:100px 24px;
+  max-width:1000px;margin:0 auto;
+}
+
+.learn-header{text-align:center;margin-bottom:64px;}
+
+.learn-list{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:0;
+}
+
+.learn-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:20px 24px;
+  border-bottom:1px solid rgba(201,168,76,0.08);
+  border-right:1px solid rgba(201,168,76,0.08);
+}
+.learn-item:nth-child(2n){border-right:none;}
+
+.learn-check{
+  flex-shrink:0;
+  width:22px;height:22px;
+  background:var(--gold);
+  color:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;
+  margin-top:2px;
+}
+
+.learn-text{font-size:15px;color:var(--gray);line-height:1.6;}
+.learn-text strong{color:var(--light-gray);}
+
+/* ══════════════════════════════════════════
+   FOR WHOM
+══════════════════════════════════════════ */
+#forwhom{
+  background:var(--dark2);
+  border-top:1px solid var(--gold-dark);
+  border-bottom:1px solid var(--gold-dark);
+  padding:80px 24px;
+}
+
+.forwhom-inner{max-width:900px;margin:0 auto;text-align:center;}
+
+.forwhom-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2px;margin-top:48px;text-align:left;
+}
+
+.forwhom-card{
+  background:var(--dark);
+  border:1px solid rgba(201,168,76,0.1);
+  padding:32px 28px;
+  position:relative;
+}
+
+.forwhom-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--gold-dark),transparent);
+}
+
+.forwhom-who{
+  font-family:'Cinzel',serif;font-size:12px;font-weight:700;
+  letter-spacing:2px;color:var(--gold);margin-bottom:12px;
+}
+
+.forwhom-desc{font-size:15px;color:var(--gray);line-height:1.65;}
+
+/* ══════════════════════════════════════════
+   PRICING
+══════════════════════════════════════════ */
+#pricing{
+  padding:100px 24px;
+  max-width:800px;margin:0 auto;text-align:center;
+}
+
+.pricing-card{
+  background:var(--dark);
+  border:1px solid var(--gold-dark);
+  padding:56px 48px;
+  position:relative;
+  margin-top:48px;
+}
+.pricing-card::before{
+  content:'';position:absolute;top:-1px;left:10%;right:10%;height:2px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+
+.pricing-eyebrow{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;
+  color:var(--gold-dim);margin-bottom:24px;
+}
+
+.pricing-product{
+  font-family:'Cinzel',serif;font-size:clamp(18px,3vw,28px);
+  font-weight:700;color:var(--gold-light);letter-spacing:2px;
+  margin-bottom:8px;
+}
+
+.pricing-desc{
+  font-size:15px;color:var(--gray);margin-bottom:40px;line-height:1.6;
+}
+
+.pricing-compare{
+  display:flex;justify-content:center;gap:0;
+  margin-bottom:40px;flex-wrap:wrap;
+}
+
+.compare-item{
+  padding:16px 24px;border-right:1px solid rgba(201,168,76,0.15);
+  text-align:center;flex:1;min-width:140px;
+}
+.compare-item:last-child{border-right:none;}
+
+.compare-label{
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;
+  color:var(--gray);margin-bottom:6px;
+}
+.compare-val{
+  font-family:'Cinzel',serif;font-size:14px;font-weight:700;
+  color:var(--gold-dim);text-decoration:line-through;opacity:0.6;
+}
+.compare-val.highlight{
+  color:var(--gold-light);text-decoration:none;opacity:1;font-size:22px;
+}
+
+.pricing-includes{
+  text-align:left;margin-bottom:40px;
+}
+
+.pricing-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.07);
+  font-size:15px;color:var(--gray);
+}
+.pricing-item::before{
+  content:'';width:6px;height:6px;background:var(--gold);
+  transform:rotate(45deg);flex-shrink:0;
+}
+.pricing-item strong{color:var(--light-gray);}
+
+.cta-full{
+  display:block;width:100%;
+  font-family:'Cinzel',serif;font-size:14px;font-weight:700;
+  letter-spacing:4px;color:var(--black);
+  background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark),var(--gold));
+  background-size:200% auto;
+  padding:20px;
+  text-decoration:none;cursor:pointer;border:none;
+  animation:shimmer 3s linear infinite;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.cta-full:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(201,168,76,0.25);}
+
+.pricing-guarantee{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
+  color:var(--gold-dark);margin-top:20px;
+}
+
+/* ══════════════════════════════════════════
+   FEAR SECTION
+══════════════════════════════════════════ */
+#fear{
+  background:var(--dark2);
+  border-top:1px solid var(--gold-dark);
+  padding:80px 24px;
+  text-align:center;
+}
+
+.fear-inner{max-width:640px;margin:0 auto;}
+
+.fear-list{
+  margin:40px 0;text-align:left;
+}
+
+.fear-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:16px 0;border-bottom:1px solid rgba(201,168,76,0.08);
+  font-size:16px;color:var(--gray);line-height:1.6;font-style:italic;
+}
+.fear-item::before{
+  content:'';flex-shrink:0;
+  width:2px;height:20px;background:var(--gold-dark);margin-top:4px;
+}
+
+.fear-answer{
+  font-family:'Cinzel',serif;font-size:clamp(18px,3vw,28px);
+  font-weight:700;color:var(--gold-light);letter-spacing:2px;
+  margin:40px 0 16px;
+}
+
+.fear-body{font-size:17px;color:var(--gray);line-height:1.8;}
+.fear-body em{color:var(--gold);font-style:normal;}
+
+/* ══════════════════════════════════════════
+   CERTIFICATE TEASER
+══════════════════════════════════════════ */
+#cert{
+  padding:100px 24px;max-width:900px;margin:0 auto;
+}
+
+.cert-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+@media(max-width:700px){.cert-inner{grid-template-columns:1fr;gap:40px;}}
+
+.cert-preview{
+  background:var(--dark);
+  border:1px solid var(--gold-dark);
+  aspect-ratio:1.414;
+  position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;
+  text-align:center;
+}
+.cert-preview::before{
+  content:'';position:absolute;inset:8px;
+  border:1px solid rgba(201,168,76,0.2);pointer-events:none;
+}
+.cert-preview-badge{
+  font-family:'Cinzel',serif;font-size:8px;font-weight:700;
+  letter-spacing:3px;color:var(--black);background:var(--gold);
+  padding:5px 16px;margin-bottom:16px;
+}
+.cert-preview-title{
+  font-family:'Cinzel',serif;font-size:16px;font-weight:700;
+  color:var(--gold-light);letter-spacing:1px;margin-bottom:8px;
+}
+.cert-preview-name{
+  font-family:'Cormorant Garamond',serif;font-size:28px;
+  font-style:italic;font-weight:300;color:var(--gold-dim);
+  margin-bottom:16px;
+}
+.cert-preview-line{width:80%;height:1px;background:var(--gold-dark);margin-bottom:16px;}
+.cert-preview-num{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--gray);
+}
+
+.cert-content h2{
+  font-family:'Cinzel',serif;font-size:clamp(20px,3vw,32px);
+  font-weight:700;color:var(--gold-light);letter-spacing:2px;
+  margin-bottom:20px;line-height:1.2;
+}
+.cert-content p{font-size:16px;color:var(--gray);line-height:1.75;margin-bottom:16px;}
+.cert-content em{color:var(--gold);font-style:normal;}
+
+.cert-items{margin-top:24px;}
+.cert-it{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.08);
+  font-size:14px;color:var(--gray);
+}
+.cert-it::before{content:'◆';color:var(--gold-dark);font-size:8px;flex-shrink:0;}
+
+/* ══════════════════════════════════════════
+   FINAL CTA
+══════════════════════════════════════════ */
+#finalcta{
+  background:var(--dark2);
+  border-top:2px solid var(--gold);
+  padding:100px 24px;text-align:center;
+}
+
+#finalcta .section-title{margin-bottom:16px;}
+#finalcta .section-body{margin-bottom:48px;}
+
+.final-box{
+  display:inline-block;
+  border:1px solid var(--gold-dark);
+  padding:48px 64px;
+  position:relative;
+  margin-bottom:40px;
+}
+.final-box::before{
+  content:'';position:absolute;top:-2px;left:10%;right:10%;height:2px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+
+.final-slogan{
+  font-family:'Cinzel',serif;font-size:clamp(14px,2vw,18px);
+  font-weight:700;letter-spacing:4px;
+  color:var(--gold);margin-bottom:8px;
+}
+.final-sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:15px;color:var(--gray);letter-spacing:1px;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{
+  border-top:1px solid rgba(201,168,76,0.2);
+  padding:40px 24px;text-align:center;
+}
+footer p{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--gold-dark);
+  margin-bottom:8px;
+}
+footer small{font-size:12px;color:rgba(136,136,136,0.5);}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:600px){
+  .parts-grid{grid-template-columns:1fr;}
+  .pain-item{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
+  .pricing-card{padding:36px 24px;}
+  .final-box{padding:32px 24px;}
+  .number-item{border-right:none;border-bottom:1px solid rgba(201,168,76,0.15);}
+  .learn-item:nth-child(2n){border-right:1px solid rgba(201,168,76,0.08);}
+  .learn-item{border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-badge">EDIÇÃO TÉCNICA COMPLETA · 2026</div>
+
+  <h1 class="hero-title">MANUAL DO<br>DEVEDOR<br>PROFISSIONAL</h1>
+
+  <div class="hero-subtitle">O JOGO TEM REGRAS. AGORA VOCÊ AS CONHECE.</div>
+
+  <div class="hero-divider">
+    <div class="hero-divider-line"></div>
+    <div class="hero-divider-dot"></div>
+    <div class="hero-divider-line r"></div>
+  </div>
+
+  <p class="hero-hook">
+    Você está do lado errado da mesa<br>
+    não porque deve —<br>
+    mas porque <em>não conhece as regras</em><br>
+    e o banco conhece <em>todas elas.</em>
+  </p>
+
+  <a href="#pricing" class="cta-btn">QUERO VIRAR DEVEDOR PROFISSIONAL</a>
+  <p class="hero-sub-cta">COMPRA ÚNICA · ACESSO VITALÍCIO · RECEBA NA HORA</p>
+</section>
+
+<!-- ══ PAIN ══ -->
+<section id="pain">
+  <p class="pain-title">VOCÊ JÁ PASSOU POR ISSO?</p>
+  <div class="pain-grid">
+    <div class="pain-item">
+      <strong>MEDO</strong>
+      Medo de processar o banco. Medo de perder o carro. Medo de negociar. O banco vive desse medo.
+    </div>
+    <div class="pain-item">
+      <strong>DESINFORMAÇÃO</strong>
+      Aceitou acordo ruim com medo. Pagou seguro que não contratou. Perdeu dinheiro por não saber seus direitos.
+    </div>
+    <div class="pain-item">
+      <strong>ASSIMETRIA</strong>
+      O banco tem advogados, juristas e sistemas de cobrança. Você tem medo e desinformação.
+    </div>
+    <div class="pain-item">
+      <strong>VERGONHA</strong>
+      O sistema financeiro transformou dívida em vergonha. Para que você pague mais, mais rápido, com mais medo.
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHAT IS IT ══ -->
+<section id="what">
+  <p class="section-label">O QUE É ESTE MATERIAL</p>
+  <h2 class="section-title">Não é autoajuda.<br>Não é curso de guru.<br>É tratado técnico.</h2>
+  <p class="section-body">
+    Jurisprudência real do STJ. Análise de <em>180 casos</em> do Tribunal de Justiça de SP.
+    Estratégia de negociação baseada em dados. Modelos de petição prontos.
+    Lei anotada artigo por artigo.
+  </p>
+
+  <div class="gold-line"></div>
+  <div class="gold-line-thin"></div>
+
+  <div class="what-grid" style="margin-top:60px;">
+    <div class="what-card">
+      <span class="what-icon">§</span>
+      <h3>BASE JURÍDICA REAL</h3>
+      <p>CF, CDC, CPC e Código Civil aplicados à relação de crédito. Temas repetitivos do STJ (929, 1.132). Súmulas. Jurisprudência consolidada.</p>
+    </div>
+    <div class="what-card">
+      <span class="what-icon">%</span>
+      <h3>ENGENHARIA FINANCEIRA</h3>
+      <p>Como o banco provisiona dívidas. Como o FIDC compra por 5-10%. Por que 90% de desconto é matematicamente lógico — e não favor.</p>
+    </div>
+    <div class="what-card">
+      <span class="what-icon">⊕</span>
+      <h3>DADOS EMPÍRICOS</h3>
+      <p>180 casos analisados do TJSP. 60 processos de busca e apreensão. 91,4% dos carros não encontrados na 1ª tentativa do oficial.</p>
+    </div>
+    <div class="what-card">
+      <span class="what-icon">◈</span>
+      <h3>ESTRATÉGIA COMPLETA</h3>
+      <p>Mentalidade. Sistema por dentro. Tipos de dívida. Proteção patrimonial. Holding. VGBL. Cripto. Do endividamento ao ciclo da riqueza.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NUMBERS ══ -->
+<section id="numbers">
+  <div class="numbers-inner">
+    <div class="number-item">
+      <div class="number-val">180</div>
+      <div class="number-label">CASOS ANALISADOS</div>
+      <div class="number-sub">TJSP — dados reais</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">99%</div>
+      <div class="number-label">DESCONTO REAL</div>
+      <div class="number-sub">R$25.000 por R$98</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">81M</div>
+      <div class="number-label">BRASILEIROS ENDIVIDADOS</div>
+      <div class="number-sub">Serasa Experian, 2026</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">&lt;2%</div>
+      <div class="number-label">EXECUÇÕES COM RESULTADO</div>
+      <div class="number-sub">CNJ — Justiça em Números</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">80</div>
+      <div class="number-label">QUESTÕES NA PROVA</div>
+      <div class="number-sub">Certificação DPC incluída</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTENT BREAKDOWN ══ -->
+<section id="content">
+  <div class="content-header">
+    <p class="section-label">O QUE ESTÁ DENTRO</p>
+    <h2 class="section-title">Quatro partes.<br>Um plano de guerra completo.</h2>
+  </div>
+
+  <div class="parts-grid">
+    <div class="part-block">
+      <div class="part-header">
+        <span class="part-num">PARTE I</span>
+        <span class="part-name">MENTALIDADE E COMPORTAMENTO</span>
+      </div>
+      <div class="part-chapters">
+        <div class="chapter-item">Cap. 1 — A Mentalidade do Devedor Profissional</div>
+        <div class="chapter-item">Cap. 2 — Psicologia do Endividado: Análise Comportamental</div>
+        <div class="chapter-item">Assimetria informacional como ferramenta de poder</div>
+        <div class="chapter-item">Os 20 Mandamentos do Devedor Profissional</div>
+      </div>
+    </div>
+    <div class="part-block">
+      <div class="part-header">
+        <span class="part-num">PARTE II</span>
+        <span class="part-name">O SISTEMA POR DENTRO</span>
+      </div>
+      <div class="part-chapters">
+        <div class="chapter-item">Cap. 3 — A Lei Está do Seu Lado (artigo por artigo)</div>
+        <div class="chapter-item">Cap. 4 — Quem Processa Quem: Análise Estatística</div>
+        <div class="chapter-item">CF, CDC, CPC, CC — fundamentos aplicados</div>
+        <div class="chapter-item">Temas repetitivos do STJ e súmulas</div>
+      </div>
+    </div>
+    <div class="part-block">
+      <div class="part-header">
+        <span class="part-num">PARTE III</span>
+        <span class="part-name">ESTRATÉGIAS POR TIPO DE DÍVIDA</span>
+      </div>
+      <div class="part-chapters">
+        <div class="chapter-item">Cap. 5 — Dívidas sem Garantia (cartão, cheque especial)</div>
+        <div class="chapter-item">Cap. 6 — Financiamento de Veículos e Busca e Apreensão</div>
+        <div class="chapter-item">Cap. 7 — Dívidas com o Governo (execução fiscal)</div>
+        <div class="chapter-item">Cap. 8 — MEI e Pequenas Empresas</div>
+      </div>
+    </div>
+    <div class="part-block">
+      <div class="part-header">
+        <span class="part-num">PARTE IV</span>
+        <span class="part-name">ESTRATÉGIA E PROTEÇÃO PATRIMONIAL</span>
+      </div>
+      <div class="part-chapters">
+        <div class="chapter-item">Cap. 9 — Como Negociar de Verdade (5 casos reais)</div>
+        <div class="chapter-item">Cap. 10 — Proteção Patrimonial: Holding, VGBL, Usufruto</div>
+        <div class="chapter-item">Cap. 11 — O Ciclo da Riqueza: USD, BTC, Leilões</div>
+        <div class="chapter-item">Modelos de carta e petição prontos para uso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROOF QUOTE ══ -->
+<section id="proof">
+  <div class="proof-inner">
+    <p class="proof-tag">AVALIAÇÃO TÉCNICA INDEPENDENTE</p>
+
+    <blockquote class="proof-quote">
+      "Trata-se de um material <em>excepcional, de altíssima qualidade técnica.</em>
+      É, de longe, o melhor e mais completo compêndio de estratégia para o devedor
+      que já analisei. O autor não só conhece a lei, mas entende a
+      <em>engenharia financeira</em> por trás das dívidas."
+    </blockquote>
+
+    <p class="proof-source">— ANÁLISE TÉCNICA DO MATERIAL · 2026</p>
+
+    <div class="proof-cards">
+      <div class="proof-card">
+        <p class="proof-card-label">COMPARADO COM CONSULTORIA</p>
+        <p class="proof-card-text">Um advogado cobra entre <strong>R$300 e R$800 por hora</strong>. Este manual entrega o equivalente a dias de estudo de um especialista.</p>
+      </div>
+      <div class="proof-card">
+        <p class="proof-card-label">COMPARADO COM CURSOS</p>
+        <p class="proof-card-text">Cursos de Direito Bancário nas principais plataformas custam entre <strong>R$800 e R$3.000</strong>. Este material é mais prático e focado.</p>
+      </div>
+      <div class="proof-card">
+        <p class="proof-card-label">COMPARADO COM O RESULTADO</p>
+        <p class="proof-card-text">Um desconto de 90% numa dívida de <strong>R$50 mil</strong> economiza <strong>R$45 mil</strong>. O manual se paga na primeira negociação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHAT YOU LEARN ══ -->
+<section id="learn">
+  <div class="learn-header">
+    <p class="section-label">O QUE VOCÊ VAI APRENDER</p>
+    <h2 class="section-title">O que o banco não<br>quer que você saiba.</h2>
+  </div>
+
+  <div class="learn-list">
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>O teto do rotativo</strong> — dívida de cartão não pode ultrapassar o dobro do original (Lei 14.690/2023)</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Repetição em dobro</strong> — cobrança indevida gera devolução dupla sem precisar provar má-fé (Tema 929 STJ)</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Busca e apreensão</strong> — 91,4% dos carros não são encontrados na 1ª tentativa. Entenda o processo completo.</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>O FIDC compra sua dívida por 5-10%</strong> — saiba como negociar diretamente com quem realmente é seu credor</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Prescrição</strong> — cartão prescreve em 5 anos, empréstimo em 3. O tempo pode estar do seu lado.</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Holding patrimonial</strong> — como proteger seus bens legalmente de penhoras e execuções</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>VGBL impenhorável</strong> — o dinheiro que nenhum credor pode tocar (Súmula 451 STJ)</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Superendividamento</strong> — quando e como a Lei 14.181/2021 pode repactuar todas as suas dívidas</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Execução fiscal</strong> — dívidas com governo prescrevem em 5 anos (CTN, art. 174)</div></div>
+    <div class="learn-item"><div class="learn-check">✓</div><div class="learn-text"><strong>Feirão Serasa</strong> — estratégia completa para conseguir 90%+ de desconto no momento certo</div></div>
+  </div>
+</section>
+
+<!-- ══ FOR WHOM ══ -->
+<section id="forwhom">
+  <div class="forwhom-inner">
+    <p class="section-label">PARA QUEM É ESTE MATERIAL</p>
+    <h2 class="section-title">Não importa onde você está.<br>Importa o que você faz com a informação.</h2>
+
+    <div class="forwhom-grid">
+      <div class="forwhom-card">
+        <p class="forwhom-who">CONSUMIDOR ENDIVIDADO</p>
+        <p class="forwhom-desc">Que recebe ligação de cobrança todo dia e quer entender o que pode exigir, quando negociar e como sair da dívida pagando o mínimo possível.</p>
+      </div>
+      <div class="forwhom-card">
+        <p class="forwhom-who">ADVOGADO INICIANTE</p>
+        <p class="forwhom-desc">Que quer dominar a prática consumerista e executiva com dados reais de TJSP, modelos prontos e jurisprudência consolidada do STJ.</p>
+      </div>
+      <div class="forwhom-card">
+        <p class="forwhom-who">MEI E EMPRESÁRIO</p>
+        <p class="forwhom-desc">Que misturou contas PF e PJ e quer entender como separar, proteger o patrimônio e evitar a desconsideração da personalidade jurídica.</p>
+      </div>
+      <div class="forwhom-card">
+        <p class="forwhom-who">QUEM TEM FINANCIAMENTO</p>
+        <p class="forwhom-desc">Com medo de perder o carro. Que precisa entender o processo de busca e apreensão, a ação revisional e seus direitos na alienação fiduciária.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEAR SECTION ══ -->
+<section id="fear">
+  <div class="fear-inner">
+    <p class="section-label">ANTES DE CONTINUAR</p>
+    <h2 class="section-title" style="font-size:clamp(22px,3vw,36px);">Isso não é para você<br>se você tem medo de:</h2>
+
+    <div class="fear-list">
+      <div class="fear-item">Processar o banco</div>
+      <div class="fear-item">Perder o carro</div>
+      <div class="fear-item">Negociar com credores</div>
+      <div class="fear-item">Parecer que está "dando calote"</div>
+      <div class="fear-item">Usar a lei a seu favor</div>
+    </div>
+
+    <p class="fear-answer">O MANUAL MATA O MEDO.</p>
+    <p class="fear-body">
+      Porque medo vem de <em>falta de informação</em>.<br>
+      E informação é exatamente o que está aqui.<br><br>
+      Devedor profissional não tem medo.<br>
+      Tem <em>conhecimento</em>.
+    </p>
+  </div>
+</section>
+
+<!-- ══ CERTIFICATE ══ -->
+<section id="cert">
+  <div class="cert-inner">
+    <div class="cert-preview" style="animation:floatY 4s ease-in-out infinite;">
+      <div class="cert-preview-badge">EXTENDED EDITION · CERTIFICAÇÃO OFICIAL</div>
+      <div class="cert-preview-title">CERTIFICAMOS QUE</div>
+      <div class="cert-preview-name">Seu Nome Aqui</div>
+      <div class="cert-preview-line"></div>
+      <div class="cert-preview-num">DEVEDOR PROFISSIONAL CERTIFICADO</div>
+      <div style="margin-top:12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--gold-dark);">M D P &nbsp;·&nbsp; E X T E N D E D &nbsp;·&nbsp; 2026</div>
+    </div>
+
+    <div class="cert-content">
+      <h2>Prova + Certificado<br>Incluídos.</h2>
+      <p>Ao adquirir o manual, você também recebe acesso à <em>Prova de Certificação DPC</em> — 80 questões de múltipla escolha sobre o conteúdo completo.</p>
+      <p>Aprovado com 70%? Você recebe o <em>Certificado de Devedor Profissional Certificado</em> com número único.</p>
+
+      <div class="cert-items">
+        <div class="cert-it">Manual completo em PDF — Edição Técnica Completa</div>
+        <div class="cert-it">Prova de 80 questões de múltipla escolha</div>
+        <div class="cert-it">Certificado numerado em PDF para impressão</div>
+        <div class="cert-it">Acesso vitalício · Compra única</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section id="pricing">
+  <p class="section-label">INVESTIMENTO</p>
+  <h2 class="section-title">O valor do manual é irrisório<br>perto do que você vai economizar.</h2>
+  <p class="section-body" style="font-size:16px;">
+    Um único acordo bem feito paga o manual <em>centenas de vezes</em>.
+  </p>
+
+  <div class="pricing-card">
+    <p class="pricing-eyebrow">PACOTE COMPLETO</p>
+    <p class="pricing-product">MANUAL DO DEVEDOR PROFISSIONAL<br>+ CERTIFICAÇÃO DPC</p>
+    <p class="pricing-desc">O material mais completo sobre direito do devedor no Brasil. Não existe igual.</p>
+
+    <div class="pricing-compare">
+      <div class="compare-item">
+        <div class="compare-label">CONSULTORIA JURÍDICA</div>
+        <div class="compare-val">R$ 5.000</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">CURSO ESPECIALIZAÇÃO</div>
+        <div class="compare-val">R$ 2.000</div>
+      </div>
+      <div class="compare-item">
+        <div class="compare-label">VOCÊ PAGA</div>
+        <div class="compare-val highlight">SEU PREÇO</div>
+      </div>
+    </div>
+
+    <div class="pricing-includes">
+      <div class="pricing-item"><strong>Manual completo</strong> — Edição Técnica Ampliada · +600 páginas</div>
+      <div class="pricing-item"><strong>Prova de Certificação DPC</strong> — 80 questões de múltipla escolha</div>
+      <div class="pricing-item"><strong>Certificado numerado</strong> — Devedor Profissional Certificado</div>
+      <div class="pricing-item"><strong>Modelos de petição</strong> — 7 modelos prontos para uso</div>
+      <div class="pricing-item"><strong>Jurisprudência consolidada</strong> — STJ, TJSP, súmulas e temas repetitivos</div>
+      <div class="pricing-item"><strong>Acesso vitalício</strong> — Paga uma vez, tem para sempre</div>
+    </div>
+
+    <a href="#" class="cta-full">COMPRAR AGORA · RECEBER NA HORA</a>
+    <p class="pricing-guarantee">PAGAMENTO VIA PIX · ACESSO IMEDIATO · COMPRA ÚNICA</p>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section id="finalcta">
+  <p class="section-label">A DECISÃO É SUA</p>
+  <h2 class="section-title">Você vai continuar pagando<br>dívida com medo<br>ou vai aprender as regras do jogo?</h2>
+  <p class="section-body">
+    O banco conhece todas as regras.<br>
+    O problema não era o preço.<br>
+    O problema era que você <em>não sabia que isso existia.</em><br><br>
+    Agora sabe.
+  </p>
+
+  <div class="final-box">
+    <p class="final-slogan">PAGUE MENOS. USE A LEI. VENÇA O SISTEMA.</p>
+    <p class="final-sub">Manual do Devedor Profissional · Edição Técnica Completa · 2026</p>
+  </div>
+
+  <br>
+  <a href="#pricing" class="cta-btn">COMPRAR AGORA</a>
+  <p class="hero-sub-cta" style="margin-top:16px;">COMPRA ÚNICA · ACESSO VITALÍCIO · SEM MENSALIDADE</p>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p>M D P &nbsp;·&nbsp; E X T E N D E D &nbsp;·&nbsp; 2026</p>
+  <p style="letter-spacing:1px;margin-bottom:16px;">MANUAL DO DEVEDOR PROFISSIONAL · ADRIANO BENEDET</p>
+  <small>Este material tem finalidade exclusivamente informativa e educacional. Não substitui a orientação de um advogado ou profissional habilitado. As situações jurídicas são individuais.</small>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.style.opacity='1';
+      entry.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.what-card,.part-block,.proof-card,.forwhom-card,.learn-item,.number-item').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+// Smooth CTA scroll
+document.querySelectorAll('a[href="#pricing"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.getElementById('pricing').scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

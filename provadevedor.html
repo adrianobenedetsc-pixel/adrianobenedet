@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prova de Certificação — DPC</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-dim: #7a6228;
+    --gold-bright: #e8c96e;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #161616;
+    --line: #1a1400;
+    --line2: #222;
+    --text: #d0cfc8;
+    --text-dim: #666;
+    --text-dimmer: #3a3a3a;
+    --correct: #4a9c6d;
+    --wrong: #8b3232;
+    --white: #f0ede6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* SCANLINES BG */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 29px,
+      rgba(26,20,0,0.18) 29px,
+      rgba(26,20,0,0.18) 30px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── INTRO SCREEN ── */
+  #screen-intro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  .badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .title-main {
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.0;
+    margin-bottom: 8px;
+  }
+
+  .title-main .word-devedor {
+    display: block;
+    font-size: clamp(52px, 10vw, 88px);
+    font-weight: 700;
+    color: #F0D878;
+    letter-spacing: 3px;
+    line-height: 1.0;
+    text-shadow: 0 0 60px rgba(240,216,120,0.15);
+  }
+
+  .title-main .word-profissional {
+    display: block;
+    font-size: clamp(22px, 4.5vw, 38px);
+    font-weight: 700;
+    color: #D4A843;
+    letter-spacing: 8px;
+    line-height: 1.2;
+    margin-top: 4px;
+  }
+
+  .title-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: #C9A84C;
+    letter-spacing: 5px;
+    margin-bottom: 48px;
+    margin-top: 16px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px auto;
+    width: 280px;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: var(--gold-dim); opacity: 0.6; }
+  .divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.7; }
+
+  .intro-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 40px 0;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .info-card {
+    border: 0.5px solid var(--gold-dim);
+    padding: 20px 16px;
+    text-align: center;
+    background: rgba(201,168,76,0.03);
+  }
+
+  .info-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .info-card .lbl {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 6px;
+  }
+
+  .btn-start {
+    display: inline-block;
+    margin-top: 48px;
+    padding: 16px 56px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-start::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: var(--gold);
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+  .btn-start:hover { color: var(--bg); }
+  .btn-start:hover::before { left: 0; }
+
+  .author-line {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--text-dimmer);
+    margin-top: 48px;
+    text-transform: uppercase;
+  }
+
+  /* ── QUIZ SCREEN ── */
+  #screen-quiz { display: none; padding: 60px 0; }
+
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid var(--line2);
+  }
+
+  .q-counter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+  }
+  .q-counter span { color: var(--gold); font-size: 22px; }
+
+  .progress-bar-wrap {
+    flex: 1;
+    margin: 0 32px;
+    height: 1px;
+    background: var(--line2);
+    position: relative;
+  }
+  .progress-bar-fill {
+    position: absolute;
+    top: 0; left: 0; height: 100%;
+    background: var(--gold);
+    transition: width 0.5s ease;
+  }
+
+  .part-label {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    text-align: right;
+    max-width: 120px;
+  }
+
+  /* Question */
+  .question-section { animation: fadeSlide 0.4s ease; }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-number {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.55;
+    margin-bottom: 40px;
+  }
+
+  .options-grid { display: flex; flex-direction: column; gap: 12px; }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 18px 24px;
+    border: 0.5px solid var(--line2);
+    background: rgba(255,255,255,0.01);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .option::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; width: 2px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.25s ease;
+  }
+
+  .option:hover { border-color: var(--gold-dim); background: rgba(201,168,76,0.04); }
+  .option:hover::before { transform: scaleY(1); }
+
+  .option.selected { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .option.selected::before { transform: scaleY(1); }
+
+  .option.correct {
+    border-color: var(--correct) !important;
+    background: rgba(74,156,109,0.1) !important;
+    pointer-events: none;
+  }
+  .option.correct::before { background: var(--correct); transform: scaleY(1); }
+
+  .option.wrong {
+    border-color: var(--wrong) !important;
+    background: rgba(139,50,50,0.1) !important;
+    pointer-events: none;
+  }
+  .option.wrong::before { background: var(--wrong); transform: scaleY(1); }
+
+  .option.disabled { pointer-events: none; opacity: 0.5; }
+  .option.disabled.correct { opacity: 1; }
+
+  .opt-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold-dim);
+    min-width: 20px;
+    padding-top: 1px;
+    transition: color 0.25s;
+  }
+
+  .option:hover .opt-letter,
+  .option.selected .opt-letter { color: var(--gold); }
+  .option.correct .opt-letter { color: var(--correct) !important; }
+  .option.wrong .opt-letter { color: var(--wrong) !important; }
+
+  .opt-text {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text);
+    flex: 1;
+  }
+
+  /* Feedback */
+  .feedback {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border-left: 2px solid var(--gold);
+    background: rgba(201,168,76,0.05);
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .feedback.show { display: block; }
+  .feedback-text {
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .feedback-text strong { color: var(--gold); font-weight: 500; }
+
+  .btn-next {
+    display: inline-block;
+    margin-top: 36px;
+    padding: 14px 44px;
+    border: 1px solid var(--gold-dim);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+  }
+  .btn-next.show { display: inline-block; }
+  .btn-next:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+
+  /* ── RESULT SCREEN ── */
+  #screen-result {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 0;
+    text-align: center;
+    animation: fadeSlide 0.6s ease;
+  }
+
+  .result-badge {
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+
+  .score-ring {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 48px;
+    position: relative;
+  }
+
+  .score-ring svg { transform: rotate(-90deg); }
+
+  .score-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+  }
+
+  .score-pct {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .result-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .result-subtitle {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    margin-bottom: 56px;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line2);
+    border: 0.5px solid var(--line2);
+    max-width: 480px;
+    margin: 0 auto 56px;
+  }
+
+  .stat-box {
+    background: var(--bg);
+    padding: 28px 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .verdict-box {
+    display: inline-block;
+    padding: 20px 48px;
+    border: 1px solid;
+    margin-bottom: 56px;
+  }
+
+  .verdict-box.aprovado { border-color: var(--correct); }
+  .verdict-box.reprovado { border-color: var(--wrong); }
+
+  .verdict-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+  }
+  .verdict-box.aprovado .verdict-text { color: var(--correct); }
+  .verdict-box.reprovado .verdict-text { color: var(--wrong); }
+
+  .verdict-sub {
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  .review-section { max-width: 640px; margin: 0 auto; text-align: left; }
+
+  .review-title {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .review-item {
+    padding: 14px 0;
+    border-bottom: 0.5px solid var(--line2);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .review-icon {
+    font-size: 11px;
+    min-width: 20px;
+    padding-top: 2px;
+  }
+
+  .review-q-text {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .review-q-text strong { color: var(--text); font-weight: 400; }
+
+  .btn-restart {
+    display: inline-block;
+    margin-top: 64px;
+    padding: 16px 52px;
+    border: 1px solid var(--gold-dim);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn-restart:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+  footer-line {
+    display: block;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--text-dimmer);
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 0.5px solid var(--line2);
+  }
+
+  @media(max-width: 540px) {
+    .intro-info { grid-template-columns: 1fr 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr 1fr; }
+    .quiz-header { flex-wrap: wrap; gap: 12px; }
+    .part-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<div id="screen-intro">
+  <div class="badge">Certificação Oficial · Manual do Devedor Profissional</div>
+
+  <div class="title-main">
+    <span class="word-devedor">DEVEDOR</span>
+    <span class="word-profissional">PROFISSIONAL</span>
+  </div>
+  <div class="title-sub">Edição Técnica Ampliada · 2026</div>
+
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+  <div class="intro-info">
+    <div class="info-card">
+      <span class="num">80</span>
+      <span class="lbl">Questões</span>
+    </div>
+    <div class="info-card">
+      <span class="num">70%</span>
+      <span class="lbl">Para Aprovação</span>
+    </div>
+    <div class="info-card">
+      <span class="num">56</span>
+      <span class="lbl">Acertos Mínimos</span>
+    </div>
+    <div class="info-card">
+      <span class="num">90'</span>
+      <span class="lbl">Tempo Sugerido</span>
+    </div>
+  </div>
+
+  <button class="btn-start" onclick="startQuiz()">INICIAR PROVA</button>
+
+  <div class="divider" style="margin-top:56px"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+  <div class="author-line">Adriano Benedet · 1 de Abril de 2026 · M D P · E X T E N D E D</div>
+</div>
+
+<!-- ═══════════ QUIZ ═══════════ -->
+<div id="screen-quiz">
+  <div class="wrap">
+    <div class="quiz-header">
+      <div class="q-counter">Q <span id="qnum">01</span> / 80</div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog"></div></div>
+      <div class="part-label" id="part-lbl"></div>
+    </div>
+
+    <div class="question-section" id="question-section">
+      <div class="q-number" id="q-num-label"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options-grid" id="opts"></div>
+      <div class="feedback" id="feedback"><div class="feedback-text" id="feedback-text"></div></div>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">PRÓXIMA QUESTÃO →</button>
+    </div>
+
+    <footer-line>PAGUE MENOS · USE A LEI · VENÇA O SISTEMA</footer-line>
+  </div>
+</div>
+
+<!-- ═══════════ RESULT ═══════════ -->
+<div id="screen-result">
+  <div class="wrap">
+    <div class="result-badge">Resultado Final · Certificação DPC</div>
+
+    <div class="score-ring">
+      <svg viewBox="0 0 180 180" width="180" height="180">
+        <circle cx="90" cy="90" r="76" fill="none" stroke="#1a1a1a" stroke-width="8"/>
+        <circle cx="90" cy="90" r="76" fill="none" stroke="#C9A84C" stroke-width="8"
+          stroke-linecap="round"
+          stroke-dasharray="477.5"
+          stroke-dashoffset="477.5"
+          id="ring-fill"
+          style="transition: stroke-dashoffset 1.5s ease"/>
+      </svg>
+      <div class="score-center">
+        <span class="score-num" id="res-score">0</span>
+        <span class="score-pct" id="res-pct">0%</span>
+      </div>
+    </div>
+
+    <div class="result-title" id="res-title">—</div>
+    <div class="result-subtitle" id="res-sub">—</div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-num" id="stat-correct" style="color:#4a9c6d">0</span>
+        <span class="stat-lbl">Corretas</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="stat-wrong" style="color:#8b3232">0</span>
+        <span class="stat-lbl">Erradas</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="stat-pct">0%</span>
+        <span class="stat-lbl">Aproveitamento</span>
+      </div>
+    </div>
+
+    <div class="verdict-box" id="verdict-box">
+      <div class="verdict-text" id="verdict-text">—</div>
+      <div class="verdict-sub" id="verdict-sub">—</div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+    <div class="review-section">
+      <div class="review-title" style="margin-top:40px">Revisão de Erros</div>
+      <div id="review-list"></div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="btn-restart" onclick="location.reload()">REFAZER PROVA</button>
+    </div>
+
+    <footer-line>M D P · E X T E N D E D · ADRIANO BENEDET · 2026</footer-line>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  // PARTE I
+  { part: "Parte I — Mentalidade e Comportamento", q: "De acordo com o Manual do Devedor Profissional, o que caracteriza um \"devedor profissional\"?", opts: ["Alguém que nunca paga suas dívidas e oculta patrimônio","Alguém que compreende as normas jurídicas e utiliza o tempo, a prescrição e a ineficiência do sistema a seu favor","Alguém que contrata empréstimos sem intenção de pagar","Alguém que paga todas as dívidas em dia, sem exceção"], ans: 1 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Qual é a diferença fundamental entre um devedor profissional e um devedor fraudulento?", opts: ["O devedor profissional não paga nada; o fraudulento paga parcialmente","O devedor profissional age com boa-fé objetiva e negocia estrategicamente; o fraudulento oculta bens e mente","O devedor profissional só deve para bancos pequenos; o fraudulento deve para bancos grandes","O devedor profissional sempre usa advogado; o fraudulento não"], ans: 1 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Segundo o princípio da boa-fé objetiva, o devedor profissional deve:", opts: ["Mentir sobre sua situação financeira para obter melhores condições","Ocultar bens para evitar penhora","Não mentir, não ocultar bens e negociar abertamente com os credores","Ignorar completamente as comunicações dos credores"], ans: 2 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "O STJ, no Tema 929, consolidou que para a aplicação do Art. 42 do CDC (repetição em dobro):", opts: ["É necessário comprovar que o banco agiu com má-fé","Basta a cobrança indevida, independentemente de má-fé do banco","É necessário que o consumidor tenha advogado","É necessário que o valor da cobrança indevida seja superior a R$ 1.000"], ans: 1 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Quantos brasileiros estavam endividados segundo dados do Serasa Experian mencionados no manual?", opts: ["40 milhões","60 milhões","81 milhões","100 milhões"], ans: 2 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Segundo dados do Conselho Nacional de Justiça, qual é o percentual de processos que NÃO são resolvidos no mesmo ano de seu ajuizamento?", opts: ["50%","70%","88%","95%"], ans: 2 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "O conceito de \"mínimo existencial\" está previsto em qual dispositivo legal?", opts: ["CF, art. 5º, XXXV","CDC, art. 54-A, §1º","CPC, art. 833","CC, art. 206"], ans: 1 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "O Decreto 11.150/2022 fixou o valor do mínimo existencial em:", opts: ["R$ 500,00","R$ 600,00","R$ 1.000,00","R$ 1.518,00"], ans: 1 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Segundo o TJSP (22ª Câmara de Direito Privado), qual valor tende a ser adotado como mínimo existencial?", opts: ["R$ 600,00","R$ 1.000,00","1 salário mínimo (R$ 1.518)","2 salários mínimos"], ans: 2 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "O viés comportamental que leva o indivíduo a supervalorizar recompensas imediatas em detrimento de benefícios futuros é chamado de:", opts: ["Viés de confirmação","Aversão à perda","Viés do presente (present bias)","Ancoragem"], ans: 2 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Segundo a pesquisa de Sendhil Mullainathan, pessoas em situação de escassez financeira têm redução aproximada de quantos pontos de QI?", opts: ["5 pontos","13 pontos","20 pontos","30 pontos"], ans: 1 },
+  { part: "Parte I — Mentalidade e Comportamento", q: "Qual dos seguintes NÃO é um comportamento que caracteriza cobrança abusiva segundo a jurisprudência?", opts: ["Mais de 3 ligações por dia","Ligações antes das 8h ou após as 20h","Uma ligação por semana","Ligações para parentes ou empregadores"], ans: 2 },
+  // PARTE II
+  { part: "Parte II — A Lei e o Judiciário", q: "O Art. 5º, XXXV da Constituição Federal garante:", opts: ["O devido processo legal","A duração razoável do processo","O acesso à Justiça (inafastabilidade da jurisdição)","A vedação ao confisco"], ans: 2 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O Art. 5º, LIV da Constituição Federal estabelece que:", opts: ["A lei não excluirá da apreciação do Judiciário lesão ou ameaça a direito","Ninguém será privado da liberdade ou de seus bens sem o devido processo legal","A todos é assegurada a razoável duração do processo","É vedado utilizar tributo com efeito de confisco"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O princípio da vedação ao confisco (CF, art. 150, IV) foi estendido pela jurisprudência para:", opts: ["Relações trabalhistas","Relações de crédito (juros excessivos)","Relações de família","Relações criminais"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O CDC, Art. 6º, V, garante ao consumidor o direito de:", opts: ["Inversão do ônus da prova","Revisão de cláusulas contratuais desproporcionais","Repetição do indébito em dobro","Informação adequada sobre o produto"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "A inversão do ônus da prova (CDC, art. 6º, VIII) significa que:", opts: ["O consumidor deve provar todos os fatos","O banco deve provar que a cobrança é devida","O juiz não precisa de provas","O consumidor não pode apresentar provas"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O Art. 42 do CDC estabelece que, em caso de cobrança indevida:", opts: ["O consumidor tem direito à devolução do valor pago","O consumidor tem direito à devolução em dobro do valor pago","O consumidor não tem direito a nada se não contestou antes","O consumidor tem direito a 10 vezes o valor pago"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "Segundo o Tema 929 do STJ, a repetição em dobro (Art. 42 CDC):", opts: ["Exige comprovação de má-fé do fornecedor","Dispensa a comprovação de má-fé, bastando a cobrança indevida","Só se aplica a cobranças acima de R$ 1.000","Só se aplica a bancos públicos"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O que NÃO é considerado \"engano justificável\" para afastar a repetição em dobro (Art. 42 CDC)?", opts: ["Divergência jurisprudencial relevante","Falha de sistema do banco","Lei declarada inconstitucional depois","Caso fortuito ou força maior"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O Art. 51 do CDC estabelece que cláusulas abusivas são:", opts: ["Válidas se o consumidor concordou","Nulas de pleno direito","Anuláveis mediante ação judicial","Válidas por 90 dias"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O superendividamento (CDC, art. 54-A) se aplica a:", opts: ["Qualquer pessoa, física ou jurídica","Apenas pessoas jurídicas","Apenas pessoas físicas de boa-fé","Apenas empresas em recuperação judicial"], ans: 2 },
+  { part: "Parte II — A Lei e o Judiciário", q: "Qual tipo de dívida NÃO entra no cálculo do superendividamento?", opts: ["Cartão de crédito","Empréstimo pessoal","Dívida consignada","Conta de luz"], ans: 2 },
+  { part: "Parte II — A Lei e o Judiciário", q: "O prazo máximo para o plano de pagamento no superendividamento é de:", opts: ["2 anos","3 anos","5 anos","10 anos"], ans: 2 },
+  { part: "Parte II — A Lei e o Judiciário", q: "Segundo o CPC, art. 833, o salário é impenhorável até o limite de:", opts: ["10 salários mínimos","20 salários mínimos","40 salários mínimos","60 salários mínimos"], ans: 2 },
+  { part: "Parte II — A Lei e o Judiciário", q: "A Súmula 451 do STJ estabelece que:", opts: ["O VGBL é impenhorável","O cartão de crédito tem teto do dobro","A notificação na alienação fiduciária basta o envio","O banco responde por fraudes internas"], ans: 0 },
+  { part: "Parte II — A Lei e o Judiciário", q: "A Súmula 479 do STJ estabelece que:", opts: ["O VGBL é impenhorável","As instituições financeiras respondem objetivamente por fraudes internas","A notificação na alienação fiduciária basta o envio","Juros acima da média são abusivos"], ans: 1 },
+  { part: "Parte II — A Lei e o Judiciário", q: "Qual o prazo prescricional para cobrança de dívida de cartão de crédito?", opts: ["1 ano","3 anos","5 anos","10 anos"], ans: 2 },
+  // PARTE III
+  { part: "Parte III — Quem Processa Quem", q: "Na análise de 180 casos do TJSP, qual percentual das ações foi proposto por consumidores contra bancos?", opts: ["25%","50%","70%","90%"], ans: 3 },
+  { part: "Parte III — Quem Processa Quem", q: "Na análise de 60 casos de busca e apreensão do TJSP, em quantos casos o oficial NÃO encontrou o carro na primeira tentativa?", opts: ["50%","70%","91,4%","100%"], ans: 2 },
+  { part: "Parte III — Quem Processa Quem", q: "Qual o percentual de execuções fiscais que resultam em arrecadação efetiva?", opts: ["25%","10%","Menos de 2%","50%"], ans: 2 },
+  { part: "Parte III — Quem Processa Quem", q: "Por que o banco não processa dívidas pequenas (até R$ 30.000)?", opts: ["Porque é proibido por lei","Porque o custo do processo (R$ 10.000-20.000) é maior que o benefício","Porque o consumidor sempre ganha","Porque o Judiciário não aceita ações de valores pequenos"], ans: 1 },
+  { part: "Parte III — Quem Processa Quem", q: "O que acontece na maioria dos casos quando o oficial de justiça não encontra o carro na ação de busca e apreensão?", opts: ["O carro é automaticamente apreendido","O processo fica parado ou é convertido em execução","O devedor é preso","O banco desiste da ação"], ans: 1 },
+  { part: "Parte III — Quem Processa Quem", q: "Segundo a análise de casos, qual a taxa de procedência em ações de inexigibilidade de débito (consumidor ganha)?", opts: ["30%","50%","80%","100%"], ans: 2 },
+  { part: "Parte III — Quem Processa Quem", q: "Em ações de fraude bancária, com base na Súmula 479 STJ, qual a taxa de procedência para o consumidor?", opts: ["50%","70%","95%","100%"], ans: 2 },
+  { part: "Parte III — Quem Processa Quem", q: "Por que a maioria das ações de superendividamento é negada?", opts: ["Porque o juiz não gosta do consumidor","Porque o Decreto 11.150/2022 exclui dívidas consignadas do cálculo","Porque o consumidor não tem direito a essa ação","Porque o banco sempre ganha"], ans: 1 },
+  { part: "Parte III — Quem Processa Quem", q: "O que o banco faz na maioria das vezes com dívidas pequenas em vez de processar?", opts: ["Perdoa a dívida","Vende para FIDC por 5-10% do valor","Contrata um cobrador","Faz um acordo com 50% de desconto"], ans: 1 },
+  { part: "Parte III — Quem Processa Quem", q: "Segundo o manual, o que acontece quando o banco ganha uma ação de execução mas o devedor não tem bens?", opts: ["O devedor é preso","O banco recebe do governo","A execução não anda e o processo pode prescrever","O devedor perde a casa automaticamente"], ans: 2 },
+  // PARTE IV
+  { part: "Parte IV — Dívidas sem Garantia", q: "A Lei 14.690/2023 estabeleceu que o débito do crédito rotativo não pode ultrapassar:", opts: ["O valor original","O dobro do valor original","O triplo do valor original","10 vezes o valor original"], ans: 1 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Uma dívida de cartão de crédito original de R$ 5.000, após aplicação da Lei 14.690/2023, não pode ultrapassar:", opts: ["R$ 5.000","R$ 7.500","R$ 10.000","R$ 15.000"], ans: 2 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "No Caso Almir Carlos da Silva, qual foi o desconto obtido na negociação com o Banco Daycoval?", opts: ["90%","95%","99,6%","100%"], ans: 2 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Quantas dívidas podem ser quitadas com apenas R$ 0,99 segundo dados da Serasa?", opts: ["10.000","50.000","121.998","1.000.000"], ans: 2 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "O FIDC (Fundo de Investimento em Direitos Creditórios) compra dívidas dos bancos por aproximadamente:", opts: ["50% do valor","30% do valor","5-10% do valor","90% do valor"], ans: 2 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Qual a melhor oferta para negociar com um FIDC?", opts: ["50% do valor total","30% do valor total","10-20% do valor total à vista","Pagamento parcelado em 12x"], ans: 2 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Qual é a taxa de juros considerada abusiva para empréstimo pessoal não consignado?", opts: ["Acima de 3% a.m.","Acima de 5% a.m.","Acima de 8% a.m.","Acima de 10% a.m."], ans: 1 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Qual é o prazo prescricional para empréstimo pessoal?", opts: ["1 ano","3 anos","5 anos","10 anos"], ans: 2 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Qual das seguintes condutas NÃO é recomendada na fase de \"atraso estratégico\"?", opts: ["Pagar o mínimo nos primeiros meses","Ignorar completamente todas as ligações do banco","Vá atrasando gradualmente","Não mentir sobre a situação financeira"], ans: 1 },
+  { part: "Parte IV — Dívidas sem Garantia", q: "Quanto tempo leva para uma dívida antiga \"sumir\" do SCR (Sistema de Informações de Crédito do Banco Central)?", opts: ["12 meses","24 meses","60 meses","120 meses"], ans: 3 },
+  // PARTE V
+  { part: "Parte V — Financiamento de Veículos", q: "O que é alienação fiduciária?", opts: ["Um tipo de seguro de carro","Mecanismo onde o banco tem a propriedade fiduciária do veículo até a quitação","Um tipo de consórcio","Um desconto no IPVA"], ans: 1 },
+  { part: "Parte V — Financiamento de Veículos", q: "Qual tipo de restrição no RENAJUD impede o veículo de rodar?", opts: ["Restrição de transferência","Restrição de licenciamento","Restrição de circulação","Restrição de penhora"], ans: 2 },
+  { part: "Parte V — Financiamento de Veículos", q: "Qual é o tipo de restrição MAIS COMUM em ações de busca e apreensão?", opts: ["Restrição de circulação","Restrição de licenciamento","Restrição de transferência","Restrição de penhora"], ans: 2 },
+  { part: "Parte V — Financiamento de Veículos", q: "Segundo o Tema 1.132 do STJ, a notificação na alienação fiduciária é válida quando:", opts: ["O devedor assina o AR","O banco comprova o envio para o endereço do contrato","O devedor confirma recebimento por telefone","O oficial de justiça entrega pessoalmente"], ans: 1 },
+  { part: "Parte V — Financiamento de Veículos", q: "Após a apreensão do veículo, qual o prazo para purgar a mora (pagar a dívida e recuperar o carro)?", opts: ["24 horas","5 dias","10 dias","30 dias"], ans: 2 },
+  { part: "Parte V — Financiamento de Veículos", q: "O que é \"preço vil\" na venda de veículo em leilão?", opts: ["Venda por valor abaixo da tabela FIPE","Venda por menos de 50% da tabela FIPE","Venda por qualquer valor","Venda acima da tabela FIPE"], ans: 1 },
+  { part: "Parte V — Financiamento de Veículos", q: "Qual a primeira medida recomendada para quem ainda não atrasou o financiamento do veículo?", opts: ["Vender o carro imediatamente","Colocar o carro em holding","Parar de pagar","Ignorar o banco"], ans: 1 },
+  { part: "Parte V — Financiamento de Veículos", q: "O que fazer se o oficial de justiça aparecer em casa para apreender o carro?", opts: ["Fugir e esconder o carro","Mentir dizendo que o carro não é seu","Atender o oficial, não mentir e, se possível, negociar","Agredir o oficial"], ans: 2 },
+  { part: "Parte V — Financiamento de Veículos", q: "Segundo a análise de 60 casos, quantos carros foram efetivamente levados a leilão?", opts: ["0","1","10","30"], ans: 1 },
+  { part: "Parte V — Financiamento de Veículos", q: "Qual a estratégia recomendada se o oficial não encontrou o carro?", opts: ["Vender o carro imediatamente","Transferir o carro para outro estado","Continuar usando o carro normalmente e aguardar o FIDC","Desmanchar o carro"], ans: 2 },
+  // PARTE VI
+  { part: "Parte VI — Dívidas com o Governo", q: "Qual o prazo prescricional para cobrança de IPTU?", opts: ["3 anos","5 anos","10 anos","20 anos"], ans: 1 },
+  { part: "Parte VI — Dívidas com o Governo", q: "O que é a Certidão de Dívida Ativa (CDA)?", opts: ["Um documento que o governo emite para provar que o contribuinte está em dia","Um título executivo extrajudicial com presunção de certeza e liquidez","Um documento que isenta o contribuinte do pagamento","Um recibo de pagamento de impostos"], ans: 1 },
+  { part: "Parte VI — Dívidas com o Governo", q: "Na execução fiscal, qual o prazo que o devedor tem para pagar ou nomear bens após a citação?", opts: ["24 horas","3 dias","5 dias","10 dias"], ans: 2 },
+  { part: "Parte VI — Dívidas com o Governo", q: "Qual defesa pode ser usada para contestar o valor do IPTU?", opts: ["O valor venal está acima do valor de mercado","O imóvel é muito antigo","O contribuinte não tem dinheiro","O IPTU é inconstitucional"], ans: 0 },
+  { part: "Parte VI — Dívidas com o Governo", q: "Qual a consequência imediata do não pagamento do IPVA?", opts: ["Apreensão do veículo","Impedimento de licenciamento","Multa de 100%","Perda da CNH"], ans: 1 },
+  { part: "Parte VI — Dívidas com o Governo", q: "Qual o prazo para notificação de multa de trânsito?", opts: ["30 dias","90 dias","180 dias","360 dias"], ans: 0 },
+  { part: "Parte VI — Dívidas com o Governo", q: "O Refis é um programa de parcelamento de dívidas com:", opts: ["Bancos privados","A União (Receita Federal)","Estados","Municípios"], ans: 1 },
+  { part: "Parte VI — Dívidas com o Governo", q: "Qual o prazo prescricional para dívidas fiscais (CTN, art. 174)?", opts: ["3 anos","5 anos","10 anos","20 anos"], ans: 1 },
+  // PARTE VII
+  { part: "Parte VII — MEI e Pequenas Empresas", q: "O valor mensal do DAS para MEI do setor de comércio é de aproximadamente:", opts: ["R$ 50,00","R$ 70,00","R$ 100,00","R$ 150,00"], ans: 1 },
+  { part: "Parte VII — MEI e Pequenas Empresas", q: "Qual a principal consequência do não pagamento do DAS para o MEI?", opts: ["Multa de 100%","Perda dos benefícios previdenciários (aposentadoria, auxílio-doença)","Prisão","Perda do CNPJ"], ans: 1 },
+  { part: "Parte VII — MEI e Pequenas Empresas", q: "O que é desconsideração da personalidade jurídica?", opts: ["Quando a empresa é dissolvida","Quando o juiz \"fura\" a empresa e atinge o patrimônio pessoal do sócio","Quando o sócio se desliga da empresa","Quando a empresa muda de nome"], ans: 1 },
+  { part: "Parte VII — MEI e Pequenas Empresas", q: "Qual das seguintes condutas pode levar à desconsideração da personalidade jurídica?", opts: ["Manter contas separadas (PF e PJ)","Ter contabilidade regular","Misturar contas pessoais e empresariais (confusão patrimonial)","Declarar imposto de renda corretamente"], ans: 2 },
+  { part: "Parte VII — MEI e Pequenas Empresas", q: "Qual é o prazo prescricional para dívidas do Simples Nacional (DAS)?", opts: ["3 anos","5 anos","10 anos","20 anos"], ans: 1 },
+  { part: "Parte VII — MEI e Pequenas Empresas", q: "A teoria menor da desconsideração (CDC, art. 28) exige:", opts: ["Comprovação de desvio de finalidade","Comprovação de confusão patrimonial","Apenas obstáculo ao ressarcimento do consumidor","Comprovação de má-fé do sócio"], ans: 2 },
+  // PARTE VIII
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Qual a melhor forma de pagamento para garantir baixa rápida do nome no Serasa?", opts: ["Boleto bancário","Cartão de crédito parcelado","Pix","Cheque pré-datado"], ans: 2 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Qual o prazo máximo para o nome ser retirado do Serasa após o pagamento?", opts: ["24 horas","5 dias úteis","10 dias úteis","30 dias"], ans: 1 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Qual é o CNAE correto para uma holding patrimonial?", opts: ["6201-5/00","6462-0/00","7020-4/00","8211-3/00"], ans: 1 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "O que é usufruto?", opts: ["Um tipo de imposto","O direito de usar um bem sem ser o dono","Um tipo de financiamento","Um desconto no IPTU"], ans: 1 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Qual dos seguintes investimentos é impenhorável por força da Súmula 451 STJ?", opts: ["Poupança","CDB","VGBL","Ações"], ans: 2 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Qual a proteção constitucional que respalda a guarda de criptomoedas em cold wallet?", opts: ["Art. 5º, X (inviolabilidade da intimidade)","Art. 5º, XII (sigilo da correspondência)","Art. 5º, LXIII (direito ao silêncio e não autoincriminação)","Art. 5º, XXXV (acesso à Justiça)"], ans: 2 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Qual o limite de impenhorabilidade da poupança (CPC, art. 833, X)?", opts: ["R$ 20.000","R$ 40.000","R$ 40 salários mínimos","R$ 100.000"], ans: 2 },
+  { part: "Parte VIII — Negociação e Proteção Patrimonial", q: "Segundo a estratégia 50/50 do ciclo da riqueza, qual deve ser a alocação base do patrimônio?", opts: ["100% em BTC","100% em USD","50% USD / 50% BTC","50% em imóveis / 50% em ações"], ans: 2 },
+];
+
+let current = 0;
+let answers = [];
+let answered = false;
+
+function startQuiz() {
+  document.getElementById('screen-intro').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = QUESTIONS[current];
+  const letters = ['A','B','C','D'];
+
+  document.getElementById('qnum').textContent = String(current+1).padStart(2,'0');
+  document.getElementById('prog').style.width = ((current/80)*100) + '%';
+  document.getElementById('part-lbl').textContent = q.part;
+  document.getElementById('q-num-label').textContent = 'Questão ' + String(current+1).padStart(2,'0');
+  document.getElementById('q-text').textContent = q.q;
+
+  const optsEl = document.getElementById('opts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.innerHTML = `<span class="opt-letter">${letters[i]}</span><span class="opt-text">${opt}</span>`;
+    div.onclick = () => selectAnswer(i);
+    optsEl.appendChild(div);
+  });
+
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('btn-next').classList.remove('show');
+
+  // Animate
+  const sec = document.getElementById('question-section');
+  sec.style.animation = 'none';
+  sec.offsetHeight;
+  sec.style.animation = 'fadeSlide 0.4s ease';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = QUESTIONS[current];
+  const opts = document.querySelectorAll('.option');
+  answers.push({ q: current, chosen: idx, correct: q.ans });
+
+  opts.forEach((el, i) => {
+    if (i === q.ans) {
+      el.classList.add('correct');
+    } else if (i === idx && idx !== q.ans) {
+      el.classList.add('wrong');
+    } else {
+      el.classList.add('disabled');
+    }
+  });
+
+  const feedback = document.getElementById('feedback');
+  const fbText = document.getElementById('feedback-text');
+  if (idx === q.ans) {
+    fbText.innerHTML = '<strong>✓ Correto.</strong> ' + getExplanation(current);
+  } else {
+    fbText.innerHTML = '<strong>✗ Incorreto.</strong> A resposta correta é <strong>' + ['A','B','C','D'][q.ans] + '</strong>. ' + getExplanation(current);
+  }
+  feedback.classList.add('show');
+
+  const btnNext = document.getElementById('btn-next');
+  btnNext.textContent = current < 79 ? 'PRÓXIMA QUESTÃO →' : 'VER RESULTADO →';
+  btnNext.classList.add('show');
+}
+
+function nextQuestion() {
+  if (current < 79) {
+    current++;
+    renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('screen-result').style.display = 'block';
+
+  const correct = answers.filter(a => a.chosen === a.correct).length;
+  const wrong = 80 - correct;
+  const pct = Math.round((correct/80)*100);
+  const approved = correct >= 56;
+
+  document.getElementById('res-score').textContent = correct;
+  document.getElementById('res-pct').textContent = pct + '%';
+  document.getElementById('stat-correct').textContent = correct;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-pct').textContent = pct + '%';
+
+  // Ring animation
+  const circumference = 477.5;
+  const offset = circumference - (pct/100) * circumference;
+  setTimeout(() => {
+    document.getElementById('ring-fill').style.strokeDashoffset = offset;
+    document.getElementById('ring-fill').style.stroke = approved ? '#4a9c6d' : '#C9A84C';
+  }, 300);
+
+  if (approved) {
+    document.getElementById('res-title').textContent = 'APROVADO';
+    document.getElementById('res-title').style.color = '#4a9c6d';
+    document.getElementById('res-sub').textContent = 'Você demonstrou domínio do conteúdo técnico';
+    document.getElementById('verdict-box').className = 'verdict-box aprovado';
+    document.getElementById('verdict-text').textContent = 'APROVADO';
+    document.getElementById('verdict-sub').textContent = correct + ' acertos · Mínimo exigido: 56';
+  } else {
+    document.getElementById('res-title').textContent = 'REPROVADO';
+    document.getElementById('res-title').style.color = '#8b3232';
+    document.getElementById('res-sub').textContent = 'É necessário 70% de acertos para aprovação';
+    document.getElementById('verdict-box').className = 'verdict-box reprovado';
+    document.getElementById('verdict-text').textContent = 'REPROVADO';
+    document.getElementById('verdict-sub').textContent = correct + ' acertos · Faltaram ' + (56-correct) + ' questões';
+  }
+
+  // Review wrong answers
+  const reviewList = document.getElementById('review-list');
+  const errors = answers.filter(a => a.chosen !== a.correct);
+  if (errors.length === 0) {
+    reviewList.innerHTML = '<div style="text-align:center;color:var(--gold);font-size:12px;letter-spacing:2px;padding:24px 0">Nenhum erro. Desempenho perfeito.</div>';
+  } else {
+    errors.forEach(a => {
+      const q = QUESTIONS[a.q];
+      const letters = ['A','B','C','D'];
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = `
+        <span class="review-icon" style="color:#8b3232">✗</span>
+        <div class="review-q-text">
+          <strong>Q${a.q+1}.</strong> ${q.q.substring(0,80)}…<br>
+          <span style="color:#8b3232">Sua resposta: ${letters[a.chosen]}) ${q.opts[a.chosen]}</span><br>
+          <span style="color:#4a9c6d">Correta: ${letters[q.ans]}) ${q.opts[q.ans]}</span>
+        </div>`;
+      reviewList.appendChild(div);
+    });
+  }
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function getExplanation(idx) {
+  // Short contextual hints
+  const hints = [
+    "O devedor profissional usa o sistema legal a seu favor, nunca o frauda.",
+    "Boa-fé e negociação estratégica são as marcas do devedor profissional.",
+    "A boa-fé objetiva exige transparência nas negociações.",
+    "O STJ consolidou que a má-fé não é requisito para repetição em dobro.",
+    "81 milhões de brasileiros endividados, segundo o Serasa Experian.",
+    "88% dos processos não são resolvidos no mesmo ano — a morosidade é uma realidade.",
+    "O CDC, art. 54-A, §1º, define o mínimo existencial para renegociação.",
+    "R$ 600,00 foi o valor fixado pelo Decreto 11.150/2022.",
+    "O TJSP tende a adotar 1 salário mínimo (R$ 1.518) como mínimo existencial.",
+    "O viés do presente (present bias) é o principal inimigo do planejamento financeiro.",
+    "13 pontos de QI a menos em situação de escassez financeira — dado de Mullainathan.",
+    "Uma ligação por semana é conduta normal, não abusiva.",
+    "CF art. 5º, XXXV — inafastabilidade da jurisdição.",
+    "Art. 5º, LIV — ninguém perde bens sem devido processo legal.",
+    "O princípio do não-confisco foi estendido para juros bancários abusivos.",
+    "CDC art. 6º, V — revisão de cláusulas contratuais é direito do consumidor.",
+    "A inversão do ônus da prova é essencial nas relações de consumo.",
+    "Art. 42 CDC — devolução em dobro do valor cobrado indevidamente.",
+    "Tema 929 STJ — a cobrança indevida basta, sem necessidade de provar má-fé.",
+    "Falha de sistema do banco não é engano justificável para afastar a repetição.",
+    "Cláusulas abusivas são nulas de pleno direito — sem necessidade de ação judicial.",
+    "O superendividamento protege apenas pessoas físicas de boa-fé.",
+    "Dívidas consignadas são excluídas do cálculo do superendividamento pelo Decreto 11.150/2022.",
+    "O plano de pagamento no superendividamento pode ser de até 5 anos.",
+    "CPC art. 833 — salário é impenhorável até 40 salários mínimos.",
+    "Súmula 451 STJ — o VGBL é impenhorável.",
+    "Súmula 479 STJ — responsabilidade objetiva por fraudes internas.",
+    "Dívidas de cartão de crédito prescrevem em 5 anos.",
+    "90% das ações no TJSP foram movidas por consumidores contra bancos.",
+    "91,4% dos casos de busca e apreensão não localizaram o veículo na primeira tentativa.",
+    "Menos de 2% das execuções fiscais resultam em arrecadação efetiva.",
+    "O custo do processo torna inviável processar dívidas abaixo de R$ 30.000.",
+    "O processo fica parado quando o bem não é localizado.",
+    "80% das ações de inexigibilidade são julgadas procedentes para o consumidor.",
+    "95% de procedência em ações de fraude com base na Súmula 479 STJ.",
+    "O Decreto 11.150/2022 excluiu consignados do superendividamento, inviabilizando muitas ações.",
+    "FIDCs compram a carteira inadimplente por uma fração mínima do valor.",
+    "Sem bens para penhorar, a execução estagna e pode prescrever.",
+    "A Lei 14.690/2023 limitou o crédito rotativo ao dobro do valor original.",
+    "R$ 10.000 é o dobro de R$ 5.000 — teto imposto pela lei.",
+    "99,6% de desconto obtido na negociação com o Banco Daycoval.",
+    "121.998 dívidas podem ser quitadas por R$ 0,99 — dado real do Serasa.",
+    "FIDCs pagam 5-10% do valor nominal da dívida.",
+    "Negociar com FIDC: oferecer 10-20% à vista é o mais eficaz.",
+    "Juros acima de 5% a.m. são considerados abusivos para empréstimo pessoal.",
+    "Prazo prescricional de 5 anos para empréstimos pessoais.",
+    "Ignorar todas as ligações não é recomendado — o diálogo estratégico é a orientação.",
+    "O SCR guarda informações por 120 meses (10 anos).",
+    "Na alienação fiduciária o banco detém a propriedade até a quitação.",
+    "Restrição de circulação é a mais grave — impede o veículo de circular.",
+    "A restrição de transferência é a mais comum em buscas e apreensões.",
+    "Tema 1.132 STJ — basta o comprovante de envio para o endereço do contrato.",
+    "Após apreensão, o devedor tem 10 dias para purgar a mora.",
+    "Preço vil = venda por menos de 50% da tabela FIPE.",
+    "Colocar o carro em holding antes de atrasar é a primeira estratégia recomendada.",
+    "Atender o oficial sem mentir e negociar é a conduta correta.",
+    "Apenas 1 carro foi efetivamente levado a leilão nos 60 casos analisados.",
+    "Continuar usando o carro normalmente e aguardar o FIDC é a estratégia certa.",
+    "Prazo prescricional do IPTU: 5 anos.",
+    "A CDA é um título executivo extrajudicial com presunção de certeza e liquidez.",
+    "O devedor tem 5 dias após a citação para pagar ou nomear bens.",
+    "Contestar o valor venal acima do mercado é a defesa adequada contra o IPTU.",
+    "O não pagamento do IPVA impede o licenciamento do veículo.",
+    "Prazo de 30 dias para notificação de multa de trânsito.",
+    "O Refis é programa de parcelamento federal com a Receita Federal.",
+    "CTN art. 174 — prescrição fiscal de 5 anos.",
+    "O DAS para MEI do comércio é aproximadamente R$ 70,00/mês.",
+    "Sem pagar DAS, o MEI perde benefícios previdenciários como aposentadoria e auxílio-doença.",
+    "Desconsideração da personalidade jurídica: o juiz atinge o patrimônio pessoal do sócio.",
+    "Confusão patrimonial (mistura de contas PF/PJ) leva à desconsideração.",
+    "Dívidas do Simples Nacional prescrevem em 5 anos.",
+    "A teoria menor (CDC art. 28) exige apenas obstáculo ao ressarcimento do consumidor.",
+    "Pix garante baixa mais rápida no Serasa por ser instantâneo.",
+    "O prazo máximo legal para retirada do nome é 5 dias úteis após o pagamento.",
+    "CNAE 6462-0/00 é o código correto para holding patrimonial.",
+    "Usufruto é o direito de usar um bem sem ser o proprietário.",
+    "Súmula 451 STJ — o VGBL é impenhorável.",
+    "Art. 5º, LXIII — direito ao silêncio protege criptoativos em cold wallet.",
+    "Poupança: impenhorável até 40 salários mínimos (CPC art. 833, X).",
+    "Estratégia 50/50: metade em USD, metade em BTC para proteção patrimonial.",
+  ];
+  return hints[idx] || '';
+}
+</script>
+</body>
+</html>
