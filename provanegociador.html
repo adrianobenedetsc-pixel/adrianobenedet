@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prova — Manual da Negociação</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold-light: #F5E27A;
+    --gold-mid: #C8A84B;
+    --gold-dark: #9A6E1E;
+    --gold-deep: #7A5010;
+    --bg: #080807;
+    --bg2: #0D0D0B;
+    --text: #E8D9B0;
+    --text-dim: #9A8A60;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,168,75,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(200,168,75,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    padding: 48px 0 36px;
+    border-bottom: 1px solid rgba(200,168,75,0.15);
+    margin-bottom: 40px;
+  }
+
+  .header-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .header-ornament::before,
+  .header-ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-mid), transparent);
+    opacity: 0.5;
+  }
+
+  .emblem {
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(200,168,75,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+  }
+
+  .emblem::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 0.5px solid rgba(245,226,122,0.3);
+    border-radius: 50%;
+  }
+
+  .header-super {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    color: var(--gold-mid);
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+
+  .header-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 40%, var(--gold-light) 70%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .header-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--gold-mid);
+    opacity: 0.65;
+    letter-spacing: 2px;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    margin-bottom: 36px;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold-mid);
+    opacity: 0.7;
+  }
+
+  .progress-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--gold-mid);
+    opacity: 0.6;
+  }
+
+  .progress-bar-bg {
+    height: 2px;
+    background: rgba(200,168,75,0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--gold-dark), var(--gold-light));
+    transition: width 0.6s cubic-bezier(.4,0,.2,1);
+    border-radius: 2px;
+  }
+
+  /* ── PART BADGE ── */
+  .part-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--bg);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-mid));
+    padding: 4px 14px;
+    margin-bottom: 22px;
+    text-transform: uppercase;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: rgba(200,168,75,0.025);
+    border: 1px solid rgba(200,168,75,0.12);
+    padding: 36px 40px 40px;
+    position: relative;
+    animation: fadeSlideIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-card::before,
+  .question-card::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+  }
+  .question-card::before { top: -1px; left: -1px; border-top: 1px solid var(--gold-mid); border-left: 1px solid var(--gold-mid); }
+  .question-card::after  { bottom: -1px; right: -1px; border-bottom: 1px solid var(--gold-mid); border-right: 1px solid var(--gold-mid); }
+
+  .q-number {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold-mid);
+    opacity: 0.6;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .q-text {
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 32px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── OPTIONS ── */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: transparent;
+    border: 1px solid rgba(200,168,75,0.15);
+    padding: 14px 18px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.45;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .option-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200,168,75,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .option-btn:hover:not(:disabled)::before { opacity: 1; }
+  .option-btn:hover:not(:disabled) { border-color: rgba(200,168,75,0.35); }
+
+  .option-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold-mid);
+    opacity: 0.7;
+    min-width: 18px;
+    padding-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  .option-text { flex: 1; }
+
+  .option-btn.correct {
+    border-color: rgba(200,168,75,0.6);
+    background: rgba(200,168,75,0.08);
+  }
+  .option-btn.correct .option-letter { opacity: 1; color: var(--gold-light); }
+
+  .option-btn.wrong {
+    border-color: rgba(160,60,60,0.5);
+    background: rgba(160,60,60,0.07);
+    color: rgba(232,217,176,0.5);
+  }
+
+  .option-btn.correct::after {
+    content: '✓';
+    margin-left: auto;
+    color: var(--gold-light);
+    font-size: 14px;
+    padding-left: 10px;
+    align-self: center;
+  }
+
+  .option-btn.wrong::after {
+    content: '✕';
+    margin-left: auto;
+    color: rgba(200,80,80,0.8);
+    font-size: 14px;
+    padding-left: 10px;
+    align-self: center;
+  }
+
+  .option-btn:disabled { cursor: default; }
+
+  /* ── FEEDBACK ── */
+  .feedback {
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-left: 2px solid var(--gold-mid);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--gold-mid);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .feedback.show { opacity: 1; }
+
+  /* ── NEXT BTN ── */
+  .next-btn {
+    display: none;
+    margin-top: 28px;
+    margin-left: auto;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-mid));
+    border: none;
+    padding: 12px 32px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--bg);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: filter 0.2s;
+  }
+  .next-btn:hover { filter: brightness(1.1); }
+  .next-btn.visible { display: block; }
+
+  /* ── RESULT SCREEN ── */
+  .result-screen {
+    display: none;
+    text-align: center;
+    padding: 20px 0 40px;
+    animation: fadeSlideIn 0.5s ease forwards;
+  }
+  .result-screen.show { display: block; }
+
+  .result-emblem {
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgba(200,168,75,0.5);
+    border-radius: 50%;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .result-emblem::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 0.5px solid rgba(245,226,122,0.25);
+    border-radius: 50%;
+  }
+  .result-emblem-score {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .result-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-mid), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+
+  .result-grade {
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--gold-light);
+    margin: 20px 0 6px;
+    letter-spacing: 2px;
+  }
+
+  .result-grade-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold-mid);
+    opacity: 0.6;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .result-divider {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-mid), transparent);
+    margin: 24px auto;
+    opacity: 0.4;
+  }
+
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 28px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-mid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  .result-message {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0 auto 32px;
+    letter-spacing: 0.3px;
+  }
+
+  .result-parts {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .part-stat {
+    background: rgba(200,168,75,0.04);
+    border: 1px solid rgba(200,168,75,0.15);
+    padding: 14px 22px;
+    min-width: 120px;
+    text-align: center;
+  }
+  .part-stat-name {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold-mid);
+    opacity: 0.7;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .part-stat-score {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--gold-light);
+  }
+
+  .restart-btn {
+    background: transparent;
+    border: 1px solid rgba(200,168,75,0.4);
+    padding: 12px 36px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--gold-mid);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .restart-btn:hover {
+    background: rgba(200,168,75,0.07);
+    border-color: var(--gold-mid);
+    color: var(--gold-light);
+  }
+
+  /* intro */
+  .intro-screen {
+    text-align: center;
+    padding: 20px 0 40px;
+  }
+
+  .intro-desc {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto 36px;
+  }
+
+  .intro-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .intro-stat {
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Cinzel', serif;
+    color: var(--gold-mid);
+    opacity: 0.7;
+    letter-spacing: 2px;
+  }
+  .intro-stat strong {
+    display: block;
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-mid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .start-btn {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-mid));
+    border: none;
+    padding: 14px 48px;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--bg);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: filter 0.2s;
+  }
+  .start-btn:hover { filter: brightness(1.12); }
+
+  @media (max-width: 560px) {
+    .question-card { padding: 24px 20px 28px; }
+    .result-stats { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-ornament">
+      <div class="emblem">N</div>
+    </div>
+    <div class="header-super">Manual da Negociação</div>
+    <div class="header-title">79 Preceitos</div>
+    <div class="header-sub">Avaliação Nível Intermediário</div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro-screen" id="introScreen">
+    <p class="intro-desc">
+      Teste seu domínio dos preceitos de Roy Cohn e Donald Trump — os fundamentos de quem negocia para vencer.
+    </p>
+    <div class="intro-stats">
+      <div class="intro-stat"><strong>80</strong>Questões</div>
+      <div class="intro-stat"><strong>3</strong>Partes</div>
+      <div class="intro-stat"><strong>A–D</strong>Múltipla Escolha</div>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">Iniciar Prova</button>
+  </div>
+
+  <!-- PROGRESS (hidden until quiz starts) -->
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-info">
+      <span class="progress-label">Progresso</span>
+      <span class="progress-count" id="progressCount">1 / 80</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ AREA -->
+  <div id="quizArea" style="display:none">
+    <div class="part-badge" id="partBadge">Parte 1 — Roy Cohn</div>
+    <div class="question-card" id="questionCard">
+      <div class="q-number" id="qNumber">Questão 01</div>
+      <div class="q-text" id="qText"></div>
+      <div class="options" id="optionsContainer"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-emblem">
+      <span class="result-emblem-score" id="resultPct">—</span>
+    </div>
+    <div class="result-title">Resultado Final</div>
+    <div class="result-grade" id="resultGrade">—</div>
+    <div class="result-grade-label">Nota (0–10)</div>
+    <div class="result-divider"></div>
+    <div class="result-stats">
+      <div class="stat">
+        <div class="stat-num" id="statCorrect">—</div>
+        <div class="stat-label">Acertos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="statWrong">—</div>
+        <div class="stat-label">Erros</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">80</div>
+        <div class="stat-label">Total</div>
+      </div>
+    </div>
+    <div class="result-parts">
+      <div class="part-stat">
+        <div class="part-stat-name">Roy Cohn</div>
+        <div class="part-stat-score" id="partScore1">—</div>
+      </div>
+      <div class="part-stat">
+        <div class="part-stat-name">Art of the Deal</div>
+        <div class="part-stat-score" id="partScore2">—</div>
+      </div>
+      <div class="part-stat">
+        <div class="part-stat-name">Art of the Comeback</div>
+        <div class="part-stat-score" id="partScore3">—</div>
+      </div>
+    </div>
+    <p class="result-message" id="resultMessage"></p>
+    <div class="result-divider"></div>
+    <button class="restart-btn" onclick="restartQuiz()">Refazer Prova</button>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  // PARTE 1: ROY COHN (Q1-30)
+  { part: 1, text: "Qual era a frase mais famosa de Roy Cohn no final da vida?", options: ["A vida é injusta, mas a negociação é justa","Eu posso consertar qualquer coisa, mas não posso consertar isso","Nunca desista, mesmo diante da morte","O poder é tudo que importa"], answer: 1 },
+  { part: 1, text: "Qual pergunta Trump repetidamente fazia após a morte de Cohn?", options: ["Quem vai me defender como Cohn me defendia?","Where's my Roy Cohn?","Cadê o advogado que me entende?","Por que Cohn teve que morrer?"], answer: 1 },
+  { part: 1, text: "Qual reputação Cohn cultivava deliberadamente?", options: ["Justo, equilibrado e generoso","Implacável, brilhante e incansável","Silencioso, discreto e eficiente","Carismático, popular e amigável"], answer: 1 },
+  { part: 1, text: 'O que era a tática da "foto na mesa"?', options: ["Foto da família para humanizar a negociação","Foto de Cohn na mesa: \"Você quer negociar comigo ou com ele?\"","Fotos do imóvel para valorizar a oferta","Fotos de adversários para intimidar"], answer: 1 },
+  { part: 1, text: "Quais são as três regras de ouro de Roy Cohn?", options: ["Negocie, conceda, aceite","Ataque, ataque, ataque; não admita nada; sempre reivindique a vitória","Seja justo, seja rápido, seja generoso","Escute, aprenda, ceda"], answer: 1 },
+  { part: 1, text: 'O que Cohn queria dizer com "lawfare"?', options: ["Guerra justa","Guerra através do sistema jurídico","Acordo amigável entre partes","Mediação internacional"], answer: 1 },
+  { part: 1, text: "Qual foi a estratégia de Cohn no caso Trump Management (1973)?", options: ["Pedir desculpas publicamente","Contra-processar o governo por US$ 100 milhões","Acordo silencioso fora dos tribunais","Demitir todos os funcionários"], answer: 1 },
+  { part: 1, text: "Como Cohn encarava a morte?", options: ["Com aceitação tranquila","Lutando, preparando-se e planejando o suicídio controlado","Ignorando o inevitável","Entregando-se passivamente"], answer: 1 },
+  { part: 1, text: "O que motivava Roy Cohn?", options: ["Dinheiro e fama","Provar que seus inimigos estavam errados (sucesso como vingança)","Ajudar os necessitados","Construir um legado familiar"], answer: 1 },
+  { part: 1, text: "Qual foi a origem do trauma familiar de Cohn?", options: ["Morte prematura de seu pai","Colapso do Banco de United States e prisão de seu tio","Divórcio conturbado de seus pais","Imigração forçada de sua família"], answer: 1 },
+  { part: 1, text: "O que Cohn aprendeu com colunistas como Walter Winchell?", options: ["Que a mídia é inimiga","Que controlar a mídia é controlar a narrativa","Que jornalistas são confiáveis","Que a imprensa não tem influência"], answer: 1 },
+  { part: 1, text: "Qual tática Cohn usou no julgamento dos Rosenberg (1951)?", options: ["Defesa passiva","Comunicação ex parte com o juiz e vazamento para colunistas","Recusa em participar do caso","Pedido de clemência para os réus"], answer: 1 },
+  { part: 1, text: "Qual a posição de Cohn sobre explicações e desculpas?", options: ["Explique sempre detalhadamente","Nunca explique, nunca se desculpe","Peça desculpas apenas em público","Explique apenas para amigos"], answer: 1 },
+  { part: 1, text: 'O que significa "nunca admita derrota" na prática de Cohn?', options: ["Mentir sobre o resultado","Mesmo perdendo, declarar vitória","Desistir antes do fim","Aceitar qualquer acordo"], answer: 1 },
+  { part: 1, text: "Como Cohn via seus clientes?", options: ["Como fardos","Como extensões do seu poder","Como fontes exclusivas de renda","Como problemas a serem gerenciados"], answer: 1 },
+  { part: 1, text: "Qual era a relação de Cohn com o Studio 54?", options: ["Ele odiava e nunca frequentava","Era figura constante para construir sua marca","Era apenas um frequentador comum","Era dono da boate"], answer: 1 },
+  { part: 1, text: "O que Cohn ensinou sobre lealdade?", options: ["Lealdade não é importante","É moeda de troca: ajude primeiro, cobre depois","Apenas dê lealdade, nunca espere de volta","Lealdade só existe na família"], answer: 1 },
+  { part: 1, text: "O que aconteceu com Cohn no final da vida?", options: ["Amigos o apoiaram até o fim","Amigos poderosos o abandonaram, incluindo Trump","Tiveram um funeral grandioso","Pagaram todas as suas dívidas"], answer: 1 },
+  { part: 1, text: "Qual era a estratégia de Cohn com credores?", options: ["Pagar sempre antecipadamente","Nunca pagar contas que não fosse forçado","Contratar um gestor financeiro","Ignorar completamente todas as cobranças"], answer: 1 },
+  { part: 1, text: "Como Cohn usava a hipocrisia estrategicamente?", options: ["Evitando qualquer contradição","Atacando nos outros o que ele próprio era","Assumindo publicamente todas as contradições","Ignorando completamente as críticas"], answer: 1 },
+  { part: 1, text: "Qual foi a reação de Trump ao ser processado por discriminação em 1973?", options: ["Pediu demissão","Seguiu Cohn: contra-atacou","Pagou multa silenciosamente","Fechou a empresa"], answer: 1 },
+  { part: 1, text: 'O que Cohn queria dizer com "I can fix anything"?', options: ["Que era bom marceneiro","Que não havia problema que não pudesse resolver","Que era médico","Que consertava carros"], answer: 1 },
+  { part: 1, text: "Qual a importância da diversificação de clientes para Cohn?", options: ["Aumentar apenas o faturamento","Tornar-se indispensável conectando mundos diferentes","Evitar trabalhar demais","Agradar a todos os governos"], answer: 1 },
+  { part: 1, text: 'O que Trump quis dizer com "You stand up to the establishment"?', options: ["Que odiava Cohn","Que se identificava com Cohn como desafiante do sistema","Que preferia o establishment","Que não gostava de confrontos"], answer: 1 },
+  { part: 1, text: "Como Cohn usava a ameaça de ações legais?", options: ["Nunca ameaçava, apenas agia","Como alavanca para impor custos e desgastar","Apenas como último recurso","Somente em causas justas"], answer: 1 },
+  { part: 1, text: 'O que significa "controle a narrativa" para Cohn?', options: ["Deixar os outros contarem a história","Moldar a memória do negócio antes que outros o façam","Escrever um livro sobre cada negociação","Ignorar completamente a mídia"], answer: 1 },
+  { part: 1, text: "Qual foi o erro de Paul Reichmann segundo Trump?", options: ["Pediu ajuda cedo demais","Deixou o ego atrapalhar, fingindo estar bem na crise","Foi honesto sobre seus problemas","Contratou Cohn tardiamente"], answer: 1 },
+  { part: 1, text: "Como Cohn encarava a confiança?", options: ["Como algo que se aprende em livros","Como uma profecia autorrealizável","Como arrogância disfarçada","Como desnecessária para negociação"], answer: 1 },
+  { part: 1, text: 'O que significa "cause faíscas e atrito até o fim"?', options: ["Desistir com dignidade","Mesmo na derrota, fazer o oponente pagar caro","Evitar qualquer conflito","Ser sempre educado e cordial"], answer: 1 },
+  { part: 1, text: "Qual foi o legado final de Roy Cohn?", options: ["Nunca confie em ninguém","Ataque primeiro, nunca se desculpe, use a mídia, cultive o medo","Sempre seja generoso","Dinheiro é a única medida de sucesso"], answer: 1 },
+
+  // PARTE 2: TRUMP – THE ART OF THE DEAL (Q31-53)
+  { part: 2, text: "Qual é o fundamento de tudo segundo Trump?", options: ["Pensar pequeno e seguro","Pensar grande","Economizar cada centavo","Ter muitos sócios"], answer: 1 },
+  { part: 2, text: "Como Trump descreve sua abordagem ao risco?", options: ["Se considera um apostador","É conservador e planeja para o pior","Nunca assume riscos","Aposta tudo sempre"], answer: 1 },
+  { part: 2, text: 'O que significa "maximize suas opções"?', options: ["Concentre-se em um único negócio","Mantenha muitas bolas no ar, nunca dependa de um único caminho","Escolha a primeira opção","Delegue todas as decisões"], answer: 1 },
+  { part: 2, text: "Como Trump avalia o mercado?", options: ["Contratando pesquisas caras","Confiando no instinto e perguntando a pessoas reais","Ignorando completamente os dados","Seguindo apenas a mídia"], answer: 1 },
+  { part: 2, text: 'O que é alavancagem para Trump?', options: ["Ter muito dinheiro","Ter algo que o outro lado quer, precisa ou não pode viver sem","Ter um bom advogado","Ter sorte"], answer: 1 },
+  { part: 2, text: 'Qual a visão de Trump sobre "localização, localização, localização"?', options: ["Concorda plenamente","Discorda: pode-se criar valor com promoção e psicologia","Acha irrelevante","Prefere localizações ruins"], answer: 1 },
+  { part: 2, text: "Como Trump vê a mídia?", options: ["Como inimiga a ser evitada","Mesmo a crítica vende; controvérsia é valiosa","Apenas publicidade positiva importa","Ignora completamente a imprensa"], answer: 1 },
+  { part: 2, text: "O que Trump faz quando tratado injustamente?", options: ["Aceita calado","Luta de volta com força","Processa sempre","Desiste do negócio"], answer: 1 },
+  { part: 2, text: 'O que significa "entregue o produto"?', options: ["Prometa muito e entregue pouco","Não se pode enganar as pessoas por muito tempo","Apenas venda, não se preocupe com a entrega","Terceirize tudo"], answer: 1 },
+  { part: 2, text: "Qual a importância de controlar custos para Trump?", options: ["Apenas em grandes projetos","Cada centavo conta; pequenas economias se somam","Custos não são importantes","Apenas custos fixos importam"], answer: 1 },
+  { part: 2, text: "Como Trump via o dinheiro?", options: ["Como o único objetivo","Como forma de manter a pontuação; o jogo é a verdadeira emoção","Como algo desprezível","Como fonte de todos os problemas"], answer: 1 },
+  { part: 2, text: "Onde Trump aprendeu o negócio imobiliário?", options: ["Na faculdade","Na prática com seu pai desde criança","Em livros","Em cursos de negociação"], answer: 1 },
+  { part: 2, text: "Com quem Trump recomenda negociar?", options: ["Com subordinados","Com quem pode decidir (o topo)","Com intermediários","Com qualquer funcionário"], answer: 1 },
+  { part: 2, text: 'O que foi a estratégia do "as of right" na Trump Tower?', options: ["Construir sem licença","Mostrar projeto horrível que podia ser construído sem aprovação","Desistir da construção","Subornar a comissão"], answer: 1 },
+  { part: 2, text: 'Qual a técnica de "psicologia reversa" de Trump?', options: ["Oferecer descontos agressivos","Fazer de difícil acesso; escassez cria demanda","Ligar para todos os clientes","Baixar o preço constantemente"], answer: 1 },
+  { part: 2, text: "Quando Trump recomenda negociar?", options: ["Quando o mercado está aquecido","Quando os outros estão com medo (comprar na baixa)","Nunca","Apenas em momentos de calma"], answer: 1 },
+  { part: 2, text: 'O que significa a estratégia do "não preciso de sócio"?', options: ["Realmente nunca ter sócios","Agir como se não precisasse, mesmo quando precisa","Ter apenas sócios minoritários","Evitar parcerias a todo custo"], answer: 1 },
+  { part: 2, text: 'O que é "engenharia de valor"?', options: ["Construir prédios mais baratos","Cortar custos sem cortar qualidade","Usar materiais de segunda linha","Reduzir o tamanho dos projetos"], answer: 1 },
+  { part: 2, text: "Qual lição Trump aprendeu com Walter Hoving da Tiffany?", options: ["Que todos os acordos são quebrados","Que a honra ainda existe; aperto de mão vale contrato","Que se deve desconfiar de todos","Que preços altos são sempre negociáveis"], answer: 1 },
+  { part: 2, text: 'O que significa "nunca pare de aprender" para Trump?', options: ["Fazer apenas cursos formais","Aprender fazendo, com mentores e na prática","Ler muitos livros teóricos","Assistir a palestras"], answer: 1 },
+  { part: 2, text: 'Quantos mandamentos Trump apresenta em "The Art of the Deal"?', options: ["5","7","11","15"], answer: 2 },
+  { part: 2, text: "Qual é o primeiro dos 11 mandamentos de Trump?", options: ["Proteja o lado negativo","Pense grande","Use a mídia","Divirta-se"], answer: 1 },
+  { part: 2, text: 'O que significa "proteja o lado negativo"?', options: ["Seja pessimista","Planeje para o pior; o melhor se cuidará","Ignore os riscos","Contrate seguros para tudo"], answer: 1 },
+
+  // PARTE 3: TRUMP – THE ART OF THE COMEBACK (Q54-80)
+  { part: 3, text: "Como Trump reagiu quando estava bilhões no vermelho?", options: ["Pediu falência","Nunca admitiu derrota","Desistiu dos negócios","Culpou seus sócios"], answer: 1 },
+  { part: 3, text: "Por que Trump negociou com os bancos o mais cedo possível?", options: ["Estava desesperado","Para ser o primeiro e não disputar recursos","Não tinha escolha","Para pagar menos impostos"], answer: 1 },
+  { part: 3, text: "O que Trump fez com quem o traiu?", options: ["Perdoou todos","Esmagou-os quando precisaram de ajuda","Ignorou completamente","Contratou-os novamente"], answer: 1 },
+  { part: 3, text: "Como Trump usou o golfe como ferramenta?", options: ["Apenas para lazer","Para humanizar-se com oponentes antes de negociações","Para apostar dinheiro","Para evitar reuniões"], answer: 1 },
+  { part: 3, text: "O que Trump fez às 3 da manhã com três bancos problemas?", options: ["Ficou em casa","Levantou-se, andou na chuva e fez as ligações pessoalmente","Mandou e-mail","Pediu para remarcar"], answer: 1 },
+  { part: 3, text: "Qual foi o erro de Paul Reichmann?", options: ["Pediu ajuda cedo","Deixou o ego atrapalhar, fingindo ter patrimônio","Foi honesto com os bancos","Contratou muitos funcionários"], answer: 1 },
+  { part: 3, text: "Como Trump transformou inimigo em aliado?", options: ["Pagou suborno","Ajudou-o com a pegada no golfe","Processou-o","Ignorou-o"], answer: 1 },
+  { part: 3, text: "Quanto Trump pagou pelo edifício 40 Wall Street?", options: ["US$ 100 milhões","US$ 1 milhão","US$ 50 milhões","US$ 500 mil"], answer: 1 },
+  { part: 3, text: "Por que Trump conseguiu preço baixo no 40 Wall Street?", options: ["Prédio condenado","Donos anteriores estavam desesperados","Governo interveio","Erro no anúncio"], answer: 1 },
+  { part: 3, text: "O que Trump recomenda sobre acordos prenupciais?", options: ["São desnecessários","Sempre tenha um bem elaborado","Apenas para muito ricos","São antiéticos"], answer: 1 },
+  { part: 3, text: "Como Trump reagiu quando Ivana o processou?", options: ["Pagou imediatamente","Contra-atacou, achando fraquezas","Desistiu do caso","Fugiu do país"], answer: 1 },
+  { part: 3, text: "O que Trump aprendeu com Ivana violando o acordo?", options: ["Contratos são inúteis","Nunca confie em quem traiu uma vez","Deve-se perdoar sempre","Mídia é confiável"], answer: 1 },
+  { part: 3, text: "Como Trump resolveu o problema com o jogador Kashiwagi?", options: ["Expulsou-o","Ligou pessoalmente para as dealers mais eficazes","Fechou o cassino","Mudou as regras"], answer: 1 },
+  { part: 3, text: 'O que significa "paciência estratégica"?', options: ["Nunca agir","Saber quando agir e quando deixar os outros se desgastarem","Esperar sempre a última hora","Delegar todas as decisões"], answer: 1 },
+  { part: 3, text: "Como Trump transformou Mar-a-Lago em clube?", options: ["Pagou taxa","Pediu educadamente","Processou a cidade por US$ 100 milhões","Desistiu"], answer: 2 },
+  { part: 3, text: "Qual a regra sobre momentos do mercado?", options: ["Negocie quando está forte","Negocie quando está fraco, construa quando está forte","Negocie apenas em momentos estáveis","Nunca negocie"], answer: 1 },
+  { part: 3, text: "Quantos mandamentos do comeback Trump apresenta?", options: ["5","7","10","15"], answer: 2 },
+  { part: 3, text: "O que Trump disse aos bancos na renegociação?", options: ["Pediu esmola","Que podia amarrá-los em processos, mas preferia acordo","Ofereceu pagar tudo","Pediu demissão"], answer: 1 },
+  { part: 3, text: "Como Trump venceu Merv Griffin?", options: ["Superou a oferta","Recuou, negociou e saiu com US$ 12 milhões + Taj Mahal","Desistiu","Processou"], answer: 1 },
+  { part: 3, text: 'O que Trump fez com seus "inimigos" civis?', options: ["Ignorou","Aliou-se a eles","Processou todos","Comprou suas casas"], answer: 1 },
+  { part: 3, text: "Como Trump via a mídia no Comeback?", options: ["Como amiga","Como negócio de distorção, mas que precisa ser usada","A ser ignorada","Mal necessário"], answer: 1 },
+  { part: 3, text: "O que Trump fez com o Plaza Hotel?", options: ["Manteve para sempre","Comprou por US$ 70M e vendeu por US$ 180M","Perdeu em processo","Deixou falir"], answer: 1 },
+  { part: 3, text: "O que é mais importante na negociação?", options: ["Números","Entendimento profundo das pessoas","Contratos","Dinheiro"], answer: 1 },
+  { part: 3, text: "O que Trump admite sobre seu trabalho duro?", options: ["Nunca trabalhou duro","Perdeu o foco no final dos anos 80 e isso custou caro","Trabalho duro não é importante","Sucesso veio só da sorte"], answer: 1 },
+  { part: 3, text: "Qual NÃO é um dos mandamentos de Trump?", options: ["Pense grande","Seja generoso com concorrentes","Use a mídia","Nunca admita derrota"], answer: 1 },
+  { part: 3, text: 'O que significa "nunca admita derrota"?', options: ["Mentir","Mesmo perdendo, declarar vitória e controlar a narrativa","Desistir","Aceitar qualquer resultado"], answer: 1 },
+  { part: 3, text: "Qual é a síntese final do Manual?", options: ["Seja bonzinho","Pense grande, ataque, use alavancagem, controle narrativa, divirta-se","Evite confrontos","Confie em todos"], answer: 1 },
+];
+
+const PART_NAMES = { 1: "Parte I — Roy Cohn", 2: "Parte II — Art of the Deal", 3: "Parte III — Art of the Comeback" };
+const LETTERS = ["A","B","C","D"];
+
+let currentQ = 0;
+let answers = []; // -1 = unanswered, index of chosen option
+let partCorrect = {1:0,2:0,3:0};
+let partTotal = {1:30,2:23,3:27};
+let shuffledOrders = []; // per question: array of original indices in new display order
+
+// Fisher-Yates shuffle
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Pre-shuffle all questions once per quiz session
+function buildShuffledOrders() {
+  shuffledOrders = questions.map(q => shuffleArray([0,1,2,3]));
+}
+
+function startQuiz() {
+  document.getElementById('introScreen').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('quizArea').style.display = 'block';
+  answers = new Array(questions.length).fill(-1);
+  partCorrect = {1:0,2:0,3:0};
+  currentQ = 0;
+  buildShuffledOrders();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const pct = (currentQ / questions.length) * 100;
+  const order = shuffledOrders[currentQ]; // e.g. [2,0,3,1]
+
+  document.getElementById('progressCount').textContent = `${currentQ+1} / ${questions.length}`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('partBadge').textContent = PART_NAMES[q.part];
+  document.getElementById('qNumber').textContent = `Questão ${String(currentQ+1).padStart(2,'0')}`;
+  document.getElementById('qText').textContent = q.text;
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  order.forEach((origIdx, displayPos) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.dataset.origIdx = origIdx;
+    btn.innerHTML = `<span class="option-letter">${LETTERS[displayPos]}</span><span class="option-text">${q.options[origIdx]}</span>`;
+    btn.onclick = () => selectAnswer(origIdx, displayPos);
+    container.appendChild(btn);
+  });
+
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('nextBtn').className = 'next-btn';
+
+  // Animate card
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none';
+  void card.offsetWidth;
+  card.style.animation = 'fadeSlideIn 0.4s ease forwards';
+}
+
+function selectAnswer(chosenOrigIdx, chosenDisplayPos) {
+  if (answers[currentQ] !== -1) return;
+  answers[currentQ] = chosenOrigIdx;
+
+  const q = questions[currentQ];
+  const correctOrigIdx = q.answer;
+  const order = shuffledOrders[currentQ];
+  const correctDisplayPos = order.indexOf(correctOrigIdx);
+  const btns = document.querySelectorAll('.option-btn');
+
+  btns.forEach((btn, displayPos) => {
+    btn.disabled = true;
+    const origIdx = parseInt(btn.dataset.origIdx);
+    if (origIdx === correctOrigIdx) btn.classList.add('correct');
+    else if (origIdx === chosenOrigIdx && chosenOrigIdx !== correctOrigIdx) btn.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('feedback');
+  if (chosenOrigIdx === correctOrigIdx) {
+    fb.textContent = "Correto. Bem jogado.";
+    partCorrect[q.part]++;
+  } else {
+    fb.textContent = `Incorreto. A resposta certa é a alternativa ${LETTERS[correctDisplayPos]}.`;
+  }
+  fb.classList.add('show');
+
+  document.getElementById('nextBtn').className = 'next-btn visible';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('quizArea').style.display = 'none';
+  const rs = document.getElementById('resultScreen');
+  rs.classList.add('show');
+
+  const total = questions.length;
+  let correct = 0;
+  answers.forEach((a,i) => { if(a === questions[i].answer) correct++; });
+  const wrong = total - correct;
+  const grade = ((correct / total) * 10).toFixed(1);
+  const pct = Math.round((correct / total) * 100) + '%';
+
+  document.getElementById('resultPct').textContent = pct;
+  document.getElementById('resultGrade').textContent = grade;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+
+  document.getElementById('partScore1').textContent = `${partCorrect[1]}/${partTotal[1]}`;
+  document.getElementById('partScore2').textContent = `${partCorrect[2]}/${partTotal[2]}`;
+  document.getElementById('partScore3').textContent = `${partCorrect[3]}/${partTotal[3]}`;
+
+  let msg;
+  const g = parseFloat(grade);
+  if (g >= 9.5) msg = "Domínio excepcional. Você incorporou os preceitos como um verdadeiro negociador de elite.";
+  else if (g >= 8.5) msg = "Resultado excelente. Os princípios de Cohn e Trump estão solidamente assimilados.";
+  else if (g >= 7.0) msg = "Bom desempenho. Ainda há espaço para afinar os detalhes mais sutis da negociação.";
+  else if (g >= 6.0) msg = "Desempenho razoável. Revise os preceitos que ainda escapam ao seu domínio.";
+  else msg = "É hora de retornar ao manual. Os grandes negociadores não param de estudar.";
+
+  document.getElementById('resultMessage').textContent = msg;
+
+  rs.style.animation = 'none';
+  void rs.offsetWidth;
+  rs.style.animation = 'fadeSlideIn 0.5s ease forwards';
+}
+
+function restartQuiz() {
+  document.getElementById('resultScreen').classList.remove('show');
+  currentQ = 0;
+  answers = new Array(questions.length).fill(-1);
+  partCorrect = {1:0,2:0,3:0};
+  buildShuffledOrders();
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('quizArea').style.display = 'block';
+  renderQuestion();
+}
+</script>
+</body>
+</html>
