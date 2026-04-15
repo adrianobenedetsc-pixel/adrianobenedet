@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prova - Manual da Riqueza conforme Salomao</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F5E27A;
+    --gold-dark: #8B6914;
+    --gold-dim: #5A3E00;
+    --bg: #080600;
+    --bg2: #0d0b00;
+    --text: #e8d89a;
+    --text-dim: #9a8050;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Text', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--bg2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+  .header { text-align: center; padding: 50px 20px 40px; }
+  .star-svg {
+    width: 90px; height: 90px;
+    margin: 0 auto 24px; display: block;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { filter: drop-shadow(0 0 8px rgba(212,175,55,0.4)); }
+    50%      { filter: drop-shadow(0 0 20px rgba(212,175,55,0.7)); }
+  }
+  .header-line {
+    width: 300px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 16px;
+  }
+  .title-top  { font-family:'Cinzel',serif; font-size:11px; letter-spacing:6px; color:var(--gold-dark); margin-bottom:10px; }
+  .title-main { font-family:'Cinzel',serif; font-size:clamp(22px,4vw,34px); font-weight:700; color:var(--gold); letter-spacing:2px; line-height:1.2; margin-bottom:6px; text-shadow:0 0 30px rgba(212,175,55,0.3); }
+  .title-sub  { font-family:'Cinzel',serif; font-size:11px; letter-spacing:5px; color:var(--gold-dark); margin-bottom:18px; }
+  .author     { font-family:'Cinzel',serif; font-size:11px; letter-spacing:6px; color:var(--gold); opacity:0.8; }
+
+  .progress-wrap { margin: 32px 0 8px; }
+  .progress-bar-bg { height:2px; background:var(--gold-dim); border-radius:1px; overflow:hidden; }
+  .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light)); border-radius:1px; transition:width 0.6s cubic-bezier(0.4,0,0.2,1); }
+  .progress-info { display:flex; justify-content:space-between; margin-top:8px; font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px; color:var(--gold-dark); }
+
+  .card {
+    border:1px solid var(--gold-dark); border-radius:2px; padding:40px;
+    position:relative; background:linear-gradient(135deg,rgba(20,15,0,0.9) 0%,rgba(8,6,0,0.95) 100%);
+    margin-top:16px; animation:fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .card::before { content:''; position:absolute; inset:6px; border:0.5px solid rgba(107,79,0,0.3); border-radius:1px; pointer-events:none; }
+  .card::after  { content:'\25C6'; position:absolute; top:-8px; left:50%; transform:translateX(-50%); font-size:12px; color:var(--gold); background:var(--bg); padding:0 8px; }
+
+  .q-number { font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; color:var(--gold-dark); margin-bottom:16px; }
+  .q-text   { font-size:19px; line-height:1.6; color:var(--text); margin-bottom:32px; font-style:italic; }
+
+  .options { display:flex; flex-direction:column; gap:12px; }
+  .option {
+    display:flex; align-items:flex-start; gap:16px; padding:14px 18px;
+    border:1px solid rgba(107,79,0,0.4); border-radius:1px; cursor:pointer;
+    transition:all 0.25s ease; background:transparent; font-family:'Crimson Text',serif;
+    font-size:17px; color:var(--text-dim); text-align:left; width:100%; line-height:1.5;
+    position:relative; overflow:hidden;
+  }
+  .option::before { content:''; position:absolute; left:0; top:0; height:100%; width:0; background:linear-gradient(90deg,rgba(212,175,55,0.08),transparent); transition:width 0.3s ease; }
+  .option:hover::before { width:100%; }
+  .option:hover { border-color:var(--gold-dark); color:var(--text); }
+  .option-letter { font-family:'Cinzel',serif; font-size:12px; letter-spacing:1px; color:var(--gold-dark); min-width:18px; margin-top:2px; transition:color 0.25s; }
+  .option:hover .option-letter { color:var(--gold); }
+  .option.correct { border-color:var(--gold)!important; background:rgba(212,175,55,0.1)!important; color:var(--gold-light)!important; cursor:default; }
+  .option.correct .option-letter { color:var(--gold)!important; }
+  .option.wrong   { border-color:#6b2020!important; background:rgba(107,32,32,0.15)!important; color:#c07070!important; cursor:default; }
+  .option.wrong .option-letter { color:#c07070!important; }
+  .option.disabled { cursor:default; opacity:0.5; }
+
+  .feedback { margin-top:20px; padding:14px 18px; border-radius:1px; animation:fadeIn 0.3s ease; font-family:'Cinzel',serif; font-size:11px; letter-spacing:3px; text-align:center; }
+  .feedback.ok  { border:1px solid rgba(212,175,55,0.3); background:rgba(212,175,55,0.06); color:var(--gold); }
+  .feedback.err { border:1px solid rgba(107,32,32,0.4);  background:rgba(107,32,32,0.1);   color:#c07070; }
+
+  .btn-next { display:block; margin:28px auto 0; padding:14px 48px; background:transparent; border:1px solid var(--gold-dark); color:var(--gold); font-family:'Cinzel',serif; font-size:11px; letter-spacing:4px; cursor:pointer; transition:all 0.25s ease; }
+  .btn-next:hover { border-color:var(--gold); color:var(--gold-light); box-shadow:0 0 20px rgba(212,175,55,0.15); }
+  .hidden { display:none; }
+
+  #intro-screen { text-align:center; }
+  .intro-card { border:1px solid var(--gold-dark); padding:40px; position:relative; background:rgba(15,12,0,0.8); margin-top:16px; }
+  .intro-card::before { content:''; position:absolute; inset:6px; border:0.5px solid rgba(107,79,0,0.3); pointer-events:none; }
+  .intro-text  { font-size:17px; line-height:1.7; color:var(--text-dim); margin-bottom:12px; font-style:italic; }
+  .intro-stats { display:flex; justify-content:center; gap:40px; margin:28px 0 36px; }
+  .stat-item   { text-align:center; }
+  .stat-num    { font-family:'Cinzel',serif; font-size:28px; color:var(--gold); display:block; }
+  .stat-lbl    { font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; color:var(--gold-dark); }
+  .btn-start   { padding:16px 64px; background:transparent; border:1px solid var(--gold); color:var(--gold); font-family:'Cinzel',serif; font-size:12px; letter-spacing:5px; cursor:pointer; transition:all 0.3s ease; }
+  .btn-start:hover { background:rgba(212,175,55,0.1); box-shadow:0 0 30px rgba(212,175,55,0.2); color:var(--gold-light); }
+
+  #result-screen { text-align:center; animation:fadeIn 0.7s ease; }
+  .result-star   { width:120px; height:120px; margin:0 auto 30px; display:block; filter:drop-shadow(0 0 20px rgba(212,175,55,0.6)); }
+  .result-title  { font-family:'Cinzel',serif; font-size:11px; letter-spacing:6px; color:var(--gold-dark); margin-bottom:12px; }
+  .score-display { font-family:'Cinzel',serif; font-size:clamp(60px,12vw,96px); font-weight:700; color:var(--gold); text-shadow:0 0 40px rgba(212,175,55,0.4); line-height:1; margin-bottom:6px; }
+  .score-total   { font-family:'Cinzel',serif; font-size:13px; letter-spacing:4px; color:var(--gold-dark); margin-bottom:30px; }
+  .result-divider{ width:200px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:0 auto 30px; }
+  .result-verdict{ font-size:22px; font-style:italic; color:var(--text); margin-bottom:12px; line-height:1.5; }
+  .result-desc   { font-size:16px; color:var(--text-dim); margin-bottom:40px; line-height:1.7; max-width:480px; margin-left:auto; margin-right:auto; }
+
+  .score-bands { display:flex; flex-direction:column; gap:2px; max-width:440px; margin:0 auto 40px; border:1px solid var(--gold-dim); padding:24px; position:relative; }
+  .score-bands::after { content:'\25C6'; position:absolute; top:-8px; left:50%; transform:translateX(-50%); font-size:11px; color:var(--gold); background:var(--bg); padding:0 6px; }
+  .band-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(107,79,0,0.2); font-size:14px; }
+  .band-row:last-child { border-bottom:none; }
+  .band-range { font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px; color:var(--gold-dark); }
+  .band-label { font-style:italic; color:var(--text-dim); }
+  .band-row.active .band-range,
+  .band-row.active .band-label { color:var(--gold); }
+  .band-row.active { padding-left:8px; border-left:2px solid var(--gold); margin-left:-8px; }
+
+  .btn-restart { padding:16px 56px; background:transparent; border:1px solid var(--gold); color:var(--gold); font-family:'Cinzel',serif; font-size:11px; letter-spacing:4px; cursor:pointer; transition:all 0.3s ease; }
+  .btn-restart:hover { background:rgba(212,175,55,0.1); box-shadow:0 0 30px rgba(212,175,55,0.2); }
+  @media(max-width:520px){ .card{padding:28px 20px} .intro-card{padding:28px 20px} .intro-stats{gap:20px} }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <svg class="star-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gs" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F5E27A"/>
+          <stop offset="50%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#8B6914"/>
+        </linearGradient>
+        <filter id="glo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#glo)">
+        <polygon points="50,8 88,72 12,72" fill="none" stroke="url(#gs)" stroke-width="1.5"/>
+        <polygon points="50,92 12,28 88,28" fill="none" stroke="url(#gs)" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="44" fill="none" stroke="url(#gs)" stroke-width="0.8" opacity="0.5"/>
+        <circle cx="50" cy="50" r="6"  fill="none" stroke="url(#gs)" stroke-width="1.2"/>
+        <circle cx="50" cy="50" r="3"  fill="#D4AF37" opacity="0.9"/>
+      </g>
+    </svg>
+    <div class="header-line"></div>
+    <div class="title-top">Prova Oficial</div>
+    <div class="title-main">Manual da Riqueza<br>conforme Salom&#227;o</div>
+    <div class="title-sub">10 Volumes &middot; 137 Princ&#237;pios</div>
+    <div class="header-line" style="margin-top:16px"></div>
+    <div class="author">Adriano Benedet</div>
+  </div>
+
+  <div id="intro-screen">
+    <div class="intro-card">
+      <p class="intro-text">Esta prova abrange os 10 volumes do sistema completo de poder e prosperidade. Responda com aten&#231;&#227;o &#8212; cada quest&#227;o revela sua profundidade de absor&#231;&#227;o dos princ&#237;pios.</p>
+      <div class="intro-stats">
+        <div class="stat-item"><span class="stat-num">80</span><span class="stat-lbl">Quest&#245;es</span></div>
+        <div class="stat-item"><span class="stat-num">4</span><span class="stat-lbl">Alternativas</span></div>
+        <div class="stat-item"><span class="stat-num">10</span><span class="stat-lbl">Volumes</span></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Iniciar Prova</button>
+    </div>
+  </div>
+
+  <div id="quiz-screen" class="hidden">
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-info">
+        <span id="progress-label">Quest&#227;o 1 de 80</span>
+        <span id="score-label">Acertos: 0</span>
+      </div>
+    </div>
+    <div class="card" id="question-card">
+      <div class="q-number" id="q-number"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options-list"></div>
+      <div id="feedback" class="hidden"></div>
+      <button class="btn-next hidden" id="btn-next" onclick="nextQuestion()">Pr&#243;xima Quest&#227;o &#8250;</button>
+    </div>
+  </div>
+
+  <div id="result-screen" class="hidden">
+    <svg class="result-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gs2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F5E27A"/>
+          <stop offset="50%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#8B6914"/>
+        </linearGradient>
+        <filter id="glo2">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#glo2)">
+        <polygon points="50,8 88,72 12,72" fill="none" stroke="url(#gs2)" stroke-width="2"/>
+        <polygon points="50,92 12,28 88,28" fill="none" stroke="url(#gs2)" stroke-width="2"/>
+        <circle cx="50" cy="50" r="44" fill="none" stroke="url(#gs2)" stroke-width="1" opacity="0.6"/>
+        <circle cx="50" cy="50" r="8"  fill="none" stroke="url(#gs2)" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="4"  fill="#D4AF37"/>
+      </g>
+    </svg>
+    <div class="result-title">Resultado Final</div>
+    <div class="score-display" id="final-score">0</div>
+    <div class="score-total" id="final-total">de 80 quest&#245;es</div>
+    <div class="result-divider"></div>
+    <div class="result-verdict" id="result-verdict"></div>
+    <div class="result-desc" id="result-desc"></div>
+    <div class="score-bands">
+      <div class="band-row" data-min="72" data-max="80"><span class="band-range">72&#8211;80</span><span class="band-label">Mestre Salom&#244;nico</span></div>
+      <div class="band-row" data-min="56" data-max="71"><span class="band-range">56&#8211;71</span><span class="band-label">S&#225;bio Avan&#231;ado</span></div>
+      <div class="band-row" data-min="40" data-max="55"><span class="band-range">40&#8211;55</span><span class="band-label">Aprendiz Dedicado</span></div>
+      <div class="band-row" data-min="24" data-max="39"><span class="band-range">24&#8211;39</span><span class="band-label">Iniciado</span></div>
+      <div class="band-row" data-min="0"  data-max="23"><span class="band-range">0&#8211;23</span><span class="band-label">Recome&#231;ar o Caminho</span></div>
+    </div>
+    <button class="btn-restart" onclick="restartQuiz()">&#9670; Refazer a Prova &#9670;</button>
+  </div>
+
+</div>
+<script>
+var Q = [
+['De acordo com o Prefacio Geral, qual e o proposito central do Manual da Riqueza conforme Salomao?',['Servir como um comentario teologico devocional.','Oferecer autoajuda com versiculos biblicos.','Ser um manual de extracao de principios universais e neutros.','Apresentar rituais complexos com velas e invocacoes em linguas mortas.'],2],
+['O Manual segue uma ordem de fluxo especifica. Qual e essa sequencia?',['Manifestacao > Canalizacao > Identidade > Alto.','Alto > Identidade > Canalizacao > Manifestacao.','Identidade > Alto > Manifestacao > Canalizacao.','Canalizacao > Identidade > Alto > Manifestacao.'],1],
+['Quantas e quais sao as Formas de Capital definidas no Manual?',['5 formas: financeiro, saude, tempo, atencao e influencia.','7 formas: financeiro, saude, tempo, atencao, influencia, reputacao e autocontrole.','10 formas, incluindo as 7 mais conhecimento, espiritualidade e lazer.','3 formas principais: dinheiro, tempo e saude.'],1],
+['O Volume 1 (Proverbios) e simbolicamente associado a qual orgao e qual funcao?',['O Cerebro: visao panoramica e desapego.','O Sangue: energia circulante e desejo.','O Pulmao: acao repetida, ritmo diario, respiracao da riqueza.','O Espirito: integracao e inteligencia.'],2],
+['A Regra 1 do processo de extracao afirma que se deve agir:',['Com um vies moral rigoroso para purificar os principios.','Sem vies moral, pois a riqueza e energia neutra.','Apenas com o politicamente correto para nao ofender.','Incluindo complexidade magica para garantir eficacia.'],1],
+['No Volume 1, qual e a semente extraida de Proverbios 3:9-10 (Honra o Senhor com tua riqueza...)?',['A qualidade da acao determina o resultado.','O inicio (a primicia) direciona o todo do fluxo.','A divida cria uma hierarquia de poder.','O trabalho duro sempre gera lucro, enquanto a conversa leva a escassez.'],1],
+['Qual e a interpretacao pratica da Mao diligente vs mao frouxa (Proverbios 10:4)?',['A mao diligente distribui riquezas, enquanto a frouxa acumula.','A mao frouxa hesita e desiste; a mao diligente executa com precisao e persistencia.','Refere-se a forca fisica para carregar objetos de valor.','Mao esquerda para negocios e direita para relacionamentos.'],1],
+['O que a semente O devedor e servo do credor (Proverbios 22:7) ensina?',['Que a divida e uma ferramenta neutra que nao afeta as relacoes de poder.','Que o credor esta sempre errado e o devedor e vitima.','Que a relacao de divida cria uma hierarquia onde o devedor esta em posicao de servidao.','Que e melhor ser devedor para ter vantagens fiscais.'],2],
+['Qual e o perigo de se ter apenas a mentalidade de Proverbios (acao disciplinada)?',['Tornar-se um cinico que nao age.','Tornar-se um hamster em uma roda, acumulando sem proposito.','Tornar-se apaixonado sem estrutura.','Tornar-se dependente de rituais complexos.'],1],
+['O que significa tudo e vapor (hevel) como semente de riqueza em Eclesiastes?',['Que nada tem valor, portanto nao se deve acumular.','Que se deve desprezar a riqueza material por ser ilusoria.','Que se deve acumular com disciplina, mas sem apego ao resultado, pois tudo e transitorio.','Que a riqueza e um pecado e leva a perdicao.'],2],
+['A frase Lanca o teu pao sobre as aguas (Eclesiastes 11:1-2) e interpretada como:',['Caridade irrestrita, distribuindo tudo sem esperar retorno.','Distribuicao e diversificacao estrategica de riscos e investimentos.','Isolamento para proteger o que se tem.','Comando autoritario sobre os recursos.'],1],
+['O Volume 3 (Cantico dos Canticos) e associado ao Sangue porque trata da:',['Acao repetida e do ritmo diario.','Energia circulante, do desejo, da atracao e da busca persistente.','Visao panoramica e do desapego.','Sistematizacao e organizacao do poder.'],1],
+['O que simboliza O amor e forte como a morte (Cantico 8:6) no contexto do Manual?',['A necessidade de um amor romantico para ser feliz.','O compromisso inegociavel com um objetivo como a unica forca que move montanhas.','A fragilidade das relacoes humanas.','A morte como unica certeza, portanto nada vale a pena.'],1],
+['A afirmacao Deus ordenou todas as coisas em medida, numero e peso (Sabedoria 11:20) e a base para qual principio?',['Que o universo e caotico e a riqueza e pura sorte.','Que a riqueza e espiritual e nao pode ser medida.','Que o universo e ordenado e quantificavel; para enriquecer, deve-se medir, contar e pesar.','Que apenas os numeros sao importantes, ignorando o contexto humano.'],2],
+['Qual e a principal diferenca entre a Clavicula de Salomao (Volume 6) e a Hygromanteia (Volume 5)?',['A Clavicula e o metodo; a Hygromanteia e a chave.','A Hygromanteia e a aplicacao (estudo de caso); a Clavicula e o inventario.','A Hygromanteia e a tecnologia e transmissao; a Clavicula e a sistematizacao e organizacao.','Nao ha diferenca, sao o mesmo texto.'],2],
+['No Volume 6 (Clavicula de Salomao), o que representa o circulo na preparacao de uma operacao?',['Um adorno sem funcao pratica.','Um simbolo religioso para agradar a divindade.','Uma delimitacao de territorio e criacao de um espaco controlado e protegido.','Um local para aprisionar os espiritos permanentemente.'],2],
+['A confissao descrita na Clavicula de Salomao (Livro I, Capitulo 4) e interpretada como:',['Um ato de submissao religiosa para obter perdao divino.','Uma tecnologia de limpeza de interferencias para liberar energia presa por erros e dividas.','Um ritual publico para demonstrar humildade.','Um metodo para pedir mais dinheiro a Deus.'],1],
+['Qual e a funcao dos Pantaculos na Clavicula de Salomao?',['Servir como armas para destruir inimigos.','Serem simbolos de poder condensado que funcionam como ancoras mentais e de autoridade.','Serem mapas astrologicos complexos e inuteis.','Substituirem a necessidade de qualquer preparacao.'],1],
+['O Testamento de Salomao (Volume 7) e classificado como A Aplicacao porque:',['Apresenta instrucoes passo a passo para cada selo.','E uma narrativa (estudo de caso) de Salomao aplicando os principios e superando obstaculos.','E o unico livro que nao exige preparacao.','Foca exclusivamente na queda de Salomao como um aviso moral.'],1],
+['No Testamento de Salomao, o anel com selo recebido pelo arcanjo Miguel simboliza:',['Um adorno de luxo para demonstrar poder.','Uma tecnologia de autoridade transferivel que permite delegar poder e controlar recursos.','Um objeto magico que funciona sozinho, sem necessidade de acao.','A fraqueza de Salomao, que precisava de objetos para ter poder.'],1],
+['O espirito Onoskelis (mulher de pernas de mula) ensina qual principio para avaliacao de recursos?',['Que a beleza e o unico criterio relevante.','Que se deve avaliar a substancia (as pernas de mula) e nao apenas a aparencia superficial.','Que todo recurso com aparencia imperfeita deve ser descartado.','Que recursos com pernas de animal sao mais valiosos.'],1],
+['Asmodeu, o espirito da lamina, ataca principalmente:',['Os poderosos e estabelecidos.','Os fracos e pobres.','Os recem-casados e novos empreendimentos, o que esta comecando e e vulneravel.','Os templos e locais sagrados.'],2],
+['O Lemegeton (Volume 8), tambem conhecido como Chave Menor, e descrito como:',['Um unico grimorio focado em maldicoes.','Um inventario e catalogo de recursos, com 5 partes (Ars Paulina, Theurgia Goetia, Ars Notoria, Goetia, Ars Almadel).','Um texto focado apenas em prosperidade sazonal.','Um manual de preparacao prolongada por 18 meses.'],1],
+['O que a Ars Notoria (parte do Lemegeton) ensina sobre a aquisicao de conhecimento?',['Que o conhecimento so e adquirido com muito tempo e esforco lento.','Que e impossivel adquirir conhecimento sem um mestre.','Que o conhecimento pode ser acelerado por meio de tecnicas como notas, oracoes e repeticao.','Que o conhecimento e inato e nao se pode aprende-lo.'],2],
+['Na Goetia (parte do Lemegeton), a extensa lista de 72 espiritos serve como:',['Um catalogo de demonios a serem evitados a todo custo.','Um catalogo de recursos especializados, cada qual com uma funcao e selo proprio.','Uma lista de anjos a serem adorados.','Uma mitologia sem aplicacao pratica.'],1],
+['Qual e a funcao do triangulo nas operacoes da Goetia?',['Substituir o circulo em operacoes noturnas.','Ser um espaco de contencao onde o recurso invocado pode se manifestar sem perigo ao operador.','Ser um simbolo da Santissima Trindade.','Servir como um atalho para a invisibilidade.'],1],
+['A Segunda Altitude do Ars Almadel tem poder especificamente sobre:',['Fertilidade e crescimento.','Riquezas e bens materiais.','Relacionamentos e harmonia.','Encerramento e corte de custos.'],1],
+['Qual e a principal inovacao do Grimorium Verum (Volume 10) em relacao aos outros grimorios?',['A relacao com os recursos passa a ser de comando absoluto.','A relacao passa a ser de pacto e negociacao, uma troca reciproca.','A eliminacao completa de qualquer preparacao.','A exigencia de um jejum de 40 dias.'],1],
+['No Grimorium Verum, qual espirito e associado ao poder sobre ouro, riquezas e tesouros ocultos?',['Lucifer.','Belzebu.','Astarote.','Clauneck.'],3],
+['O uso de sangue no Grimorium Verum e interpretado como:',['Um requisito literal e obrigatorio para o pacto.','Um simbolo de compromisso pessoal e oferenda de valor, demonstrando seriedade.','Um ingrediente magico para pocoes.','Uma forma de coagir os espiritos.'],1],
+['A Licenca para partir, presente em varios volumes, e uma tecnologia que ensina a:',['Prender os recursos para sempre.','Encerrar ciclos de forma explicita, agradecer e manter a porta aberta para o futuro.','Fugir de uma operacao sem consequencias.','Nunca mais invocar um recurso.'],1],
+['No Volume 9 (Abramelin), o que representa o Anjo Guardiao?',['Um ser externo que comanda o operador.','Uma metafora para o eu superior, a versao mais elevada de si mesmo.','Um espirito familiar comum.','Um dos 72 espiritos da Goetia.'],1],
+['A preparacao no sistema de Abramelin difere da Clavicula principalmente por:',['Ser mais curta (3 dias).','Nao exigir nenhuma preparacao.','Ser prolongada, durando de 6 a 18 meses, visando a transformacao da identidade.','Exigir materiais mais caros.'],2],
+['O principio de nunca dar esta Operacao a um Monarca em Abramelin nos ensina que:',['Reis sao maus e nao merecem conhecimento.','Nao se deve entregar ferramentas poderosas a quem ja tem muito poder, pois podem abusar.','O conhecimento deve ser dado apenas a pobres.','Monarcas sao os unicos que podem usar a operacao.'],1],
+['De acordo com o Manual, o que acontece com a riqueza que nao e administrada com sabedoria?',['Ela se multiplica automaticamente.','Ela e abencada pelos ceus.','Ela se dissipa e desaparece (os pedacos de dinheiro que voce nao usar desaparecerao).','Ela se transforma em conhecimento.'],2],
+['A pratica da Invisibilidade descrita na Clavicula e no Lemegeton significa:',['Desaparecer fisicamente.','Tornar-se intangivel.','Operar em silencio e sem se expor para obter vantagem estrategica e evitar inveja.','Ignorar completamente o mundo ao redor.'],2],
+['A frase Quem rega tambem sera regado (Proverbios 11:25) e a base para qual principio?',['Que se deve acumular agua para tempos de seca.','Que distribuir valor, conhecimento e ajuda cria um sistema de retorno e irrigacao mutua.','Que regar plantas e um bom negocio.','Que a generosidade leva inevitavelmente a pobreza.'],1],
+['O principio Nao te cances para enriquecer (Proverbios 23:4-5) alerta contra:',['O trabalho duro e diligente.','O esforco ansioso e desesperado, que repele a riqueza.','A busca por qualquer tipo de riqueza.','A aposentadoria precoce.'],1],
+['Tesouro desejavel e azeite ha na morada do sabio, mas o homem tolo os devora. O azeite simboliza:',['Um alimento comum.','Energia armazenada, reserva de valor para tempos de escassez ou oportunidade.','Um produto de luxo a ser consumido imediatamente.','A vaidade do sabio.'],1],
+['A afirmacao A verdade e mais forte que tudo (1 Esdras) fundamenta que:',['A mentira e uma ferramenta de negociacao aceitavel.','Construir riqueza sobre a verdade e sustentavel, enquanto a mentira leva a perda.','A verdade e uma questao de opiniao.','O poder e o dinheiro vencem a verdade sempre.'],1],
+['Qual a relacao simbolica entre o Pulmao (Proverbios) e o Cerebro (Eclesiastes) no sistema?',['Eles sao opostos e incompativeis.','Um sem o outro e incompleto: Proverbios sem Eclesiastes leva a acao sem proposito; Eclesiastes sem Proverbios leva a paralisia.','O Cerebro e mais importante que o Pulmao.','O Pulmao e para os sabios, o Cerebro para os tolos.'],1],
+['A Busca noturna descrita no Cantico dos Canticos (Capitulo 3) e uma metafora para:',['Um caso de amor proibido.','A persistencia em momentos de falta de resultado (escuridao), continuar buscando ate encontrar.','A necessidade de dormir bem para ter sucesso.','Um ritual magico que so funciona a noite.'],1],
+['O que significam as raposas que estragam a vinha (Cantico 2:15) no contexto do capital?',['Inimigos poderosos que atacam de frente.','Grandes crises economicas.','Pequenos vazamentos de energia, tempo e dinheiro que destroem o potencial de riqueza.','Animais de estimacao que devem ser eliminados.'],2],
+['A maxima Melhor e o bom nome do que o bom oleo (Eclesiastes 7:1) afirma que a reputacao:',['E menos importante que a riqueza material.','E mais valiosa que a riqueza material, pois e um capital que abre portas.','So importa para religiosos.','Pode ser comprada com dinheiro.'],1],
+['No sistema da Clavicula, a Conjuracao e definida como:',['Um pedido educado e humilde.','Uma declaracao de autoridade, invocando forcas superiores, e nao uma suplica.','Um feitico de amor.','Uma forma de adivinhacao.'],1],
+['A pureza exigida na Clavicula e em Abramelin e, antes de tudo, uma questao de:',['Virtude moral e ausencia de pecado.','Preparacao do recipiente (corpo, mente e ambiente) para uma operacao eficaz.','Fazer parte de uma religiao especifica.','Usar apenas roupas brancas.'],1],
+['O isolamento estrategico em Abramelin serve para:',['Fugir dos problemas do mundo.','Criar um periodo de foco ininterrupto e transformacao pessoal, sem distracoes.','Esconder-se de inimigos.','Economizar dinheiro.'],1],
+['O selo (ou pantaculo) no sistema magico do Manual e, em termos modernos, equivalente a:',['Um amuleto da sorte.','Um contrato, uma assinatura, um logotipo ou uma senha que autentica e autoriza.','Um mapa do tesouro.','Uma pocao magica.'],1],
+['A divisao dos 72 espiritos da Goetia em Reis, Duques, Marqueses, etc., ensina qual principio?',['Que todos os recursos sao iguais.','A importancia de uma hierarquia clara e funcoes especializadas para a eficiencia.','Que se deve desprezar os recursos de nivel mais baixo.','Que apenas os Reis sao uteis.'],1],
+['No Volume 10, os tres imperadores (Lucifer, Belzebu, Astarote) sao apresentados como:',['Os unicos seres a serem invocados.','Arquetipos de poder, cada qual associado a diferentes forcas (conhecimento, forca, riqueza).','Inimigos a serem destruidos.','Santos a serem venerados.'],1],
+['O principio de Sem complexidade magica desnecessaria implica que:',['Nenhum ritual ou simbolo e util.','A semente do principio deve funcionar no mundo real hoje, sem materiais exoticos.','So a fe e necessaria.','Quanto mais complexo, mais eficaz.'],1],
+['O Capital de Atencao e definido como:',['O dinheiro investido em marketing.','A capacidade de foco sem interrupcao.','O numero de seguidores nas redes sociais.','As horas gastas no trabalho.'],1],
+['A queda de Salomao no final do Testamento serve como um aviso de que:',['A riqueza e o poder sao permanentes.','Apenas os tolos fracassam.','Aliancas erradas e lealdades divididas podem destruir a maior das riquezas.','Nao ha esperanca apos um erro.'],2],
+['A Hygromanteia e descrita como O Metodo porque foca em:',['Filosofia e integracao.','A tecnologia de transmissao, a engenharia de aplicacao dos principios.','Poesia e desejo.','Acao repetida diaria.'],1],
+['Qual e uma Pratica Aplicavel recomendada ao final do Volume 1 (Proverbios)?',['Fazer um jejum de 40 dias.','Desenhar um circulo complexo com carvao.','A Primicia seca: separar 10% de qualquer recurso que entra antes de usar, por 40 dias.','Invocar os 72 espiritos.'],2],
+['A Ars Paulina (Parte 1 do Lemegeton) e conhecida como a hierarquia do tempo porque ensina que:',['O tempo e uma ilusao.','Cada hora do dia e cada signo tem governantes, e o timing e essencial para o sucesso.','O tempo so pode ser medido em horas planetarias.','A astrologia e uma ciencia exata.'],1],
+['As Notas da Ars Notoria sao figuras complexas que tem o poder de:',['Servir como contratos legais.','Condensar conhecimento e acelerar o aprendizado por meio da contemplacao.','Aprisionar demonios.','Prever o futuro.'],1],
+['O Circulo na magia do Grimorium Verum e tracado com carvao vegetal, o que sugere:',['A pobreza do operador.','Que o pacto pode ser temporario e desfeito (o carvao pode ser apagado).','Que o carvao tem propriedades magicas especiais.','Que se deve usar apenas materiais caros.'],1],
+['A pratica da Confissao Semanal (recomendada no Volume 6) serve para:',['Punir-se por erros passados.','Listar dividas, promessas nao cumpridas e exageros, para tomar acoes corretivas e liberar energia.','Substituir a ida a igreja.','Apenas aliviar a consciencia sem acao.'],1],
+['O Capital de Autocontrole e destacado em Proverbios 16:32. Isso significa que:',['A forca bruta e o maior poder.','Dominar a si mesmo e uma conquista maior do que dominar territorios externos.','A paciencia e um sinal de fraqueza.','Apenas os guerreiros sao valentes.'],1],
+['A semente Distribuicao estrategica (Proverbios 11:24-25) contradiz a logica do medo ao afirmar que:',['Quem retem tudo se torna mais rico.','Quem espalha e distribui valor aumenta seu proprio capital.','A generosidade leva a pobreza certa.','O acumulo e sempre prejudicial.'],1],
+['No Volume 5 (Hygromanteia), a divisao em quatro quadrantes e um modelo para:',['Organizar o tempo do dia.','Mapear a estrutura organizacional de um negocio ou da vida (ex: financas, clientes, saude, conhecimento).','Dividir a heranca de Salomao.','Classificar os tipos de espiritos.'],1],
+['A Operacao silenciosa (invisibilidade) e uma vantagem estrategica porque:',['Permite cometer crimes sem ser pego.','Reduz resistencia, preserva energia e evita a inveja.','E uma exigencia de todos os grimorios.','Impede qualquer tipo de comunicacao.'],1],
+['A busca de tesouros na Clavicula e na Hygromanteia ensina que o valor:',['Aparece magicamente para quem ora.','Precisa ser procurado ativamente, pois esta escondido em oportunidades, talentos e conhecimentos nao aplicados.','E sempre financeiro.','E distribuido igualmente a todos.'],1],
+['O que significa preparacao do recipiente (pureza) nos volumes 6 e 9?',['Fazer um objeto de cera.','Que o corpo e a mente devem estar descansados, focados e limpos para que uma operacao seja bem-sucedida.','Comprar um vaso sagrado.','Ser batizado em uma religiao especifica.'],1],
+['A Chave Mestra (selo de ouro) do Ars Almadel pode ser usada em todas as quatro altitudes. Isso ensina sobre:',['A necessidade de um selo diferente para cada operacao.','A importancia de ter um simbolo de autoridade universal e reutilizavel.','Que o ouro e o unico metal que funciona.','Que a chave mestra substitui toda a preparacao.'],1],
+['O espirito Surgat (Grimorium Verum) tem o poder de abrir fechaduras, o que se traduz modernamente como:',['Arrombamento de cofres.','Acesso a informacoes restritas, privilegios ou mercados fechados.','Habilidade de ser chaveiro.','Invasao de sistemas de seguranca.'],1],
+['No Volume 2 (Eclesiastes), o que significa O que e torto nao se endireita?',['Que devemos insistir em consertar tudo.','Que ha coisas estruturalmente erradas que nao podem ser consertadas; o sabio corta as perdas e segue em frente.','Que a justica sempre prevalece.','Que o destino e imutavel.'],1],
+['A semente Doce e o sono do trabalhador (Eclesiastes 5:11) ensina que:',['O trabalho leva ao cansaco, que e ruim.','O sono reparador e uma forma de capital de saude, mais valioso que a riqueza que causa insonia.','Apenas trabalhadores bracais merecem descanso.','O rico nunca dorme bem.'],1],
+['O principio A verdade e mais forte que tudo (1 Esdras) e um pilar do Volume 4 porque:',['A mentira e um atalho aceitavel para a riqueza.','A verdade e uma forca que eventualmente corrige todos os desvios e constroi riqueza sustentavel.','A verdade e uma questao de crenca pessoal.','A verdade nao tem relacao com riqueza.'],1],
+['O Capital de Influencia e definido no Manual como:',['O numero de pessoas que voce segue.','O poder de mover pessoas sem coercao, construido atraves de reciprocidade e valor.','A capacidade de dar ordens.','O dinheiro que voce tem para investir.'],1],
+['No sistema do Lemegeton, o Lamen (usado sobre o peito) e um selo que:',['Protege o coracao fisicamente.','Autoriza o operador e e reconhecido pelo recurso como chave de acesso.','E um adorno estetico.','Substitui o circulo magico.'],1],
+['A exigencia de idade (25-50 anos) em Abramelin esta relacionada a:',['Preconceito contra jovens e idosos.','A maturidade, energia e estabilidade necessarias para uma transformacao prolongada.','Uma regra social da epoca sem aplicacao atual.','A necessidade de ter filhos para herdar a operacao.'],1],
+['O principio A mao frouxa empobrece (Proverbios 10:4) e uma semente de:',['Alto.','Identidade.','Canalizacao.','Manifestacao.'],2],
+['O Volume 10 (Grimorium Verum) adiciona ao sistema a arte da:',['Oracao.','Negociacao e pacto.','Comando absoluto.','Isolamento.'],1],
+['A coluna suspensa no Testamento de Salomao (Capitulos 22-25) simboliza:',['A instabilidade do Templo.','Um projeto de grande escala sustentado por multiplos recursos coordenados.','Um milagre sem explicacao.','A fraqueza da engenharia da epoca.'],1],
+['Nao ha memoria para os que virao depois (Eclesiastes 1:11) e uma semente para:',['Desistir de construir qualquer coisa.','Construir para o presente e nao sacrificar a vida por um legado postumo, que e incerto.','Buscar fama a qualquer custo.','Esquecer o passado completamente.'],1],
+['No contexto do Manual, Selar a fonte (Cantico 4:12) significa:',['Esconder agua.','Proteger e concentrar sua energia, nao a dispersando em distracoes.','Acumular riquezas sem nunca gastar.','Ser egoista com o conhecimento.'],1],
+['A Rainha de Saba no Testamento de Salomao representa:',['Uma inimiga a ser derrotada.','Uma validacao externa de qualidade, uma inspecao de alto nivel que atesta a excelencia do trabalho.','Uma fonte de riquezas a ser saqueada.','Um espirito maligno.'],1],
+['A frase que sintetiza a mensagem do Manual e:',['Peca e recebereis.','Torne-se alguem que merece a riqueza. A riqueza vira como consequencia.','O trabalho duro nunca falha.','A sorte favorece os audazes.'],1]
+];
+
+var L = ['A','B','C','D'];
+var cur = 0, score = 0, answered = false;
+
+function startQuiz() {
+  document.getElementById('intro-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  render();
+}
+
+function render() {
+  answered = false;
+  var q = Q[cur], total = Q.length;
+  document.getElementById('progress-fill').style.width = (cur/total*100)+'%';
+  document.getElementById('progress-label').textContent = 'Quest\u00e3o '+(cur+1)+' de '+total;
+  document.getElementById('score-label').textContent = 'Acertos: '+score;
+  document.getElementById('q-number').textContent = 'Quest\u00e3o '+String(cur+1).padStart(2,'0')+' / '+total;
+  document.getElementById('q-text').textContent = q[0];
+  var list = document.getElementById('options-list');
+  list.innerHTML = '';
+  q[1].forEach(function(opt,i){
+    var btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = '<span class="option-letter">'+L[i]+'</span><span>'+opt+'</span>';
+    (function(idx){ btn.onclick = function(){ pick(idx); }; })(i);
+    list.appendChild(btn);
+  });
+  document.getElementById('feedback').className = 'hidden';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('btn-next').classList.add('hidden');
+  var card = document.getElementById('question-card');
+  card.style.animation = 'none';
+  void card.offsetHeight;
+  card.style.animation = 'fadeIn 0.5s ease';
+}
+
+function pick(idx) {
+  if (answered) return;
+  answered = true;
+  var q = Q[cur];
+  var opts = document.querySelectorAll('.option');
+  opts.forEach(function(btn,i){
+    btn.classList.add('disabled');
+    if (i === q[2]) btn.classList.add('correct');
+    else if (i === idx && idx !== q[2]) btn.classList.add('wrong');
+  });
+  var fb = document.getElementById('feedback');
+  if (idx === q[2]) {
+    score++;
+    fb.className = 'feedback ok';
+    fb.textContent = '\u2726 Correto \u2726';
+  } else {
+    fb.className = 'feedback err';
+    fb.textContent = '\u2726 Incorreto \u00b7 Resposta: '+L[q[2]]+' \u2726';
+  }
+  document.getElementById('score-label').textContent = 'Acertos: '+score;
+  var bn = document.getElementById('btn-next');
+  bn.classList.remove('hidden');
+  bn.textContent = (cur === Q.length-1) ? 'Ver Resultado \u203a' : 'Pr\u00f3xima Quest\u00e3o \u203a';
+}
+
+function nextQuestion() {
+  cur++;
+  if (cur >= Q.length) showResult();
+  else render();
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('result-screen').classList.remove('hidden');
+  document.getElementById('final-score').textContent = score;
+  document.getElementById('final-total').textContent = 'de '+Q.length+' quest\u00f5es \u00b7 '+Math.round(score/Q.length*100)+'% de aproveitamento';
+  var v, d;
+  if (score>=72){v='Mestre Salom\u00f4nico';d='Voc\u00ea dominou os 10 volumes com maestria. O sistema completo est\u00e1 gravado em sua identidade. A riqueza \u00e9 consequ\u00eancia natural de quem voc\u00ea se tornou.';}
+  else if (score>=56){v='S\u00e1bio Avan\u00e7ado';d='Sua absor\u00e7\u00e3o dos princ\u00edpios \u00e9 profunda. Alguns pontos ainda podem ser refinados. Continue a revis\u00e3o dos grim\u00f3rios intermedi\u00e1rios.';}
+  else if (score>=40){v='Aprendiz Dedicado';d='Voc\u00ea conhece a estrutura do sistema, mas a profundidade ainda aguarda plena internaliza\u00e7\u00e3o. Releia os volumes e aplique cada semente.';}
+  else if (score>=24){v='Iniciado';d='Voc\u00ea deu os primeiros passos. O caminho \u00e9 longo, mas a consci\u00eancia de onde est\u00e1 \u00e9 o primeiro princ\u00edpio. Retorne ao Volume 1.';}
+  else{v='O Caminho Recome\u00e7a';d='Todo mestre foi um dia aprendiz absoluto. Comece pelo Pref\u00e1cio e avance com disciplina.';}
+  document.getElementById('result-verdict').textContent = v;
+  document.getElementById('result-desc').textContent = d;
+  document.querySelectorAll('.band-row').forEach(function(row){
+    row.classList.toggle('active', score>=parseInt(row.dataset.min) && score<=parseInt(row.dataset.max));
+  });
+}
+
+function restartQuiz() {
+  cur = 0; score = 0;
+  document.getElementById('result-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  render();
+}
+</script>
+</body>
+</html>
