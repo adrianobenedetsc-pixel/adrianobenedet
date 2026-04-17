@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:#07060A;color:#DDD0B0;font-family:'Lato',sans-serif;line-height:1.7;overflow-x:hidden;}
+
+:root{
+  --g1:#F8EE80;--g2:#D4A840;--g3:#A87820;--g4:#6A4C10;--g5:#3A2A06;
+  --bg0:#07060A;--bg1:#0C0B0E;--bg2:#121018;
+  --text1:#F0E4C0;--text2:#B8A878;--text3:#786848;
+  --border:rgba(180,140,50,0.18);--borderb:rgba(220,180,70,0.4);
+}
+
+.serif{font-family:'Playfair Display',Georgia,serif}
+.gold-text{background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 40%,var(--g1) 70%,var(--g3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.gold-line{height:1px;background:linear-gradient(90deg,transparent,var(--g3) 20%,var(--g1) 50%,var(--g3) 80%,transparent);}
+.eyebrow{font-size:10px;letter-spacing:7px;text-transform:uppercase;color:var(--g4);font-weight:700;display:block;}
+
+.sep{display:flex;align-items:center;gap:14px;width:100%;max-width:400px;margin:24px auto;}
+.sep-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--g4));}
+.sep-line.r{background:linear-gradient(90deg,var(--g4),transparent);}
+.sep-diamond{width:7px;height:7px;transform:rotate(45deg);background:linear-gradient(135deg,var(--g2),var(--g4));flex-shrink:0;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 28px;
+  background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(200,160,50,0.12) 0%,transparent 70%);
+  position:relative;
+}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g4) 30%,var(--g3) 50%,var(--g4) 70%,transparent);}
+
+.hero-eyebrow{font-size:10px;letter-spacing:7px;text-transform:uppercase;color:var(--g4);font-weight:700;margin-bottom:40px;}
+
+.hero-pre{font-family:'Playfair Display',Georgia,serif;font-size:clamp(16px,4vw,28px);font-weight:400;font-style:italic;color:var(--text2);letter-spacing:2px;line-height:1;margin-bottom:6px;}
+
+.hero-main{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(68px,15vw,144px);
+  font-weight:900;line-height:0.9;letter-spacing:-3px;
+  background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 40%,var(--g1) 65%,var(--g3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:0;
+}
+
+.hero-tag{font-family:'Lato',sans-serif;font-size:clamp(9px,2vw,12px);font-weight:700;letter-spacing:clamp(3px,1vw,6px);text-transform:uppercase;color:var(--text3);}
+
+.hero-statement{font-family:'Playfair Display',Georgia,serif;font-size:clamp(17px,3vw,24px);font-style:italic;color:var(--text2);max-width:560px;line-height:1.65;margin-bottom:10px;}
+.hero-statement em{color:var(--g1);font-style:normal;font-weight:700;}
+.hero-sub{font-size:13px;letter-spacing:2px;color:var(--text3);margin-bottom:48px;font-weight:300;}
+
+.cta-group{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{display:inline-block;background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%);color:#1A0E00;font-family:'Lato',sans-serif;font-size:11px;font-weight:900;letter-spacing:4px;text-transform:uppercase;padding:18px 52px;text-decoration:none;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.btn-secondary{display:inline-block;background:transparent;color:var(--text3);font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;padding:18px 32px;border:0.5px solid var(--g4);text-decoration:none;}
+
+/* ── STRIKE BAND ── */
+.band{padding:28px 24px;background:linear-gradient(135deg,var(--g5),#221608 50%,var(--g5));border-top:0.5px solid var(--borderb);border-bottom:0.5px solid var(--borderb);text-align:center;position:relative;overflow:hidden;}
+.band::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(200,160,50,0.03) 0,rgba(200,160,50,0.03) 1px,transparent 1px,transparent 60px);}
+.band-text{font-size:clamp(9px,1.5vw,12px);font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--g2);position:relative;}
+
+/* ── QUOTE ── */
+.quote-sec{padding:100px 32px;text-align:center;background:var(--bg1);}
+.quote-mark{font-family:'Playfair Display',Georgia,serif;font-size:72px;line-height:0.5;display:block;margin-bottom:12px;background:linear-gradient(135deg,var(--g2),var(--g4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.5;}
+.quote-main{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,4vw,38px);font-weight:400;font-style:italic;color:var(--text1);max-width:820px;margin:0 auto 28px;line-height:1.5;}
+.quote-main strong{font-style:normal;font-weight:900;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.quote-attr{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--text3);margin-top:20px;}
+
+/* ── SECTION WRAPPER ── */
+.sec{padding:100px 32px;max-width:1000px;margin:0 auto;}
+.sec-hd{margin-bottom:56px;}
+.sec-hd .eyebrow{margin-bottom:18px;}
+.sec-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(30px,5vw,58px);font-weight:900;line-height:1.05;color:var(--text1);margin-bottom:22px;}
+.sec-title .g{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sec-body{font-size:17px;color:var(--text2);line-height:1.9;max-width:680px;}
+.sec-body strong{color:var(--text1);}
+
+/* ── PILLARS ── */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;border:0.5px solid var(--border);}
+.pillar{background:var(--bg0);padding:52px 32px;position:relative;overflow:hidden;}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g3),transparent);opacity:0;}
+.pillar:hover::before{opacity:1;}
+.pillar-num{font-family:'Playfair Display',Georgia,serif;font-size:80px;font-weight:900;line-height:1;background:linear-gradient(160deg,var(--g1) 0%,var(--g3) 60%,var(--g4) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:18px;opacity:0.85;}
+.pillar-lbl{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--g3);margin-bottom:12px;font-weight:700;}
+.pillar-name{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:var(--text1);margin-bottom:14px;}
+.pillar-desc{font-size:14px;color:var(--text3);line-height:1.8;}
+
+/* ── IMPACT STRIP ── */
+.impact{background:var(--bg2);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:72px 32px;}
+.impact-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;}
+.impact-item{padding:16px;border-right:0.5px solid var(--border);}
+.impact-item:last-child{border-right:none;}
+.impact-num{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,5vw,58px);font-weight:900;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:6px;}
+.impact-lbl{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--text3);}
+
+/* ── PRECEITOS ── */
+.prec-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid var(--border);margin-top:60px;}
+.prec{padding:36px 30px;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border);}
+.prec:nth-child(even){border-right:none;}
+.prec:nth-last-child(-n+2){border-bottom:none;}
+.prec-hd{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.prec-code{font-size:10px;letter-spacing:3px;color:var(--g4);font-weight:700;white-space:nowrap;}
+.prec-rule{flex:1;height:1px;background:var(--border);}
+.prec-title{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text1);margin-bottom:10px;line-height:1.3;}
+.prec-body{font-size:14px;color:var(--text3);line-height:1.7;}
+.prec-body strong{color:var(--text2);}
+
+/* ── TRÍADE ── */
+.triade-wrap{padding:100px 32px;background:var(--bg1);border-top:0.5px solid var(--border);}
+.triade-inner{max-width:1000px;margin:0 auto;}
+.triade-books{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-top:60px;}
+.tbook{background:var(--bg1);padding:52px 32px;text-align:center;opacity:0.45;}
+.tbook.cur{opacity:1;background:var(--bg2);position:relative;}
+.tbook.cur::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g3),var(--g1),var(--g3));}
+.tbook-vol{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--g4);margin-bottom:22px;font-weight:700;}
+.tbook-roman{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:900;line-height:1;color:var(--text3);margin-bottom:22px;}
+.tbook.cur .tbook-roman{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tbook-name{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:var(--text2);margin-bottom:14px;}
+.tbook.cur .tbook-name{color:var(--text1);}
+.tbook-desc{font-size:13px;color:var(--text3);line-height:1.7;}
+.tbook-badge{display:inline-block;background:linear-gradient(135deg,var(--g2),var(--g3));color:#1A0800;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:900;padding:5px 14px;margin-bottom:20px;}
+
+/* ── SUMÁRIO ── */
+.sumario{display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid var(--border);margin-top:60px;}
+.sum-item{padding:24px 26px;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border);display:flex;gap:18px;align-items:flex-start;}
+.sum-item:nth-child(even){border-right:none;}
+.sum-item:nth-last-child(-n+2){border-bottom:none;}
+.sum-n{font-size:10px;letter-spacing:2px;color:var(--g4);min-width:22px;padding-top:2px;font-weight:700;}
+.sum-t{font-size:15px;color:var(--text2);line-height:1.4;}
+.sum-t span{display:block;font-size:12px;color:var(--text3);margin-top:4px;line-height:1.5;}
+
+/* ── AVISO ── */
+.aviso{padding:100px 32px;text-align:center;background:var(--bg0);}
+.aviso-text{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,5vw,52px);font-weight:900;color:var(--text1);max-width:800px;margin:0 auto;line-height:1.15;}
+.aviso-text .dim{opacity:0.28;}
+.aviso-sub{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-top:28px;}
+
+/* ── AUTOR ── */
+.autor-sec{padding:100px 32px;background:var(--bg1);border-top:0.5px solid var(--border);}
+.autor-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:72px;align-items:start;}
+.autor-mono{width:180px;height:180px;border:0.5px solid var(--borderb);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.autor-mono::before{content:'';position:absolute;width:calc(100% - 14px);height:calc(100% - 14px);border:0.5px solid var(--border);}
+.autor-init{font-family:'Playfair Display',Georgia,serif;font-size:64px;font-weight:900;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-4px;}
+.autor-name{font-family:'Playfair Display',Georgia,serif;font-size:clamp(26px,4vw,44px);font-weight:700;color:var(--text1);margin-bottom:6px;margin-top:18px;}
+.autor-role{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--g3);margin-bottom:28px;font-weight:700;}
+.autor-bio{font-size:16px;color:var(--text2);line-height:1.9;margin-bottom:24px;}
+.autor-q{font-family:'Playfair Display',Georgia,serif;font-size:16px;font-style:italic;color:var(--g4);border-left:2px solid var(--g4);padding-left:20px;line-height:1.7;}
+
+/* ── CTA FINAL ── */
+.cta-sec{padding:120px 32px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 110%,rgba(200,160,40,0.1) 0%,transparent 70%);}
+.cta-pre{font-family:'Playfair Display',Georgia,serif;font-size:clamp(15px,2.5vw,22px);font-weight:400;font-style:italic;color:var(--text2);letter-spacing:2px;margin-bottom:4px;}
+.cta-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(60px,13vw,128px);font-weight:900;line-height:0.9;letter-spacing:-3px;background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 40%,var(--g1) 65%,var(--g3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0;}
+.cta-tag{font-size:clamp(9px,1.8vw,12px);font-weight:700;letter-spacing:clamp(3px,1vw,5px);text-transform:uppercase;color:var(--text3);margin-bottom:0;}
+.price-val{font-family:'Playfair Display',Georgia,serif;font-size:clamp(48px,9vw,96px);font-weight:900;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1;margin-bottom:8px;}
+.price-note{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--text3);}
+.perks{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;margin:36px 0 52px;}
+.perk{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:8px;}
+.perk::before{content:'◆';font-size:6px;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ── FOOTER ── */
+footer{padding:44px 32px;text-align:center;border-top:0.5px solid var(--border);}
+.foot-orn{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px;}
+.foot-orn .dl{height:1px;width:70px;background:linear-gradient(90deg,transparent,var(--g4));}
+.foot-orn .dr{height:1px;width:70px;background:linear-gradient(90deg,var(--g4),transparent);}
+.foot-orn .dd{width:6px;height:6px;transform:rotate(45deg);background:linear-gradient(135deg,var(--g2),var(--g4));}
+footer p{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--g5);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .pillars,.triade-books{grid-template-columns:1fr;}
+  .prec-grid{grid-template-columns:1fr;}
+  .prec{border-right:none!important;}
+  .prec:last-child{border-bottom:none!important;}
+  .prec:nth-last-child(-n+2){border-bottom:0.5px solid var(--border)!important;}
+  .prec:last-child{border-bottom:none!important;}
+  .sumario{grid-template-columns:1fr;}
+  .sum-item{border-right:none!important;}
+  .sum-item:nth-last-child(-n+2){border-bottom:0.5px solid var(--border)!important;}
+  .sum-item:last-child{border-bottom:none!important;}
+  .impact-inner{grid-template-columns:1fr 1fr;}
+  .impact-item:nth-child(2){border-right:none;}
+  .impact-item:nth-child(3){border-right:0.5px solid var(--border);}
+  .autor-inner{grid-template-columns:1fr;gap:36px;}
+  .autor-mono{width:120px;height:120px;}
+  .autor-init{font-size:44px;}
+  .cta-group{flex-direction:column;align-items:stretch;}
+  .btn-primary,.btn-secondary{text-align:center;}
+  .band-text{letter-spacing:3px;}
+}
+</style>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Adriano Benedet · Volume III da Coleção</p>
+
+  <p class="hero-pre serif">manual do</p>
+  <h1 class="hero-main serif">Negociador</h1>
+
+  <div class="sep">
+    <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div>
+  </div>
+  <p class="hero-tag">79 Preceitos &nbsp;·&nbsp; Roy Cohn &nbsp;·&nbsp; Donald Trump</p>
+  <div class="sep">
+    <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div>
+  </div>
+
+  <p class="hero-statement">
+    O mundo não negocia com quem é bonzinho.<br>
+    O mundo negocia com quem é <em>FORTE.</em>
+  </p>
+  <p class="hero-sub">Este livro não é sobre ética. É sobre vencer.</p>
+
+  <div class="cta-group">
+    <a class="btn-primary" href="#">Quero o Manual</a>
+    <a class="btn-secondary" href="#">Ver o que está dentro</a>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band">
+  <p class="band-text">79 preceitos &nbsp;·&nbsp; scripts prontos &nbsp;·&nbsp; checklists &nbsp;·&nbsp; resultados no primeiro dia</p>
+</div>
+
+<!-- QUOTE -->
+<section class="quote-sec">
+  <span class="quote-mark serif">"</span>
+  <p class="quote-main serif">
+    Se você veio buscar técnicas de <strong>ganha-ganha,</strong><br>feche esta página agora.
+  </p>
+  <div class="gold-line" style="width:160px;margin:28px auto 0;"></div>
+  <p class="quote-attr">Adriano Benedet — Prefácio do Manual do Negociador</p>
+</section>
+
+<!-- O QUE É -->
+<div style="background:var(--bg0);border-top:0.5px solid var(--border);">
+<div class="sec">
+  <div class="sec-hd">
+    <span class="eyebrow">O material</span>
+    <h2 class="sec-title serif">Décadas de estudo.<br><span class="g">79 preceitos.</span> Um manual.</h2>
+    <p class="sec-body">Roy Cohn foi o advogado mais temido da América. Mentor de Donald Trump, venceu casos que ninguém achava possíveis — e deixou regras que Trump aplicou em bilhões de dólares em negócios.<br><br>Agora, pela primeira vez, esses <strong>79 preceitos estão reunidos em um único lugar</strong> — com aplicação prática, scripts prontos e um método que você usa no mesmo dia.</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num serif">30</div>
+      <div class="pillar-lbl">Preceitos</div>
+      <div class="pillar-name serif">Roy Cohn</div>
+      <div class="pillar-desc">O Mentor. O homem que ensinou Trump a negociar. Ataque primeiro. Nunca admita derrota. Sempre reivindique a vitória — mesmo quando perde.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num serif">49</div>
+      <div class="pillar-lbl">Preceitos</div>
+      <div class="pillar-name serif">Donald Trump</div>
+      <div class="pillar-desc">O Aprendiz que superou o mestre. De The Art of the Deal ao The Art of the Comeback. Pense grande. Use a alavancagem. Proteja o lado negativo.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num serif" style="font-size:56px;padding-top:12px;">+</div>
+      <div class="pillar-lbl">Bônus</div>
+      <div class="pillar-name serif">Aplicação Prática</div>
+      <div class="pillar-desc">Scripts por situação. Tabela de ancoragem. Checklist pré-negociação. Exemplos reais de imóvel, carro, aumento e renegociação de dívida.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- IMPACT -->
+<div class="impact">
+  <div class="impact-inner">
+    <div class="impact-item"><span class="impact-num serif">79</span><span class="impact-lbl">Preceitos testados</span></div>
+    <div class="impact-item"><span class="impact-num serif">6</span><span class="impact-lbl">Scripts prontos</span></div>
+    <div class="impact-item"><span class="impact-num serif">3</span><span class="impact-lbl">Volumes da coleção</span></div>
+    <div class="impact-item"><span class="impact-num serif">1</span><span class="impact-lbl">Dia para aplicar</span></div>
+  </div>
+</div>
+
+<!-- PRECEITOS -->
+<div style="background:var(--bg1);border-top:0.5px solid var(--border);">
+<div class="sec">
+  <div class="sec-hd">
+    <span class="eyebrow">Amostra exclusiva</span>
+    <h2 class="sec-title serif">Seis preceitos que vão<br><span class="g">mudar sua postura</span> agora</h2>
+    <p class="sec-body">Apenas seis dos 79. Leia com atenção — você vai perceber quantas negociações já perdeu por não saber disso.</p>
+  </div>
+  <div class="prec-grid">
+    <div class="prec">
+      <div class="prec-hd"><span class="prec-code">#001</span><div class="prec-rule"></div></div>
+      <h3 class="prec-title serif">Ataque primeiro. Sempre.</h3>
+      <p class="prec-body">Quem define o tom define o resultado. <strong>A iniciativa é poder.</strong> Quem espera o outro lado falar primeiro já está em desvantagem.</p>
+    </div>
+    <div class="prec">
+      <div class="prec-hd"><span class="prec-code">#007</span><div class="prec-rule"></div></div>
+      <h3 class="prec-title serif">Nunca admita derrota.</h3>
+      <p class="prec-body">Mesmo quando você perdeu, <strong>reframe a narrativa.</strong> A percepção de vitória tem valor real — e você pode construí-la mesmo saindo de baixo.</p>
+    </div>
+    <div class="prec">
+      <div class="prec-hd"><span class="prec-code">#018</span><div class="prec-rule"></div></div>
+      <h3 class="prec-title serif">Pense grande. Peça muito mais.</h3>
+      <p class="prec-body">Ancoragem não é ganância — é <strong>posicionamento estratégico.</strong> Quem pede mais recebe mais. Quem pede pouco sinaliza fraqueza.</p>
+    </div>
+    <div class="prec">
+      <div class="prec-hd"><span class="prec-code">#031</span><div class="prec-rule"></div></div>
+      <h3 class="prec-title serif">O silêncio é uma arma.</h3>
+      <p class="prec-body">Depois de fazer sua proposta, cale-se. <strong>Quem fala primeiro depois do silêncio, cede primeiro.</strong> Treine isso. Vai doer no começo.</p>
+    </div>
+    <div class="prec">
+      <div class="prec-hd"><span class="prec-code">#044</span><div class="prec-rule"></div></div>
+      <h3 class="prec-title serif">Fale só com quem decide.</h3>
+      <p class="prec-body">Não perca tempo com intermediários. <strong>Vá direto à fonte do poder de decisão.</strong> Negociar com quem precisa levar pro chefe é perda de energia.</p>
+    </div>
+    <div class="prec">
+      <div class="prec-hd"><span class="prec-code">#066</span><div class="prec-rule"></div></div>
+      <h3 class="prec-title serif">Proteja o lado negativo.</h3>
+      <p class="prec-body">Antes de sonhar com o ganho máximo, <strong>garanta que você sobrevive ao pior cenário.</strong> Quem não tem Plan B não tem poder nenhum.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TRÍADE -->
+<div class="triade-wrap">
+  <div class="triade-inner">
+    <span class="eyebrow" style="margin-bottom:18px;">Coleção completa</span>
+    <h2 class="sec-title serif">A Tríade <span class="g">está completa.</span></h2>
+    <p class="sec-body">Três manuais. Três dimensões de poder. Riqueza, proteção e negociação — o triângulo que separa quem acumula de quem apenas sobrevive.</p>
+    <div class="triade-books">
+      <div class="tbook">
+        <div class="tbook-vol">Volume I</div>
+        <div class="tbook-roman serif">I</div>
+        <div class="tbook-name serif">Manual da Riqueza</div>
+        <div class="tbook-desc">Os preceitos de Salomão. O que acumular e como pensar sobre dinheiro.</div>
+      </div>
+      <div class="tbook">
+        <div class="tbook-vol">Volume II</div>
+        <div class="tbook-roman serif">II</div>
+        <div class="tbook-name serif">Manual do Devedor</div>
+        <div class="tbook-desc">A Lei como escudo. Como proteger o que você construiu.</div>
+      </div>
+      <div class="tbook cur">
+        <div class="tbook-badge">Este livro</div>
+        <div class="tbook-vol">Volume III</div>
+        <div class="tbook-roman serif">III</div>
+        <div class="tbook-name serif">Manual do Negociador</div>
+        <div class="tbook-desc">79 preceitos para conseguir o que você quer. A tríade está completa.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMÁRIO -->
+<div style="background:var(--bg0);border-top:0.5px solid var(--border);">
+<div class="sec">
+  <div class="sec-hd">
+    <span class="eyebrow">Estrutura do manual</span>
+    <h2 class="sec-title serif">O que você vai <span class="g">dominar</span></h2>
+  </div>
+  <div class="sumario">
+    <div class="sum-item"><span class="sum-n">01</span><span class="sum-t">Os 30 Preceitos de Roy Cohn<span>O mentor. O homem mais temido de Washington.</span></span></div>
+    <div class="sum-item"><span class="sum-n">02</span><span class="sum-t">Os 49 Preceitos de Donald Trump<span>Do The Art of the Deal ao The Art of the Comeback.</span></span></div>
+    <div class="sum-item"><span class="sum-n">03</span><span class="sum-t">Técnicas de Ancoragem e Silêncio<span>As duas ferramentas mais poderosas — e mais ignoradas.</span></span></div>
+    <div class="sum-item"><span class="sum-n">04</span><span class="sum-t">Scripts prontos por situação<span>Aumento salarial, compra, renegociação de dívida.</span></span></div>
+    <div class="sum-item"><span class="sum-n">05</span><span class="sum-t">Tabela de preços de abertura<span>Quanto pedir em cada situação — com fórmula.</span></span></div>
+    <div class="sum-item"><span class="sum-n">06</span><span class="sum-t">Checklist pré-negociação<span>5 minutos antes de qualquer mesa. Para imprimir.</span></span></div>
+    <div class="sum-item"><span class="sum-n">07</span><span class="sum-t">Como negociar imóvel e carro<span>Exemplos reais. Valores reais. Resultado garantido.</span></span></div>
+    <div class="sum-item"><span class="sum-n">08</span><span class="sum-t">Renegociação de dívidas<span>Como chegar em 20% do valor original — de verdade.</span></span></div>
+  </div>
+</div>
+</div>
+
+<!-- AVISO -->
+<section class="aviso">
+  <div class="gold-line" style="width:220px;margin:0 auto 60px;"></div>
+  <h2 class="aviso-text serif">
+    <span class="dim">Você pode continuar</span><br>
+    saindo perdendo.<br>
+    <span class="dim">Ou pode parar de ser</span><br>
+    o otário da vez.
+  </h2>
+  <div class="gold-line" style="width:220px;margin:60px auto 0;"></div>
+  <p class="aviso-sub">A escolha — como sempre — é sua.</p>
+</section>
+
+<!-- AUTOR -->
+<section class="autor-sec">
+  <div class="autor-inner">
+    <div>
+      <div class="autor-mono">
+        <span class="autor-init serif">AB</span>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow" style="margin-bottom:14px;">O autor</span>
+      <h2 class="autor-name serif">Adriano Benedet</h2>
+      <p class="autor-role">Autor da Série de Manuais Práticos</p>
+      <p class="autor-bio">Benedet não vende teoria. Não tem MBA de universidade europeia nem foi palestrante no TEDx. O que ele tem é décadas estudando os sistemas que realmente funcionam no campo — e a honestidade de apresentá-los sem filtro moral.</p>
+      <p class="autor-bio">O Manual do Negociador é o terceiro volume de uma coleção que já ajudou leitores a renegociar dívidas com 80% de desconto, pedir aumentos e fechar negócios com vantagem real.</p>
+      <div class="gold-line" style="width:90px;margin:26px 0;"></div>
+      <p class="autor-q serif">"Você decide o que fazer com esses preceitos.<br>Use-os com sabedoria. Use-os com cuidado.<br>Mas <strong>USE-OS.</strong>"</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-sec">
+  <span class="eyebrow" style="margin-bottom:32px;">Adquira agora</span>
+
+  <p class="cta-pre serif">manual do</p>
+  <h2 class="cta-title serif">Negociador</h2>
+
+  <div class="sep" style="margin:24px auto;">
+    <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div>
+  </div>
+  <p class="cta-tag">79 Preceitos &nbsp;·&nbsp; Roy Cohn &nbsp;·&nbsp; Donald Trump</p>
+  <div class="sep" style="margin:24px auto 56px;">
+    <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line r"></div>
+  </div>
+
+  <div style="margin-bottom:48px;">
+    <p style="font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">de <span style="text-decoration:line-through;color:var(--g4);">R$ 399,00</span> por apenas</p>
+    <span class="price-val serif">R$ 129,90</span>
+    <p class="price-note">acesso imediato · formato digital</p>
+  </div>
+
+  <div class="perks">
+    <span class="perk">[Garantia]</span>
+    <span class="perk">[Formato PDF ou Físico]</span>
+    <span class="perk">[Bônus]</span>
+  </div>
+
+  <a class="btn-primary" href="#" style="font-size:12px;padding:20px 68px;letter-spacing:5px;">Quero Vencer</a>
+
+  <div class="gold-line" style="width:220px;margin:60px auto 0;"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-orn">
+    <div class="dl"></div><div class="dd"></div><div class="dr"></div>
+  </div>
+  <p>© Adriano Benedet · Todos os direitos reservados</p>
+</footer>
+</html>
