@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>O Jornal do Speculator · Adriano Benedet, MMXXVI</title>
-    <!-- Fontes de época: serifadas e Impressão -->
+    <title>Jornal do Speculator · Sombrio SC · Adriano Benedet</title>
+    <!-- Fontes de época -->
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -26,7 +26,6 @@
             color: #1f1e1a;
         }
 
-        /* container jornalístico */
         .newspaper {
             max-width: 1300px;
             margin: 0 auto;
@@ -35,7 +34,7 @@
             border: 1px solid #d6cfbc;
         }
 
-        /* header vintage */
+        /* cabeçalho vintage */
         .vintage-header {
             padding: 2rem 2.5rem 1rem 2.5rem;
             border-bottom: 3px double #3a3a2e;
@@ -82,7 +81,7 @@
             color: #4c452e;
         }
 
-        /* grade de métricas estilo cotação */
+        /* métricas em linha */
         .metrics-row {
             display: flex;
             flex-wrap: wrap;
@@ -115,7 +114,7 @@
             color: #9b8f70;
         }
 
-        /* colunas à moda antiga */
+        /* duas colunas de texto */
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -147,6 +146,19 @@
             margin-right: 8px;
             color: #6a5a3a;
         }
+        hr.dashed {
+            border: none;
+            border-top: 1px dashed #d6cfbc;
+            margin: 0.5rem 0;
+        }
+        .author-signature {
+            font-family: 'IM Fell English', serif;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            text-align: right;
+            border-top: 1px solid #e2dbc8;
+            padding-top: 0.8rem;
+        }
 
         /* gráficos */
         .chart-section {
@@ -173,7 +185,7 @@
             width: 100%;
         }
 
-        /* tabela  */
+        /* tabela */
         .table-wrapper {
             padding: 1rem 2rem 2.5rem 2.5rem;
         }
@@ -187,7 +199,6 @@
             font-family: 'Inter', sans-serif;
             text-transform: uppercase;
             font-weight: 500;
-            letter-spacing: 0.5px;
         }
         .pnl-positive { color: #2c6e2c; font-weight: 600; }
         .pnl-negative { color: #a65353; font-weight: 600; }
@@ -214,11 +225,6 @@
             .newspaper-name { font-size: 2.4rem; }
             .vintage-header, .two-columns, .chart-section, .table-wrapper { padding-left: 1.2rem; padding-right: 1.2rem; }
         }
-        hr.dashed {
-            border: none;
-            border-top: 1px dashed #d6cfbc;
-            margin: 0.5rem 0;
-        }
     </style>
 </head>
 <body>
@@ -227,7 +233,7 @@
         <div class="newspaper-name">The Financial Speculator</div>
         <div class="edition">
             <span>Vol. III · Nº IX</span>
-            <span>LONDRES · SÃO PAULO · LUXEMBURGO</span>
+            <span>SOMBRIO – SANTA CATARINA</span>
             <span>MAIO · ANNO DOMINI 2026</span>
         </div>
         <div class="headline">ESTUDO REAL DE ESTRATÉGIAS: ADRIANO BENEDET REVELA OS NÚMEROS</div>
@@ -238,26 +244,31 @@
         </div>
     </div>
 
-    <!-- métricas principais estilo jornal -->
+    <!-- métricas principais -->
     <div class="metrics-row" id="metricsPanel"></div>
 
-    <!-- colunas estilo jornal: análise e contexto -->
+    <!-- colunas: método e análise -->
     <div class="two-columns">
         <div class="column-block">
-            <div class="column-title">⚜️ O MÉTODO E A EXECUÇÃO</div>
-            <p class="insight-paragraph dropcap"><span class="dropcap">E</span>m sequência de nove dias de negociação ativa, o sistema conduzido pelo speculator Adriano Benedet produziu um resultado líquido de +$222,70 sobre uma conta de $1.500, atingindo um fator de lucro de 1,73. Com 93 trades registrados entre 27 de abril e 7 de maio, a abordagem caracteriza-se por win rate moderado (32,3%) mas com recompensa média 3,6 vezes superior ao risco médio assumido. As operações abrangeram cinco instrumentos: BTC, EURUSD, GOLD, NQ e WIN, predominando entradas intraday com stops ajustados.</p>
-            <p class="insight-paragraph">O maior drawdown registrado intra-ciclo foi de -$55, equivalente a -3,67% do capital base, enquanto o maior ganho diário atingiu +$90 no dia 7 de maio — impulsionado por um trade de ouro de +$55. O estudo reforça a viabilidade de estratégias assimétricas mesmo com taxa de acerto inferior a 40%, desde que a gestão de risco preserve o patrimônio.</p>
+            <div class="column-title">⚜️ O MÉTODO: FLUXO, ESTRUTURA DE LOTE E ESCALA</div>
+            <p class="insight-paragraph dropcap"><span class="dropcap">O</span> setup desenvolvido por Benedet não se apoia em indicadores defasados, mas sim na tríade <strong>análise de fluxo (order flow) + estrutura de lote em conjunto + escala</strong>. A leitura do tape identifica absorção, agressividade dos participantes e desequilíbrios no book de ofertas. A partir daí, as posições são construídas com lotes fracionados, ajustados dinamicamente conforme o fluxo confirma ou invalida a tese. A escala permite entrar parcialmente, adicionar nas quebras e reduzir exposição em momentos de incerteza, gerando uma assimetria positiva.</p>
+            <p class="insight-paragraph">Esta arquitetura explica números como o win rate moderado (32,3%) e o expressivo fator de lucro (1,73): pequenas perdas iniciais são naturais ao tentar capturar direção, mas as operações vencedoras, potencializadas pela escala, atingem retornos médios 3,6 vezes superiores às perdas. O maior drawdown observado (-$55, ou -3,67% da conta) é inteiramente administrável dentro da lógica de risco.</p>
+            <p class="insight-paragraph">O resultado líquido de +$222,70 sobre $1.500 em apenas nove dias confirma a robustez do método, mesmo em condições de mercado adversas — como demonstram os 13 losses consecutivos em 30 de abril, seguidos de recuperação consistente.</p>
         </div>
         <div class="column-block">
-            <div class="column-title">📜 NOTAS DO EDITOR</div>
-            <p class="insight-paragraph">Apesar da robustez estatística, observam-se períodos de concentração de perdas (13 trades negativos consecutivos em 30 de abril). Especialistas sugerem a implementação de um filtro de pausa diária e a separação por sub-estratégias. Ativos como NQ apresentaram menor consistência (P&L final +$18,5), enquanto EURUSD e GOLD lideraram o ranking de performance.</p>
-            <p class="insight-paragraph">O diário de bordo original, exportado automaticamente, serviu de base para esta análise. A ausência de rótulos de estratégia impede a identificação de setups específicos, mas o conjunto evidencia resiliência e edge quantificável.</p>
+            <div class="column-title">📜 NOTAS DO EDITOR & EXECUÇÃO</div>
+            <p class="insight-paragraph">Todos os 93 trades foram executados ao vivo, sem filtro de backtest. A disciplina de registro (data, hora, ativo e P&L) permitiu esta análise transparente. Ativos como EURUSD e GOLD lideraram a performance, enquanto NQ mostrou menor consistência, sugerindo possível ajuste de filtros.</p>
+            <p class="insight-paragraph">A estrutura de lotes usada respeitou o capital de $1.500, com risco por trade médio de 0,32% da conta (perda média -$4,85). A vantagem competitiva está na combinação de fluxo (tape reading) com a flexibilidade da escala — entradas parciais que permitem “sentir” o mercado antes de comprometer o risco total.</p>
             <hr class="dashed">
-            <p style="font-size: 0.75rem; font-style: italic;">“O sucesso nos mercados não exige precisão divina, mas sim disciplina na adversidade e recompensa que justifique o risco.” — A. Benedet</p>
+            <div class="author-signature">
+                ✍️ Adriano Benedet<br>
+                Sombrio – Santa Catarina, maio de 2026<br>
+                <span style="font-size: 0.7rem;">Estudo original registrado em diário de bordo · AB_27-04-2026</span>
+            </div>
         </div>
     </div>
 
-    <!-- Gráficos de equity e ativos -->
+    <!-- gráficos -->
     <div class="chart-section">
         <div class="chart-title">📈 EVOLUÇÃO DA EQUITY (SEQUÊNCIA CRONOLÓGICA DOS 93 TRADES)</div>
         <div class="chart-container">
@@ -269,7 +280,7 @@
         </div>
     </div>
 
-    <!-- Tabela interativa -->
+    <!-- tabela interativa -->
     <div class="table-wrapper">
         <div class="column-title" style="margin-bottom: 1rem;">📋 REGISTRO COMPLETO DAS OPERAÇÕES</div>
         <table id="tradesTable" class="display" style="width:100%">
@@ -278,18 +289,18 @@
             </thead>
             <tbody id="tableBody"></tbody>
         </table>
-        <p style="font-size: 0.7rem; margin-top: 0.8rem; font-family: monospace;">† Fonte: arquivo AB_27-04-2026 (3).txt · todas as operações registradas manualmente durante a execução real.</p>
+        <p style="font-size: 0.7rem; margin-top: 0.8rem; font-family: monospace;">† Fonte: arquivo AB_27-04-2026 (3).txt · todas as operações registradas em tempo real conforme método fluxo+escala.</p>
     </div>
 
     <footer>
-        © 2026 Adriano Benedet — Documento de análise quantitativa. Proibida a reprodução sem autorização expressa.<br>
-        Capital base: US$ 1.500 · Risco máximo registrado: -3,67% · Lucro líquido: 14,85% em 9 pregões.
+        © 2026 Adriano Benedet — Sombrio, SC. Análise quantitativa de estratégia real. Capital base: US$ 1.500 · Risco máximo: -3,67% · Lucro líquido: 14,85% em 9 pregões.<br>
+        Proibida a reprodução sem autorização expressa do autor.
     </footer>
 </div>
 
 <script>
     (function() {
-        // ---------- BASE DE DADOS INTEGRAL (93 TRADES) ----------
+        // ---------- TODOS OS 93 TRADES EXTRAÍDOS DO LOG ORIGINAL ----------
         const rawTrades = [
             // 27/04
             { data: "2026-04-27", hora: "12:36", ativo: "BTC", pnl: -5.50 }, { data: "2026-04-27", hora: "12:36", ativo: "BTC", pnl: -12.00 }, { data: "2026-04-27", hora: "12:36", ativo: "BTC", pnl: 30.00 },
@@ -336,7 +347,7 @@
             { data: "2026-05-07", hora: "14:28", ativo: "EURUSD", pnl: 30.00 }
         ];
 
-        // Calcular equity acumulada
+        // equity acumulada
         let cum = 0;
         const tradesWithEquity = rawTrades.map(t => {
             cum += t.pnl;
@@ -353,25 +364,25 @@
         const profitFactor = grossWin / grossLoss;
         const avgTrade = totalPnL / totalTrades;
         const maxDrawdownRaw = Math.min(...tradesWithEquity.map(t => t.equity), 0) * -1;
-        const bestTrade = Math.max(...tradesWithEquity.map(t => t.pnl));
         const capitalBase = 1500;
         const pnlPercent = (totalPnL / capitalBase) * 100;
         const maxDDpercent = (maxDrawdownRaw / capitalBase) * 100;
         const avgWin = grossWin / wins;
         const avgLoss = grossLoss / losses;
+        const rrRatio = avgWin / avgLoss;
 
-        // Preencher métricas do topo
+        // montar métricas
         const metricsHtml = `
             <div class="metric-item"><div class="metric-value">+$${totalPnL.toFixed(2)}</div><div class="metric-label">LUCRO LÍQUIDO</div><div class="metric-note">+${pnlPercent.toFixed(2)}% sobre $1.5k</div></div>
             <div class="metric-item"><div class="metric-value">${totalTrades}</div><div class="metric-label">OPERAÇÕES</div><div class="metric-note">méd. $${avgTrade.toFixed(2)}/trade</div></div>
             <div class="metric-item"><div class="metric-value">${winRate.toFixed(1)}%</div><div class="metric-label">WIN RATE</div><div class="metric-note">${wins}W · ${losses}L</div></div>
             <div class="metric-item"><div class="metric-value">${profitFactor.toFixed(2)}</div><div class="metric-label">PROFIT FACTOR</div><div class="metric-note">Gross win $${grossWin.toFixed(0)}</div></div>
             <div class="metric-item"><div class="metric-value">-$${maxDrawdownRaw.toFixed(0)}</div><div class="metric-label">MAIOR DRAWDOWN</div><div class="metric-note">-${maxDDpercent.toFixed(2)}% da conta</div></div>
-            <div class="metric-item"><div class="metric-value">${(avgWin/avgLoss).toFixed(2)}x</div><div class="metric-label">R:R MÉDIO</div><div class="metric-note">avg win $${avgWin.toFixed(2)} / loss $${avgLoss.toFixed(2)}</div></div>
+            <div class="metric-item"><div class="metric-value">${rrRatio.toFixed(2)}x</div><div class="metric-label">R:R MÉDIO</div><div class="metric-note">avg win $${avgWin.toFixed(2)} / loss $${avgLoss.toFixed(2)}</div></div>
         `;
         document.getElementById('metricsPanel').innerHTML = metricsHtml;
 
-        // Gráfico de Equity
+        // Gráfico equity
         const equityCtx = document.getElementById('equityChart').getContext('2d');
         new Chart(equityCtx, {
             type: 'line',
@@ -394,7 +405,7 @@
             options: { responsive: true, plugins: { tooltip: { callbacks: { label: (ctx) => `$${ctx.raw.toFixed(2)}` } } } }
         });
 
-        // Preencher tabela com DataTable
+        // Tabela
         const tbody = document.getElementById('tableBody');
         tradesWithEquity.forEach(t => {
             const pnlClass = t.pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
