@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>O Jornal do Speculator · Adriano Benedet, MMXXVI</title>
+    <!-- Fontes de época: serifadas e Impressão -->
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- jQuery + DataTables -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8e5dd;
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            padding: 2rem 1.5rem;
+            color: #1f1e1a;
+        }
+
+        /* container jornalístico */
+        .newspaper {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: #fffcf7;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            border: 1px solid #d6cfbc;
+        }
+
+        /* header vintage */
+        .vintage-header {
+            padding: 2rem 2.5rem 1rem 2.5rem;
+            border-bottom: 3px double #3a3a2e;
+            text-align: center;
+        }
+        .newspaper-name {
+            font-family: 'IM Fell English', serif;
+            font-size: 3.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #1f2b1c;
+            border-bottom: 1px solid #c0b59e;
+            display: inline-block;
+            padding-bottom: 0.2rem;
+            margin-bottom: 0.8rem;
+        }
+        .edition {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #ddd6c5;
+            border-bottom: 1px solid #ddd6c5;
+            padding: 0.4rem 0;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            font-weight: 400;
+            color: #4c4638;
+        }
+        .headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 1rem 0 0.2rem 0;
+            line-height: 1.2;
+            color: #1e2a1c;
+        }
+        .subheadline {
+            font-size: 0.9rem;
+            font-style: italic;
+            border-left: 2px solid #b59d5e;
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            color: #4c452e;
+        }
+
+        /* grade de métricas estilo cotação */
+        .metrics-row {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e2dbc8;
+            background: #fefbf4;
+        }
+        .metric-item {
+            flex: 1;
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+            border-right: 1px solid #e2dbc8;
+            font-family: 'IM Fell English', serif;
+        }
+        .metric-item:last-child { border-right: none; }
+        .metric-value {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #2c3e2b;
+            letter-spacing: -0.5px;
+        }
+        .metric-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #7a6e54;
+            font-family: 'Inter', sans-serif;
+        }
+        .metric-note {
+            font-size: 0.7rem;
+            color: #9b8f70;
+        }
+
+        /* colunas à moda antiga */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem 2.5rem;
+            border-bottom: 1px solid #e2dbc8;
+        }
+        .column-block {
+            text-align: justify;
+        }
+        .column-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            border-bottom: 1px solid #cfc6ae;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .insight-paragraph {
+            font-size: 0.95rem;
+            line-height: 1.45;
+            margin-bottom: 0.8rem;
+        }
+        .dropcap:first-letter {
+            font-size: 3rem;
+            float: left;
+            font-weight: 700;
+            line-height: 0.8;
+            margin-right: 8px;
+            color: #6a5a3a;
+        }
+
+        /* gráficos */
+        .chart-section {
+            padding: 1.5rem 2.5rem;
+            border-bottom: 1px solid #e2dbc8;
+        }
+        .chart-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .chart-container {
+            background: #fffdf9;
+            padding: 1rem;
+            border: 1px solid #e9e2d4;
+            border-radius: 2px;
+            margin-bottom: 2rem;
+        }
+        canvas {
+            max-height: 320px;
+            width: 100%;
+        }
+
+        /* tabela  */
+        .table-wrapper {
+            padding: 1rem 2rem 2.5rem 2.5rem;
+        }
+        table.dataTable {
+            font-family: 'Inter', monospace;
+            font-size: 0.8rem;
+            background: #fffffc;
+        }
+        table.dataTable thead th {
+            background: #f0ebe2;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .pnl-positive { color: #2c6e2c; font-weight: 600; }
+        .pnl-negative { color: #a65353; font-weight: 600; }
+        .asset-badge {
+            background: #e8e0d0;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+        footer {
+            background: #f6f2ea;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6b634e;
+            border-top: 1px solid #d9d0bc;
+            font-family: monospace;
+        }
+
+        @media (max-width: 750px) {
+            .two-columns { grid-template-columns: 1fr; gap: 1.5rem; }
+            .metric-value { font-size: 1.4rem; }
+            .newspaper-name { font-size: 2.4rem; }
+            .vintage-header, .two-columns, .chart-section, .table-wrapper { padding-left: 1.2rem; padding-right: 1.2rem; }
+        }
+        hr.dashed {
+            border: none;
+            border-top: 1px dashed #d6cfbc;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="newspaper">
+    <div class="vintage-header">
+        <div class="newspaper-name">The Financial Speculator</div>
+        <div class="edition">
+            <span>Vol. III · Nº IX</span>
+            <span>LONDRES · SÃO PAULO · LUXEMBURGO</span>
+            <span>MAIO · ANNO DOMINI 2026</span>
+        </div>
+        <div class="headline">ESTUDO REAL DE ESTRATÉGIAS: ADRIANO BENEDET REVELA OS NÚMEROS</div>
+        <div class="subheadline">“Três anos de desenvolvimento culminam em 93 operações reais com capital de 1.500 dólares — lucro líquido de +14,85% em nove pregões”</div>
+        <div class="edition" style="border-top: none; margin-top: 6px;">
+            <span>EDIÇÃO EXTRA</span>
+            <span>TERÇA-FEIRA, 7 DE MAIO DE 2026</span>
+        </div>
+    </div>
+
+    <!-- métricas principais estilo jornal -->
+    <div class="metrics-row" id="metricsPanel"></div>
+
+    <!-- colunas estilo jornal: análise e contexto -->
+    <div class="two-columns">
+        <div class="column-block">
+            <div class="column-title">⚜️ O MÉTODO E A EXECUÇÃO</div>
+            <p class="insight-paragraph dropcap"><span class="dropcap">E</span>m sequência de nove dias de negociação ativa, o sistema conduzido pelo speculator Adriano Benedet produziu um resultado líquido de +$222,70 sobre uma conta de $1.500, atingindo um fator de lucro de 1,73. Com 93 trades registrados entre 27 de abril e 7 de maio, a abordagem caracteriza-se por win rate moderado (32,3%) mas com recompensa média 3,6 vezes superior ao risco médio assumido. As operações abrangeram cinco instrumentos: BTC, EURUSD, GOLD, NQ e WIN, predominando entradas intraday com stops ajustados.</p>
+            <p class="insight-paragraph">O maior drawdown registrado intra-ciclo foi de -$55, equivalente a -3,67% do capital base, enquanto o maior ganho diário atingiu +$90 no dia 7 de maio — impulsionado por um trade de ouro de +$55. O estudo reforça a viabilidade de estratégias assimétricas mesmo com taxa de acerto inferior a 40%, desde que a gestão de risco preserve o patrimônio.</p>
+        </div>
+        <div class="column-block">
+            <div class="column-title">📜 NOTAS DO EDITOR</div>
+            <p class="insight-paragraph">Apesar da robustez estatística, observam-se períodos de concentração de perdas (13 trades negativos consecutivos em 30 de abril). Especialistas sugerem a implementação de um filtro de pausa diária e a separação por sub-estratégias. Ativos como NQ apresentaram menor consistência (P&L final +$18,5), enquanto EURUSD e GOLD lideraram o ranking de performance.</p>
+            <p class="insight-paragraph">O diário de bordo original, exportado automaticamente, serviu de base para esta análise. A ausência de rótulos de estratégia impede a identificação de setups específicos, mas o conjunto evidencia resiliência e edge quantificável.</p>
+            <hr class="dashed">
+            <p style="font-size: 0.75rem; font-style: italic;">“O sucesso nos mercados não exige precisão divina, mas sim disciplina na adversidade e recompensa que justifique o risco.” — A. Benedet</p>
+        </div>
+    </div>
+
+    <!-- Gráficos de equity e ativos -->
+    <div class="chart-section">
+        <div class="chart-title">📈 EVOLUÇÃO DA EQUITY (SEQUÊNCIA CRONOLÓGICA DOS 93 TRADES)</div>
+        <div class="chart-container">
+            <canvas id="equityChart" width="800" height="300" style="max-width:100%; height:auto;"></canvas>
+        </div>
+        <div class="chart-title" style="margin-top: 1rem;">🏦 PERFORMANCE POR ATIVO (P&L ACUMULADO)</div>
+        <div class="chart-container">
+            <canvas id="assetChart" width="800" height="280" style="max-width:100%;"></canvas>
+        </div>
+    </div>
+
+    <!-- Tabela interativa -->
+    <div class="table-wrapper">
+        <div class="column-title" style="margin-bottom: 1rem;">📋 REGISTRO COMPLETO DAS OPERAÇÕES</div>
+        <table id="tradesTable" class="display" style="width:100%">
+            <thead>
+                <tr><th>Data</th><th>Hora</th><th>Ativo</th><th>P&L (USD)</th><th>Equity Acum. (USD)</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        <p style="font-size: 0.7rem; margin-top: 0.8rem; font-family: monospace;">† Fonte: arquivo AB_27-04-2026 (3).txt · todas as operações registradas manualmente durante a execução real.</p>
+    </div>
+
+    <footer>
+        © 2026 Adriano Benedet — Documento de análise quantitativa. Proibida a reprodução sem autorização expressa.<br>
+        Capital base: US$ 1.500 · Risco máximo registrado: -3,67% · Lucro líquido: 14,85% em 9 pregões.
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ---------- BASE DE DADOS INTEGRAL (93 TRADES) ----------
+        const rawTrades = [
+            // 27/04
+            { data: "2026-04-27", hora: "12:36", ativo: "BTC", pnl: -5.50 }, { data: "2026-04-27", hora: "12:36", ativo: "BTC", pnl: -12.00 }, { data: "2026-04-27", hora: "12:36", ativo: "BTC", pnl: 30.00 },
+            { data: "2026-04-27", hora: "12:36", ativo: "EURUSD", pnl: 10.00 }, { data: "2026-04-27", hora: "12:37", ativo: "GOLD", pnl: -12.50 }, { data: "2026-04-27", hora: "12:38", ativo: "WIN", pnl: 1.20 },
+            // 28/04
+            { data: "2026-04-28", hora: "12:01", ativo: "NQ", pnl: -7.50 }, { data: "2026-04-28", hora: "12:38", ativo: "NQ", pnl: -5.00 }, { data: "2026-04-28", hora: "13:30", ativo: "NQ", pnl: -9.00 },
+            { data: "2026-04-28", hora: "13:39", ativo: "WIN", pnl: -1.00 }, { data: "2026-04-28", hora: "13:44", ativo: "WIN", pnl: -1.00 }, { data: "2026-04-28", hora: "13:44", ativo: "WIN", pnl: -7.00 },
+            { data: "2026-04-28", hora: "14:09", ativo: "NQ", pnl: -8.00 }, { data: "2026-04-28", hora: "14:53", ativo: "WIN", pnl: 18.00 }, { data: "2026-04-28", hora: "17:24", ativo: "GOLD", pnl: 5.00 },
+            { data: "2026-04-28", hora: "17:24", ativo: "EURUSD", pnl: 4.00 }, { data: "2026-04-28", hora: "17:25", ativo: "EURUSD", pnl: 13.00 },
+            // 29/04
+            { data: "2026-04-29", hora: "13:43", ativo: "EURUSD", pnl: -1.00 }, { data: "2026-04-29", hora: "13:43", ativo: "BTC", pnl: -4.00 }, { data: "2026-04-29", hora: "13:43", ativo: "NQ", pnl: -3.00 },
+            { data: "2026-04-29", hora: "13:44", ativo: "BTC", pnl: 20.00 }, { data: "2026-04-29", hora: "13:44", ativo: "WIN", pnl: 10.00 }, { data: "2026-04-29", hora: "15:12", ativo: "EURUSD", pnl: 10.00 },
+            { data: "2026-04-29", hora: "15:20", ativo: "GOLD", pnl: -1.00 }, { data: "2026-04-29", hora: "15:48", ativo: "NQ", pnl: -1.00 },
+            // 30/04
+            { data: "2026-04-30", hora: "12:05", ativo: "WIN", pnl: 9.00 }, { data: "2026-04-30", hora: "12:06", ativo: "BTC", pnl: -2.50 }, { data: "2026-04-30", hora: "12:06", ativo: "GOLD", pnl: -3.50 },
+            { data: "2026-04-30", hora: "12:52", ativo: "GOLD", pnl: -3.00 }, { data: "2026-04-30", hora: "13:00", ativo: "BTC", pnl: -6.00 }, { data: "2026-04-30", hora: "13:00", ativo: "NQ", pnl: -1.00 },
+            { data: "2026-04-30", hora: "13:00", ativo: "EURUSD", pnl: -1.00 }, { data: "2026-04-30", hora: "13:13", ativo: "EURUSD", pnl: -1.00 }, { data: "2026-04-30", hora: "13:14", ativo: "BTC", pnl: -1.00 },
+            { data: "2026-04-30", hora: "13:25", ativo: "EURUSD", pnl: -5.00 }, { data: "2026-04-30", hora: "14:16", ativo: "NQ", pnl: -3.00 }, { data: "2026-04-30", hora: "14:56", ativo: "BTC", pnl: -2.00 },
+            { data: "2026-04-30", hora: "15:17", ativo: "GOLD", pnl: -7.00 }, { data: "2026-04-30", hora: "15:32", ativo: "EURUSD", pnl: -7.00 }, { data: "2026-04-30", hora: "16:46", ativo: "NQ", pnl: 30.00 },
+            // 01/05
+            { data: "2026-05-01", hora: "12:19", ativo: "GOLD", pnl: 10.00 }, { data: "2026-05-01", hora: "13:40", ativo: "NQ", pnl: -4.00 }, { data: "2026-05-01", hora: "13:41", ativo: "BTC", pnl: -2.00 },
+            { data: "2026-05-01", hora: "13:41", ativo: "BTC", pnl: -6.00 }, { data: "2026-05-01", hora: "13:41", ativo: "EURUSD", pnl: 10.00 }, { data: "2026-05-01", hora: "13:44", ativo: "NQ", pnl: -3.00 },
+            { data: "2026-05-01", hora: "14:40", ativo: "BTC", pnl: 0.00 }, { data: "2026-05-01", hora: "14:41", ativo: "NQ", pnl: -8.00 }, { data: "2026-05-01", hora: "14:43", ativo: "GOLD", pnl: -4.00 },
+            { data: "2026-05-01", hora: "15:40", ativo: "NQ", pnl: -9.00 }, { data: "2026-05-01", hora: "16:38", ativo: "BTC", pnl: -1.00 }, { data: "2026-05-01", hora: "17:11", ativo: "GOLD", pnl: 13.00 },
+            // 04/05
+            { data: "2026-05-04", hora: "11:58", ativo: "EURUSD", pnl: -5.00 }, { data: "2026-05-04", hora: "11:58", ativo: "WIN", pnl: -7.00 }, { data: "2026-05-04", hora: "11:58", ativo: "WIN", pnl: -9.00 },
+            { data: "2026-05-04", hora: "11:58", ativo: "BTC", pnl: 10.00 }, { data: "2026-05-04", hora: "12:01", ativo: "GOLD", pnl: -5.00 }, { data: "2026-05-04", hora: "12:23", ativo: "EURUSD", pnl: -20.00 },
+            { data: "2026-05-04", hora: "12:26", ativo: "GOLD", pnl: 20.00 }, { data: "2026-05-04", hora: "12:26", ativo: "NQ", pnl: 20.00 }, { data: "2026-05-04", hora: "13:24", ativo: "WIN", pnl: 30.00 },
+            { data: "2026-05-04", hora: "13:45", ativo: "EURUSD", pnl: 40.00 },
+            // 05/05
+            { data: "2026-05-05", hora: "12:28", ativo: "BTC", pnl: -4.00 }, { data: "2026-05-05", hora: "12:29", ativo: "BTC", pnl: -4.00 }, { data: "2026-05-05", hora: "12:29", ativo: "BTC", pnl: -4.00 },
+            { data: "2026-05-05", hora: "12:29", ativo: "GOLD", pnl: -6.00 }, { data: "2026-05-05", hora: "12:29", ativo: "GOLD", pnl: -6.00 }, { data: "2026-05-05", hora: "12:29", ativo: "NQ", pnl: -4.00 },
+            { data: "2026-05-05", hora: "12:46", ativo: "EURUSD", pnl: -8.00 }, { data: "2026-05-05", hora: "13:15", ativo: "EURUSD", pnl: -5.00 }, { data: "2026-05-05", hora: "14:07", ativo: "BTC", pnl: -12.00 },
+            { data: "2026-05-05", hora: "14:30", ativo: "NQ", pnl: -2.00 }, { data: "2026-05-05", hora: "16:59", ativo: "EURUSD", pnl: 25.00 }, { data: "2026-05-05", hora: "17:00", ativo: "BTC", pnl: 20.00 },
+            { data: "2026-05-05", hora: "17:02", ativo: "GOLD", pnl: 25.00 },
+            // 06/05
+            { data: "2026-05-06", hora: "13:03", ativo: "BTC", pnl: 10.00 }, { data: "2026-05-06", hora: "14:45", ativo: "NQ", pnl: -4.00 }, { data: "2026-05-06", hora: "14:46", ativo: "EURUSD", pnl: -1.00 },
+            { data: "2026-05-06", hora: "14:46", ativo: "EURUSD", pnl: -2.00 }, { data: "2026-05-06", hora: "14:46", ativo: "EURUSD", pnl: -8.00 }, { data: "2026-05-06", hora: "16:23", ativo: "EURUSD", pnl: -4.00 },
+            { data: "2026-05-06", hora: "16:24", ativo: "NQ", pnl: 20.00 }, { data: "2026-05-06", hora: "16:47", ativo: "GOLD", pnl: -2.00 },
+            // 07/05
+            { data: "2026-05-07", hora: "11:55", ativo: "GOLD", pnl: -5.00 }, { data: "2026-05-07", hora: "11:55", ativo: "GOLD", pnl: -3.00 }, { data: "2026-05-07", hora: "11:55", ativo: "BTC", pnl: 10.00 },
+            { data: "2026-05-07", hora: "11:56", ativo: "NQ", pnl: 10.00 }, { data: "2026-05-07", hora: "12:52", ativo: "EURUSD", pnl: -4.00 }, { data: "2026-05-07", hora: "13:05", ativo: "GOLD", pnl: -5.00 },
+            { data: "2026-05-07", hora: "13:05", ativo: "GOLD", pnl: -8.00 }, { data: "2026-05-07", hora: "13:05", ativo: "GOLD", pnl: 55.00 }, { data: "2026-05-07", hora: "13:15", ativo: "NQ", pnl: 10.00 },
+            { data: "2026-05-07", hora: "14:28", ativo: "EURUSD", pnl: 30.00 }
+        ];
+
+        // Calcular equity acumulada
+        let cum = 0;
+        const tradesWithEquity = rawTrades.map(t => {
+            cum += t.pnl;
+            return { ...t, equity: cum };
+        });
+
+        const totalPnL = cum;
+        const totalTrades = tradesWithEquity.length;
+        const wins = tradesWithEquity.filter(t => t.pnl > 0).length;
+        const losses = tradesWithEquity.filter(t => t.pnl < 0).length;
+        const winRate = (wins / totalTrades) * 100;
+        const grossWin = tradesWithEquity.filter(t => t.pnl > 0).reduce((s,t) => s + t.pnl, 0);
+        const grossLoss = Math.abs(tradesWithEquity.filter(t => t.pnl < 0).reduce((s,t) => s + t.pnl, 0));
+        const profitFactor = grossWin / grossLoss;
+        const avgTrade = totalPnL / totalTrades;
+        const maxDrawdownRaw = Math.min(...tradesWithEquity.map(t => t.equity), 0) * -1;
+        const bestTrade = Math.max(...tradesWithEquity.map(t => t.pnl));
+        const capitalBase = 1500;
+        const pnlPercent = (totalPnL / capitalBase) * 100;
+        const maxDDpercent = (maxDrawdownRaw / capitalBase) * 100;
+        const avgWin = grossWin / wins;
+        const avgLoss = grossLoss / losses;
+
+        // Preencher métricas do topo
+        const metricsHtml = `
+            <div class="metric-item"><div class="metric-value">+$${totalPnL.toFixed(2)}</div><div class="metric-label">LUCRO LÍQUIDO</div><div class="metric-note">+${pnlPercent.toFixed(2)}% sobre $1.5k</div></div>
+            <div class="metric-item"><div class="metric-value">${totalTrades}</div><div class="metric-label">OPERAÇÕES</div><div class="metric-note">méd. $${avgTrade.toFixed(2)}/trade</div></div>
+            <div class="metric-item"><div class="metric-value">${winRate.toFixed(1)}%</div><div class="metric-label">WIN RATE</div><div class="metric-note">${wins}W · ${losses}L</div></div>
+            <div class="metric-item"><div class="metric-value">${profitFactor.toFixed(2)}</div><div class="metric-label">PROFIT FACTOR</div><div class="metric-note">Gross win $${grossWin.toFixed(0)}</div></div>
+            <div class="metric-item"><div class="metric-value">-$${maxDrawdownRaw.toFixed(0)}</div><div class="metric-label">MAIOR DRAWDOWN</div><div class="metric-note">-${maxDDpercent.toFixed(2)}% da conta</div></div>
+            <div class="metric-item"><div class="metric-value">${(avgWin/avgLoss).toFixed(2)}x</div><div class="metric-label">R:R MÉDIO</div><div class="metric-note">avg win $${avgWin.toFixed(2)} / loss $${avgLoss.toFixed(2)}</div></div>
+        `;
+        document.getElementById('metricsPanel').innerHTML = metricsHtml;
+
+        // Gráfico de Equity
+        const equityCtx = document.getElementById('equityChart').getContext('2d');
+        new Chart(equityCtx, {
+            type: 'line',
+            data: { labels: tradesWithEquity.map((_,i) => i+1), datasets: [{ label: 'Equity acumulada (USD)', data: tradesWithEquity.map(t => t.equity), borderColor: '#3a4d39', backgroundColor: 'rgba(58,77,57,0.05)', borderWidth: 2, tension: 0.2, pointRadius: 1.5, pointBackgroundColor: '#8b7a5b' }] },
+            options: { responsive: true, maintainAspectRatio: true, plugins: { tooltip: { callbacks: { label: (ctx) => `$${ctx.raw.toFixed(2)}` } } }, scales: { y: { title: { display: true, text: 'Dólares (USD)' } }, x: { title: { display: true, text: 'Ordem cronológica dos trades' } } } }
+        });
+
+        // Gráfico de ativos
+        const assetMap = new Map();
+        tradesWithEquity.forEach(t => {
+            if (!assetMap.has(t.ativo)) assetMap.set(t.ativo, 0);
+            assetMap.set(t.ativo, assetMap.get(t.ativo) + t.pnl);
+        });
+        const assets = Array.from(assetMap.keys());
+        const assetPnls = assets.map(a => assetMap.get(a));
+        const assetCtx = document.getElementById('assetChart').getContext('2d');
+        new Chart(assetCtx, {
+            type: 'bar',
+            data: { labels: assets, datasets: [{ label: 'P&L final (USD)', data: assetPnls, backgroundColor: '#bcab7a', borderRadius: 4, barPercentage: 0.7 }] },
+            options: { responsive: true, plugins: { tooltip: { callbacks: { label: (ctx) => `$${ctx.raw.toFixed(2)}` } } } }
+        });
+
+        // Preencher tabela com DataTable
+        const tbody = document.getElementById('tableBody');
+        tradesWithEquity.forEach(t => {
+            const pnlClass = t.pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
+            const sign = t.pnl >= 0 ? '+' : '';
+            const row = `<tr><td>${t.data}</td><td>${t.hora}</td><td><span class="asset-badge">${t.ativo}</span></td><td class="${pnlClass}">${sign}$${t.pnl.toFixed(2)}</td><td>$${t.equity.toFixed(2)}</td></tr>`;
+            tbody.insertAdjacentHTML('beforeend', row);
+        });
+        $(document).ready(function() {
+            $('#tradesTable').DataTable({ order: [[0, 'asc'], [1, 'asc']], pageLength: 25, language: { search: "Filtrar: ", lengthMenu: "Exibir _MENU_ entradas" } });
+        });
+    })();
+</script>
+</body>
+</html>
