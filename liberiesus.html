@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIBER IESUS — O Cristo e a Fórmula do Abismo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0807;
+    --bg-panel: #120e0c;
+    --bg-panel-2: #17120f;
+    --line: rgba(184,147,91,0.18);
+    --ink: #ece3d2;
+    --ink-dim: #a89a86;
+    --ink-faint: #6e6255;
+    --gold: #b8935b;
+    --gold-bright: #d9b872;
+    --gold-deep: #7a5a2e;
+    --crimson: #6b2a2a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(184,147,91,0.08), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'EB Garamond', serif;
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    font-family:'Cinzel', serif;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--gold);
+    opacity:.85;
+  }
+  h1,h2,h3{
+    font-family:'Cinzel', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+  .rule{
+    width:64px;height:1px;
+    background:linear-gradient(90deg, var(--gold), transparent);
+    margin:22px 0;
+  }
+  .rule.center{margin:26px auto;background:linear-gradient(90deg, transparent, var(--gold), transparent);width:180px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 24px 80px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    top:50%; left:50%;
+    width:900px; height:900px;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(184,147,91,0.10) 0%, transparent 68%);
+    pointer-events:none;
+    animation:breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{opacity:.65; transform:translate(-50%,-50%) scale(1);}
+    50%{opacity:1; transform:translate(-50%,-50%) scale(1.06);}
+  }
+  .sigil{
+    width:46px;height:46px;
+    margin-bottom:28px;
+    opacity:.9;
+    animation:flicker 5s ease-in-out infinite;
+    position:relative; z-index:1;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:.75;}
+    45%{opacity:1;}
+    50%{opacity:.6;}
+    55%{opacity:1;}
+  }
+  .hero h1{
+    position:relative; z-index:1;
+    font-size:clamp(46px, 8vw, 92px);
+    letter-spacing:.06em;
+    line-height:1;
+    background:linear-gradient(180deg, #f1e6cd 0%, var(--gold-bright) 55%, var(--gold-deep) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 60px rgba(184,147,91,0.25);
+  }
+  .hero .subtitle{
+    position:relative; z-index:1;
+    font-family:'Cormorant', serif;
+    font-style:italic;
+    font-size:clamp(19px,2.6vw,26px);
+    color:var(--ink-dim);
+    margin-top:18px;
+    max-width:620px;
+  }
+  .hero .author{
+    position:relative; z-index:1;
+    margin-top:34px;
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .hero .meta-row{
+    position:relative; z-index:1;
+    margin-top:10px;
+    font-size:14px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+  }
+  .cta-row{
+    position:relative; z-index:1;
+    margin-top:46px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:17px 34px;
+    border-radius:2px;
+    display:inline-block;
+    transition:all .25s ease;
+    cursor:pointer;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color:#191008;
+    box-shadow:0 8px 30px -8px rgba(184,147,91,0.55);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 34px -6px rgba(184,147,91,0.7);}
+  .btn-ghost{
+    border-color:var(--gold-deep);
+    color:var(--gold-bright);
+    background:transparent;
+  }
+  .btn-ghost:hover{background:rgba(184,147,91,0.08); border-color:var(--gold);}
+  .scroll-hint{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-faint);
+    font-family:'Cinzel', serif;
+  }
+
+  /* ---------- ABYSS DIVIDER (signature element) ---------- */
+  .abyss{
+    position:relative;
+    padding:0;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow:hidden;
+  }
+  .abyss-crack{
+    width:100%; max-width:1200px;
+    height:60px;
+    opacity:.55;
+  }
+  .abyss-crack svg{width:100%; height:100%;}
+  .abyss-label{
+    position:relative;
+    margin:-10px 0 0;
+    padding:6px 22px;
+    background:var(--bg);
+    font-family:'Cormorant', serif;
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+  .abyss-label em{color:var(--gold);}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,4vw,38px); margin-top:10px; letter-spacing:.02em;}
+
+  /* Nota do autor */
+  .authorsnote{background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  blockquote{
+    font-family:'Cormorant', serif;
+    font-style:italic;
+    font-size:clamp(22px,3vw,30px);
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 28px;
+    max-width:760px;
+  }
+  blockquote span{color:var(--gold-bright);}
+  .signoff{color:var(--ink-faint); font-family:'Cinzel',serif; font-size:12px; letter-spacing:.2em; text-transform:uppercase;}
+
+  /* Método / dualidade — elemento assinatura */
+  .method-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:1px solid var(--line);
+  }
+  .method-col{padding:44px 40px; position:relative;}
+  .method-col:first-child{border-right:1px solid var(--line); background:rgba(255,255,255,0.012);}
+  .method-col .tag{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.24em; text-transform:uppercase; margin-bottom:14px; display:block;}
+  .method-col.data .tag{color:var(--ink-dim);}
+  .method-col.op .tag{color:var(--gold-bright);}
+  .method-col h3{font-size:21px; margin-bottom:14px; font-weight:500;}
+  .method-col p{color:var(--ink-dim); font-size:16px; margin:0;}
+  .method-arrow{
+    position:absolute; top:50%; left:100%; transform:translate(-50%,-50%);
+    width:34px; height:34px; border-radius:50%;
+    background:var(--bg); border:1px solid var(--gold-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel',serif; color:var(--gold); font-size:14px;
+    z-index:2;
+  }
+  @media (max-width:720px){
+    .method-grid{grid-template-columns:1fr;}
+    .method-col:first-child{border-right:none; border-bottom:1px solid var(--line);}
+    .method-arrow{top:100%; left:50%; transform:translate(-50%,-50%);}
+  }
+
+  /* Estrutura / partes */
+  .parts{display:flex; flex-direction:column; border-top:1px solid var(--line);}
+  .part-row{
+    display:grid;
+    grid-template-columns:70px 1fr 130px;
+    align-items:baseline;
+    gap:18px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    transition:background .2s ease;
+  }
+  .part-row:hover{background:rgba(184,147,91,0.04);}
+  .part-num{font-family:'Cinzel',serif; color:var(--gold-deep); font-size:15px; letter-spacing:.05em;}
+  .part-title{font-size:17px; color:var(--ink);}
+  .part-title small{display:block; color:var(--ink-faint); font-size:14px; margin-top:3px; font-style:italic; font-family:'Cormorant',serif;}
+  .part-caps{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.12em; color:var(--ink-faint); text-align:right; text-transform:uppercase;}
+
+  .stats-row{display:flex; gap:52px; flex-wrap:wrap; margin-top:48px;}
+  .stat b{display:block; font-family:'Cinzel',serif; font-size:30px; color:var(--gold-bright);}
+  .stat span{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-family:'Cinzel',serif;}
+
+  /* Para quem */
+  .whowho{background:var(--bg-panel-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
+  .split ul{list-style:none; padding:0; margin:0;}
+  .split li{padding:10px 0 10px 26px; position:relative; color:var(--ink-dim); font-size:16px;}
+  .split.not li::before{content:"✕"; position:absolute; left:0; color:var(--crimson); font-size:13px; top:12px;}
+  .split.is li::before{content:"✓"; position:absolute; left:0; color:var(--gold); font-size:13px; top:12px;}
+  .split h4{font-family:'Cinzel',serif; font-size:13px; letter-spacing:.18em; text-transform:uppercase; margin-bottom:18px; color:var(--ink-dim);}
+  @media (max-width:680px){.split{grid-template-columns:1fr;}}
+
+  /* Download */
+  .download{
+    text-align:center;
+    background:radial-gradient(ellipse at 50% 0%, rgba(184,147,91,0.10), transparent 65%), var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .download .section-head{margin:0 auto 20px; text-align:center;}
+  .download p.lead{color:var(--ink-dim); max-width:520px; margin:0 auto 40px;}
+  .download-box{
+    max-width:420px; margin:0 auto;
+    border:1px solid var(--gold-deep);
+    padding:40px 36px;
+    background:rgba(184,147,91,0.03);
+  }
+  .format-tags{display:flex; gap:10px; justify-content:center; margin-top:20px;}
+  .format-tags span{
+    font-family:'Cinzel',serif; font-size:11px; letter-spacing:.1em; color:var(--ink-faint);
+    border:1px solid var(--line); padding:5px 12px; text-transform:uppercase;
+  }
+
+  /* Contribuição */
+  .contribute{background:var(--bg-panel);}
+  .contribute .inner{
+    border:1px solid var(--line);
+    padding:56px 48px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:48px;
+  }
+  @media (max-width:760px){.contribute .inner{grid-template-columns:1fr; padding:40px 26px;}}
+  .contribute p{color:var(--ink-dim); font-size:16px;}
+  .give-panel{background:var(--bg); border:1px solid var(--gold-deep); padding:32px;}
+  .give-panel .tag{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; display:block;}
+  .give-field{margin-bottom:18px;}
+  .give-field label{display:block; font-size:12px; letter-spacing:.08em; color:var(--ink-faint); margin-bottom:6px; font-family:'Cinzel',serif; text-transform:uppercase;}
+  .give-value{
+    display:flex; align-items:center; justify-content:space-between;
+    border:1px dashed var(--line); padding:12px 14px; font-size:15px; color:var(--ink-dim);
+  }
+  .give-value code{color:var(--gold-bright); font-family:'EB Garamond',serif; font-style:italic;}
+  .copy-btn{
+    font-family:'Cinzel',serif; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold); background:none; border:1px solid var(--gold-deep); padding:6px 10px; cursor:pointer; border-radius:2px;
+  }
+  .copy-btn:hover{background:rgba(184,147,91,0.1);}
+  .editnote{
+    margin-top:20px; font-size:12px; color:var(--ink-faint); font-style:italic; font-family:'Cormorant', serif;
+    border-top:1px dashed var(--line); padding-top:14px;
+  }
+  .amounts{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px;}
+  .amounts button{
+    flex:1; min-width:70px;
+    background:transparent; border:1px solid var(--line); color:var(--ink-dim);
+    font-family:'Cinzel',serif; font-size:13px; padding:12px 0; cursor:pointer; transition:all .2s ease;
+  }
+  .amounts button:hover, .amounts button.active{border-color:var(--gold); color:var(--gold-bright); background:rgba(184,147,91,0.06);}
+
+  .contact{
+    background:var(--bg-panel-2);
+    border-top:1px solid var(--line);
+    padding:80px 0;
+  }
+  .contact-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .contact-email{
+    font-family:'Cinzel', serif;
+    font-size:clamp(18px,2.6vw,24px);
+    letter-spacing:.03em;
+    color:var(--gold-bright);
+    text-decoration:none;
+    border-bottom:1px solid var(--gold-deep);
+    padding-bottom:6px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .contact-email:hover{color:var(--gold); border-color:var(--gold);}
+
+  footer{
+    padding:60px 0 50px;
+    text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .sigil-small{width:22px;height:22px;margin:0 auto 18px; opacity:.7;}
+  footer .fname{font-family:'Cinzel',serif; letter-spacing:.2em; font-size:13px; color:var(--gold); text-transform:uppercase;}
+  footer p{color:var(--ink-faint); font-size:13px; margin-top:10px;}
+
+  ::selection{background:var(--gold-deep); color:#fff;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="sigil" viewBox="-160 -160 320 320" fill="none">
+    <!-- estrela de oito pontas + hexagrama com linha vertical central — extraído da capa oficial -->
+    <g stroke="var(--gold)" stroke-width="3" opacity="0.55">
+      <line x1="0" y1="-145" x2="0" y2="-126"/>
+      <line x1="103" y1="-103" x2="89" y2="-89"/>
+      <line x1="145" y1="0" x2="126" y2="0"/>
+      <line x1="103" y1="103" x2="89" y2="89"/>
+      <line x1="0" y1="145" x2="0" y2="126"/>
+      <line x1="-103" y1="103" x2="-89" y2="89"/>
+      <line x1="-145" y1="0" x2="-126" y2="0"/>
+      <line x1="-103" y1="-103" x2="-89" y2="-89"/>
+    </g>
+    <g fill="var(--gold)" opacity="0.9">
+      <polygon points="0,-75 10,-18 0,0 -10,-18"/>
+      <polygon points="0,75 10,18 0,0 -10,18"/>
+      <polygon points="-75,0 -18,-10 0,0 -18,10"/>
+      <polygon points="75,0 18,-10 0,0 18,10"/>
+      <polygon points="-53,-53 -13,-13 0,0 -23,-3"/>
+      <polygon points="53,53 13,13 0,0 23,3"/>
+      <polygon points="53,-53 13,-13 0,0 3,-23"/>
+      <polygon points="-53,53 -13,13 0,0 -3,23"/>
+    </g>
+    <g stroke="var(--gold)" stroke-width="2.4" stroke-linejoin="round">
+      <polygon points="0,-64 47.5,19 -47.5,19" opacity="0.95"/>
+      <polygon points="0,64 -47.5,-19 47.5,-19" opacity="0.95"/>
+    </g>
+    <line x1="0" y1="-155" x2="0" y2="-34" stroke="var(--gold-bright)" stroke-width="1.6" opacity="0.75"/>
+    <line x1="0" y1="34" x2="0" y2="155" stroke="var(--gold-bright)" stroke-width="1.6" opacity="0.75"/>
+    <circle cx="0" cy="0" r="7.5" fill="none" stroke="var(--gold)" stroke-width="1"/>
+    <circle cx="0" cy="0" r="4.5" fill="var(--bg)" stroke="var(--gold)" stroke-width="1.6"/>
+  </svg>
+  <h1>LIBER IESUS</h1>
+  <p class="subtitle">O Cristo e a Fórmula do Abismo — uma análise histórica e operacional da figura de Jesus</p>
+  <p class="author">Adriano Benedet</p>
+  <p class="meta-row">8 partes · 44 capítulos · leitura gratuita</p>
+  <div class="cta-row">
+    <a href="https://drive.google.com/file/d/1XB4UxGHhlaR2mPP-BKJUNbsNPxQQgx2y/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" id="downloadBtn">Baixar o Livro — Grátis</a>
+    <a href="#contribuir" class="btn btn-ghost">Apoiar a Obra</a>
+  </div>
+  <div class="scroll-hint">role para descer</div>
+</section>
+
+<!-- O ABISMO — divisor de assinatura -->
+<section class="abyss">
+  <div class="abyss-crack" aria-hidden="true">
+    <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+      <path d="M0,30 L120,32 L180,10 L260,48 L340,26 L410,40 L480,14 L560,34 L640,22 L720,44 L800,18 L880,36 L960,28 L1040,46 L1120,20 L1200,30" stroke="var(--gold-deep)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <p class="abyss-label">Da'ath — o vazio entre as Sefirot — <em>a fórmula do Abismo</em></p>
+</section>
+
+<!-- NOTA DO AUTOR -->
+<section class="authorsnote">
+  <div class="wrap reveal">
+    <span class="eyebrow">Nota do Autor</span>
+    <div class="rule"></div>
+    <blockquote>
+      "Sou um buscador — como você. Não vim de uma tradição, nem de uma igreja, nem de uma escola de mistérios. Vim da inquietação. <span>Li os evangelhos com os olhos de quem busca a técnica, não a devoção.</span>"
+    </blockquote>
+    <p class="signoff">— Adriano Benedet</p>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="method">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">O Método</span>
+      <h2>Dois olhos, uma mesma figura</h2>
+      <p style="color:var(--ink-dim); margin-top:14px;">Cada um dos 44 capítulos cruza a crítica histórico-textual bruta com a chave de leitura oculta — o dado e a operação, lado a lado.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-col data">
+        <span class="tag">01 — O Dado Histórico</span>
+        <h3>O que a crítica textual afirma</h3>
+        <p>Arqueologia, papiros, crítica das fontes e historiadores — o fato bruto, sem devoção nem ceticismo estéril.</p>
+      </div>
+      <div class="method-arrow">→</div>
+      <div class="method-col op">
+        <span class="tag">02 — O Contexto Operacional</span>
+        <h3>A chave que se extrai do fato</h3>
+        <p>Gnose prática, misticismo e magia — a leitura técnica de cada episódio, para quem opera, não apenas crê.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTRUTURA -->
+<section class="structure">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Estrutura da Obra</span>
+      <h2>Oito partes, do cenário histórico ao Éon de Hórus</h2>
+    </div>
+    <div class="parts">
+      <div class="part-row">
+        <span class="part-num">I</span>
+        <span class="part-title">O Cenário<small>A Judeia do Século I</small></span>
+        <span class="part-caps">Caps. 1–3</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">II</span>
+        <span class="part-title">A Preparação do Mestre<small>João Batista e a Tentação no Deserto</small></span>
+        <span class="part-caps">Caps. 4–5</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">III</span>
+        <span class="part-title">O Ministério<small>Ações e Ensinamentos</small></span>
+        <span class="part-caps">Caps. 6–8</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">IV</span>
+        <span class="part-title">A Paixão<small>A Morte como Portal</small></span>
+        <span class="part-caps">Caps. 9–12</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">V</span>
+        <span class="part-title">As Correntes Gnósticas<small>As interpretações secretas</small></span>
+        <span class="part-caps">Caps. 13–24.5</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VI</span>
+        <span class="part-title">O Testemunho das Outras Tradições<small>Roma, Talmude, Islã, Índia, Zoroastro, Budismo</small></span>
+        <span class="part-caps">Caps. 25–36</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VII</span>
+        <span class="part-title">A Institucionalização<small>O mito virou Igreja</small></span>
+        <span class="part-caps">Caps. 37–42</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VIII</span>
+        <span class="part-title">A Chave do Autor<small>Thelema e o Legado de Jesus</small></span>
+        <span class="part-caps">Caps. 43–44</span>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><b>44</b><span>Capítulos</span></div>
+      <div class="stat"><b>8</b><span>Partes</span></div>
+      <div class="stat"><b>3</b><span>Exercícios práticos</span></div>
+      <div class="stat"><b>R$0</b><span>Para baixar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="whowho">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Para Quem é Este Livro</span>
+      <h2>Técnica, não crença</h2>
+    </div>
+    <div class="split">
+      <div>
+        <h4>Este livro não é</h4>
+        <ul class="not">
+          <li>Teologia devocional</li>
+          <li>Hagiografia ou apologética</li>
+          <li>Ceticismo acadêmico estéril</li>
+          <li>Um chamado à fé cega</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Este livro é</h4>
+        <ul class="is">
+          <li>Uma simbiose entre dado histórico e gnose prática</li>
+          <li>Jesus lido como Adepto — a dissolução do ego em ação</li>
+          <li>Feito para buscadores e praticantes do pensamento</li>
+          <li>Experiência direta, não autoridade externa</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="baixar">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Leitura Gratuita</span>
+      <h2>Baixe o LIBER IESUS</h2>
+    </div>
+    <p class="lead">O livro completo, sem custo, sem cadastro obrigatório. Escolha o formato e comece a leitura.</p>
+    <div class="download-box">
+      <a href="https://drive.google.com/file/d/1XB4UxGHhlaR2mPP-BKJUNbsNPxQQgx2y/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;">↓ Baixar Agora</a>
+      <div class="format-tags">
+        <span>PDF</span>
+        <span>EPUB</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUIR -->
+<section class="contribute" id="contribuir">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Sustentar a Obra</span>
+      <h2>O livro é livre. A contribuição é uma escolha.</h2>
+    </div>
+    <div class="inner">
+      <div>
+        <p>LIBER IESUS levou anos de pesquisa em papiros, arqueologia e tradições esquecidas — e continua disponível gratuitamente para qualquer buscador. Se a obra te trouxe valor, você pode apoiar sua continuidade com qualquer quantia. Isso ajuda a financiar a pesquisa dos próximos volumes e manter tudo aberto para quem não pode pagar.</p>
+        <p style="color:var(--ink-faint); font-size:14px;">Nenhuma contribuição é obrigatória para ler ou compartilhar o livro.</p>
+      </div>
+      <div class="give-panel">
+        <span class="tag">Chave Pix</span>
+        <div class="give-field">
+          <div class="give-value">
+            <code id="pixKey">adrianobenedetsc@gmail.com</code>
+            <button class="copy-btn" onclick="copyPix()">Copiar</button>
+          </div>
+        </div>
+        <div class="amounts">
+          <button>R$10</button>
+          <button>R$25</button>
+          <button>R$50</button>
+          <button>Livre</button>
+        </div>
+        <div class="editnote">* Esta chave Pix (e-mail) é também o canal de contato com o autor — dúvidas, feedback ou parcerias sobre a obra podem ser enviados para o mesmo endereço.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact">
+  <div class="wrap reveal contact-inner">
+    <div>
+      <span class="eyebrow">Contato</span>
+      <h2 style="font-size:28px; margin-top:10px;">Fale com o autor</h2>
+      <p style="color:var(--ink-dim); max-width:480px; margin-top:14px;">Dúvidas sobre a obra, parcerias, imprensa ou qualquer outra questão — escreva diretamente.</p>
+    </div>
+    <a class="contact-email" href="mailto:adrianobenedetsc@gmail.com">
+      adrianobenedetsc@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer>
+  <svg class="sigil-small" viewBox="-160 -160 320 320" fill="none">
+    <g fill="var(--gold)" opacity="0.9">
+      <polygon points="0,-75 10,-18 0,0 -10,-18"/>
+      <polygon points="0,75 10,18 0,0 -10,18"/>
+      <polygon points="-75,0 -18,-10 0,0 -18,10"/>
+      <polygon points="75,0 18,-10 0,0 18,10"/>
+      <polygon points="-53,-53 -13,-13 0,0 -23,-3"/>
+      <polygon points="53,53 13,13 0,0 23,3"/>
+      <polygon points="53,-53 13,-13 0,0 3,-23"/>
+      <polygon points="-53,53 -13,13 0,0 -3,23"/>
+    </g>
+    <g stroke="var(--gold)" stroke-width="3" stroke-linejoin="round">
+      <polygon points="0,-64 47.5,19 -47.5,19" opacity="0.95"/>
+      <polygon points="0,64 -47.5,-19 47.5,-19" opacity="0.95"/>
+    </g>
+    <circle cx="0" cy="0" r="4.5" fill="var(--bg)" stroke="var(--gold)" stroke-width="2"/>
+  </svg>
+  <p class="fname">Adriano Benedet</p>
+  <p>LIBER IESUS — O Cristo e a Fórmula do Abismo</p>
+</footer>
+
+<script>
+  function copyPix(){
+    const el = document.getElementById('pixKey');
+    navigator.clipboard.writeText(el.textContent).catch(()=>{});
+    const btn = event.target;
+    const original = btn.textContent;
+    btn.textContent = 'Copiado!';
+    setTimeout(()=>{btn.textContent = original;}, 1500);
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  const amountBtns = document.querySelectorAll('.amounts button');
+  amountBtns.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      amountBtns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
