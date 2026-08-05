@@ -375,6 +375,39 @@
   footer .sigil-small{width:22px;height:22px;margin:0 auto 18px; opacity:.7;}
   footer .fname{font-family:'Cinzel',serif; letter-spacing:.2em; font-size:13px; color:var(--gold); text-transform:uppercase;}
   footer p{color:var(--ink-faint); font-size:13px; margin-top:10px;}
+  .privacy-link{
+    background:none; border:none; cursor:pointer;
+    margin-top:22px;
+    font-family:'Cinzel',serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); text-decoration:underline; text-underline-offset:4px;
+  }
+  .privacy-link:hover{color:var(--gold);}
+
+  .privacy-overlay{
+    position:fixed; inset:0; z-index:50;
+    background:rgba(2,2,2,0.82);
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .privacy-overlay.open{opacity:1; pointer-events:auto;}
+  .privacy-box{
+    position:relative;
+    max-width:620px; max-height:80vh; overflow-y:auto;
+    background:var(--bg-panel); border:1px solid var(--gold-deep);
+    padding:44px 40px;
+  }
+  .privacy-box h3{font-size:22px; letter-spacing:.02em;}
+  .privacy-box p{color:var(--ink-dim); font-size:15px; margin:16px 0;}
+  .privacy-box ul{padding-left:20px; margin:16px 0; color:var(--ink-dim); font-size:15px;}
+  .privacy-box li{margin-bottom:12px;}
+  .privacy-box a{color:var(--gold-bright); text-decoration:underline;}
+  .privacy-close{
+    position:absolute; top:18px; right:18px;
+    background:none; border:none; color:var(--ink-faint); font-size:16px; cursor:pointer;
+  }
+  .privacy-close:hover{color:var(--gold);}
 
   ::selection{background:var(--gold-deep); color:#fff;}
 
@@ -650,7 +683,26 @@
   </svg>
   <p class="fname">Adriano Benedet</p>
   <p>LIBER IESUS — O Cristo e a Fórmula do Abismo</p>
+  <button class="privacy-link" onclick="document.getElementById('privacyModal').classList.add('open')">Política de Privacidade</button>
 </footer>
+
+<!-- AVISO DE PRIVACIDADE / LGPD -->
+<div class="privacy-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-box">
+    <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('open')" aria-label="Fechar">✕</button>
+    <h3 id="privacyTitle">Aviso de Privacidade</h3>
+    <div class="rule"></div>
+    <p>Esta página é um site simples de divulgação: ela apenas apresenta o livro <em>LIBER IESUS</em> e direciona para download e contato. Ela não possui cadastro, login, formulário ou sistema próprio de coleta de dados.</p>
+    <ul>
+      <li><strong>Nenhum dado pessoal é coletado ou armazenado por este site.</strong> Não há cookies de rastreamento, pixels de analytics ou formulários.</li>
+      <li><strong>Download do livro:</strong> o arquivo é hospedado no Google Drive. Ao clicar em "Baixar", você é direcionado para os servidores do Google, sujeitos à própria política de privacidade do Google.</li>
+      <li><strong>Contribuição via Pix:</strong> qualquer transação é feita diretamente no aplicativo do seu banco. Este site não processa, recebe nem armazena dados financeiros — apenas exibe a chave Pix do autor.</li>
+      <li><strong>Contato por e-mail:</strong> ao escrever para o autor, os dados que você inclui na sua mensagem (nome, e-mail, conteúdo) ficam na sua caixa de e-mail e na do autor, fora deste site — regidos pela política do seu provedor de e-mail.</li>
+      <li><strong>Fontes tipográficas:</strong> esta página carrega fontes do Google Fonts, o que gera uma requisição ao servidor do Google e pode transmitir seu endereço IP a ele, conforme a política de privacidade do Google.</li>
+    </ul>
+    <p>Como não há coleta ou tratamento de dados pessoais por este site (art. 5º, X, LGPD), não se aplicam mecanismos de consentimento ou exclusão de cadastro. Ainda assim, dúvidas sobre privacidade podem ser enviadas para <a href="mailto:adrianobenedetsc@gmail.com">adrianobenedetsc@gmail.com</a>.</p>
+  </div>
+</div>
 
 <script>
   function copyPix(){
