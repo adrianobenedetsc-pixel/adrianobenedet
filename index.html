@@ -698,6 +698,441 @@
     .principles-list { grid-template-columns: 1fr; }
     .ending { padding: 90px 0 72px; }
   }
+
+  /* ===== RESPONSIVIDADE FINAL ===== */
+  :root {
+    --page-gutter: clamp(16px, 3vw, 48px);
+  }
+
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    overflow-wrap: break-word;
+  }
+
+  .shell {
+    width: min(var(--max), calc(100% - (var(--page-gutter) * 2)));
+  }
+
+  .topbar {
+    width: 100%;
+  }
+
+  .topbar-inner {
+    min-width: 0;
+    padding: 0;
+  }
+
+  .brand {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .brand-copy {
+    min-width: 0;
+  }
+
+  .brand-copy strong {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav {
+    flex: 0 0 auto;
+  }
+
+  .hero {
+    min-height: max(620px, calc(100svh - 70px));
+    padding: clamp(64px, 10vh, 108px) 0 clamp(78px, 11vh, 112px);
+  }
+
+  .hero::before,
+  .hero::after {
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+
+  .hero::before {
+    width: min(820px, 90vw);
+    height: min(820px, 90vw);
+  }
+
+  .hero::after {
+    width: min(540px, 62vw);
+    height: min(540px, 62vw);
+  }
+
+  .hero-inner {
+    width: min(940px, 100%);
+    min-width: 0;
+  }
+
+  .hero h1,
+  .section-title,
+  .ending h2 {
+    text-wrap: balance;
+  }
+
+  .hero-lede,
+  .hero-quote,
+  .manifesto-copy,
+  .ending p {
+    overflow-wrap: anywhere;
+  }
+
+  .hero-meta {
+    width: 100%;
+  }
+
+  .seal {
+    max-width: 100%;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .section {
+    padding: clamp(72px, 10vw, 110px) 0;
+  }
+
+  .manifesto-grid,
+  .principles {
+    min-width: 0;
+  }
+
+  .manifesto-card,
+  .principles-list,
+  .privacy-box {
+    min-width: 0;
+  }
+
+  .library-head {
+    margin-bottom: clamp(34px, 5vw, 62px);
+  }
+
+  .library-grid {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .book {
+    min-width: 0;
+  }
+
+  .cover-frame {
+    width: min(100%, 400px);
+  }
+
+  .book-caption {
+    min-width: 0;
+  }
+
+  .book-caption > div {
+    min-width: 0;
+  }
+
+  .book-caption h3,
+  .book-caption p {
+    overflow-wrap: anywhere;
+  }
+
+  .book-open {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .principle h3,
+  .principle p {
+    overflow-wrap: anywhere;
+  }
+
+  .privacy-summary {
+    min-height: 52px;
+  }
+
+  @media (max-width: 900px) {
+    .shell {
+      width: min(var(--max), calc(100% - 36px));
+    }
+
+    .hero {
+      min-height: 620px;
+    }
+
+    .manifesto-grid,
+    .principles {
+      grid-template-columns: 1fr;
+      gap: 44px;
+    }
+
+    .library-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(28px, 5vw, 42px);
+    }
+
+    .cover-frame {
+      max-width: 360px;
+    }
+
+    .book-caption {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .book-open {
+      width: fit-content;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .shell {
+      width: calc(100% - 28px);
+    }
+
+    .topbar-inner {
+      min-height: 58px;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+    }
+
+    .brand-copy strong {
+      font-size: 10px;
+      letter-spacing: .15em;
+    }
+
+    .nav a {
+      font-size: 8px;
+      letter-spacing: .10em;
+      padding: 8px 0;
+    }
+
+    .hero {
+      min-height: max(640px, calc(100svh - 58px));
+      padding: 68px 0 92px;
+    }
+
+    .sigil {
+      width: 58px;
+      height: 58px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      font-size: 8px;
+      letter-spacing: .20em;
+      line-height: 1.5;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.65rem, 14vw, 4.8rem);
+      line-height: .94;
+    }
+
+    .hero h1 span {
+      margin-top: 16px;
+      font-size: .43em;
+      line-height: 1.1;
+    }
+
+    .hero-rule {
+      margin: 28px auto 22px;
+    }
+
+    .hero-lede {
+      font-size: 1.02rem;
+      line-height: 1.45;
+      padding: 0 4px;
+    }
+
+    .hero-quote {
+      margin-top: 30px;
+      font-size: 1.05rem;
+      line-height: 1.4;
+      padding: 0 4px;
+    }
+
+    .hero-meta {
+      gap: 7px;
+      margin-top: 24px;
+    }
+
+    .seal {
+      min-height: 32px;
+      padding: 7px 10px;
+      font-size: 7px;
+      letter-spacing: .10em;
+    }
+
+    .scroll-cue {
+      bottom: 18px;
+      font-size: 7px;
+      letter-spacing: .16em;
+    }
+
+    .section {
+      padding: 70px 0;
+    }
+
+    .section-kicker {
+      font-size: 8px;
+      letter-spacing: .15em;
+    }
+
+    .section-title {
+      font-size: clamp(2.15rem, 11vw, 3.4rem);
+    }
+
+    .manifesto-copy {
+      font-size: 1.08rem;
+    }
+
+    .manifesto-card {
+      padding: 30px 24px 26px;
+    }
+
+    .manifesto-card blockquote {
+      font-size: 1.4rem;
+    }
+
+    .manifesto-card .source {
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .library-head {
+      margin-bottom: 30px;
+    }
+
+    .library-head p {
+      font-size: 1rem;
+    }
+
+    .library-grid {
+      grid-template-columns: 1fr;
+      gap: 58px;
+      max-width: 390px;
+      margin: 0 auto;
+    }
+
+    .book-index {
+      transform: translateY(-11px);
+      font-size: 7px;
+    }
+
+    .cover-frame {
+      width: min(100%, 340px);
+      padding: 8px;
+    }
+
+    .book-caption {
+      padding-top: 14px;
+      gap: 9px;
+    }
+
+    .book-caption h3 {
+      font-size: 1.35rem;
+      line-height: 1.06;
+    }
+
+    .book-caption p {
+      margin-top: 6px;
+      font-size: .98rem;
+    }
+
+    .principles-list {
+      grid-template-columns: 1fr;
+    }
+
+    .principle {
+      padding: 23px 20px;
+    }
+
+    .privacy-summary {
+      padding: 14px 15px;
+      gap: 14px;
+      font-size: 7px;
+      line-height: 1.5;
+    }
+
+    .privacy-content {
+      padding: 0 15px 16px;
+      font-size: .84rem;
+    }
+
+    .privacy-short {
+      padding: 0 6px;
+      font-size: 6.5px;
+    }
+
+    .ending {
+      padding: 84px 0 64px;
+    }
+
+    .ending h2 {
+      font-size: clamp(2rem, 10vw, 3.2rem);
+    }
+
+    .ending p {
+      font-size: 1.02rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .shell {
+      width: calc(100% - 22px);
+    }
+
+    .topbar-inner {
+      gap: 8px;
+    }
+
+    .brand-copy strong {
+      font-size: 9px;
+      letter-spacing: .10em;
+    }
+
+    .nav a {
+      font-size: 7px;
+      letter-spacing: .07em;
+    }
+
+    .hero {
+      padding-top: 58px;
+    }
+
+    .hero h1 {
+      font-size: 2.55rem;
+    }
+
+    .seal {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .cover-frame {
+      width: min(100%, 310px);
+    }
+
+    .book-caption h3 {
+      font-size: 1.24rem;
+    }
+  }
+
+  @media (hover: none) {
+    .book:hover {
+      transform: none;
+    }
+  }
+
 </style>
 </head>
 
