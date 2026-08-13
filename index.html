@@ -5,307 +5,920 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="index, follow">
+<meta name="description" content="Arquivo de Adriano Benedet — livros, tratados e sistemas de um escriba à borda da tempestade.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests">
-<title>Biblioteca</title>
+<title>Adriano Benedet — Arquivo do Escriba</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:wght@500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IM+Fell+English:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;900&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --void:#040302;
-    --void-2:#0a0805;
-    --gold-hi:#f0cf7e;
-    --gold:#c99a3e;
-    --gold-dim:#7a5a1a;
-    --cream:#f4e3b0;
-    --stone:#8a7a58;
-    --line: rgba(201,154,62,0.22);
+  :root {
+    --void: #050403;
+    --void-2: #0b0907;
+    --ink: #0f0d0a;
+    --gold: #c7a05a;
+    --gold-hi: #f1d993;
+    --gold-dim: #765b2f;
+    --parchment: #ead9ae;
+    --muted: #9c8d70;
+    --line: rgba(199,160,90,.18);
+    --line-strong: rgba(241,217,147,.38);
+    --ember: #7a2f23;
+    --ember-hi: #ac5442;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Playfair Display', Georgia, serif;
+    --fell: 'IM Fell English', Georgia, serif;
+    --mono: 'JetBrains Mono', monospace;
+    --max: 1220px;
   }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    min-height:100vh;
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--parchment);
     background:
-      radial-gradient(ellipse 1000px 600px at 50% 0%, rgba(122,90,26,0.16), transparent 60%),
-      var(--void);
-    color:var(--cream);
-    font-family:'Cormorant Garamond', serif;
-    -webkit-font-smoothing:antialiased;
+      radial-gradient(900px 520px at 50% -6%, rgba(122,91,47,.18), transparent 68%),
+      radial-gradient(600px 420px at 85% 40%, rgba(110,37,26,.07), transparent 72%),
+      linear-gradient(180deg, #050403 0%, #070504 38%, #040302 100%);
+    font-family: var(--serif);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
-
-  /* ---------- header ---------- */
-  header{
-    max-width:1160px;
-    margin:0 auto;
-    padding:88px 32px 56px;
-    text-align:center;
-  }
-  .mark{
-    width:46px; height:46px;
-    margin:0 auto 28px;
-    opacity:0.9;
-  }
-  h1{
-    font-family:'Playfair Display', serif;
-    font-weight:500;
-    font-size:clamp(2.6rem, 5.4vw, 4.2rem);
-    letter-spacing:0.14em;
-    margin:0 0 16px;
-    color:var(--gold-hi);
-    text-transform:uppercase;
-    background:linear-gradient(180deg, var(--gold-hi) 0%, var(--gold) 60%, var(--gold-dim) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
-  .lede{
-    font-size:17px;
-    font-style:italic;
-    font-weight:400;
-    color:var(--stone);
-    margin:0;
-    letter-spacing:0.06em;
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .13;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.12) 0 1px, transparent 1px),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,.08) 0 1px, transparent 1px);
+    background-size: 180px 180px, 240px 240px;
+    mix-blend-mode: soft-light;
   }
 
-  /* ---------- gallery ---------- */
-  main{
-    max-width:1160px;
-    margin:0 auto;
-    padding:10px 32px 90px;
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
-    gap:52px 40px;
-    justify-items:center;
+  a { color: inherit; }
+  img { max-width: 100%; }
+  button { font: inherit; }
+
+  .shell {
+    width: min(var(--max), calc(100% - 48px));
+    margin: 0 auto;
   }
 
-  .book{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    text-decoration:none;
-    width:100%;
-    max-width:280px;
-    opacity:0;
-    animation:rise .6s ease forwards;
+  /* ---------- top navigation ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid rgba(199,160,90,.12);
+    background: rgba(5,4,3,.78);
+    backdrop-filter: blur(16px);
   }
-  @keyframes rise{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+  .topbar-inner {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+  .brand-copy {
+    display: grid;
+    gap: 2px;
+    line-height: 1;
+  }
+  .brand-copy strong {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold-hi);
+  }
+  .brand-copy span {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .nav a {
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color .2s ease;
+  }
+  .nav a:hover { color: var(--gold-hi); }
 
-  .cover-frame{
-    position:relative;
-    width:100%;
-    aspect-ratio:690/1010;
-    border-radius:3px;
-    overflow:hidden;
-    padding:8px;
-    background:linear-gradient(155deg, #2a2013, #171008);
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    min-height: min(690px, calc(100vh - 70px));
+    display: grid;
+    place-items: center;
+    padding: 92px 0 92px;
+    text-align: center;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    width: 820px;
+    height: 820px;
+    border: 1px solid rgba(199,160,90,.11);
+    border-radius: 50%;
+    opacity: .4;
+    transform: rotate(18deg);
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    width: 540px;
+    height: 540px;
+    border: 1px solid rgba(199,160,90,.09);
+    border-radius: 50%;
+    box-shadow: 0 0 80px rgba(110,84,40,.12);
+  }
+  .sigil {
+    position: relative;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 34px;
+    z-index: 1;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 940px; }
+  .eyebrow {
+    margin: 0 0 16px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .hero h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(3.2rem, 8vw, 7.5rem);
+    line-height: .92;
+    letter-spacing: .03em;
+    font-weight: 600;
+    color: var(--gold-hi);
+    text-shadow: 0 8px 40px rgba(0,0,0,.6);
+  }
+  .hero h1 span {
+    display: block;
+    color: var(--parchment);
+    font-family: var(--fell);
+    font-style: italic;
+    font-weight: 400;
+    font-size: .42em;
+    letter-spacing: .03em;
+    margin-top: 22px;
+  }
+  .hero-rule {
+    width: min(420px, 72vw);
+    height: 1px;
+    margin: 34px auto 26px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+  .hero-lede {
+    margin: 0 auto;
+    max-width: 720px;
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    line-height: 1.35;
+    color: #cdbd97;
+  }
+  .hero-lede em { color: var(--gold-hi); }
+  .hero-meta {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: rgba(13,10,7,.38);
+  }
+  .seal::before {
+    content: "◈";
+    color: var(--gold);
+    font-size: 10px;
+  }
+  .hero-quote {
+    margin: 48px auto 0;
+    max-width: 710px;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    font-style: italic;
+    color: #aa9a7a;
+  }
+  .hero-quote strong {
+    font-style: normal;
+    font-family: var(--display);
+    color: var(--parchment);
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-cue i {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(var(--gold), transparent);
+  }
+
+  /* ---------- manifesto panel ---------- */
+  .section {
+    padding: 110px 0;
+    border-top: 1px solid rgba(199,160,90,.10);
+  }
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .section-kicker {
+    margin: 0 0 14px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .section-title {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    line-height: .98;
+    font-weight: 600;
+    color: var(--parchment);
+  }
+  .section-title em {
+    color: var(--gold-hi);
+    font-family: var(--fell);
+    font-weight: 400;
+  }
+  .manifesto-copy {
+    margin-top: 24px;
+    max-width: 650px;
+    font-size: 1.25rem;
+    line-height: 1.55;
+    color: #b3a382;
+  }
+  .manifesto-copy b { color: var(--parchment); }
+  .manifesto-card {
+    position: relative;
+    padding: 38px 38px 34px;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(145deg, rgba(33,24,16,.58), rgba(11,8,6,.38)),
+      radial-gradient(circle at 80% 20%, rgba(199,160,90,.08), transparent 45%);
+    box-shadow: 0 40px 90px rgba(0,0,0,.28);
+  }
+  .manifesto-card::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(199,160,90,.07);
+    pointer-events: none;
+  }
+  .manifesto-card .quote-mark {
+    font-family: Georgia, serif;
+    font-size: 80px;
+    line-height: .6;
+    color: rgba(199,160,90,.25);
+  }
+  .manifesto-card blockquote {
+    position: relative;
+    margin: 18px 0 26px;
+    font-family: var(--fell);
+    font-style: italic;
+    font-size: clamp(1.45rem, 2.7vw, 2rem);
+    line-height: 1.2;
+    color: #ddd0af;
+  }
+  .manifesto-card .source {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+
+  /* ---------- library ---------- */
+  #biblioteca { scroll-margin-top: 100px; }
+  .library-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 62px;
+    text-align: center;
+  }
+  .library-head p {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.45;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .filter {
+    min-height: 34px;
+    padding: 0 13px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .2s ease;
+  }
+  .filter:hover, .filter.active {
+    border-color: var(--gold);
+    color: var(--gold-hi);
+    background: rgba(199,160,90,.07);
+  }
+  .library-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 0 0 34px;
+    color: #6f624e;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .library-note i {
+    width: 42px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(30px, 4vw, 64px);
+    align-items: start;
+  }
+  .book {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    transform: translateY(0);
+    transition: transform .35s ease;
+  }
+  .book:hover { transform: translateY(-7px); }
+  .book-index {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-18px);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .18em;
+    color: rgba(199,160,90,.46);
+  }
+  .cover-frame {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    aspect-ratio: 2 / 2.95;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(199,160,90,.32);
+    background: linear-gradient(145deg, #21180e, #0d0906);
     box-shadow:
-      inset 0 0 0 1px rgba(240,207,126,0.35),
-      0 2px 0 rgba(240,207,126,0.06),
-      0 30px 50px -20px rgba(0,0,0,0.75);
-    transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease;
+      0 22px 42px rgba(0,0,0,.35),
+      inset 0 0 0 1px rgba(255,255,255,.025);
   }
-  .cover-frame img{
-    width:100%; height:100%;
-    display:block;
-    border-radius:1px;
-    box-shadow:0 0 0 1px rgba(0,0,0,0.5);
-    object-fit:cover;
+  .cover-frame::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(241,217,147,.12);
+    z-index: 2;
+    pointer-events: none;
   }
-  @media (hover:hover) and (pointer:fine){
-    .book:hover .cover-frame{
-      transform:translateY(-6px) scale(1.015);
-      box-shadow:
-        inset 0 0 0 1px rgba(240,207,126,0.55),
-        0 2px 0 rgba(240,207,126,0.12),
-        0 40px 60px -18px rgba(0,0,0,0.85),
-        0 0 0 1px rgba(201,154,62,0.3);
-    }
-    .book:hover .acessar{
-      color:var(--void);
-      background:var(--gold);
-      border-color:var(--gold);
-    }
+  .cover-frame::after {
+    content: "AB";
+    position: absolute;
+    bottom: 16px;
+    right: 18px;
+    z-index: 3;
+    font-family: var(--display);
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: rgba(241,217,147,.55);
   }
-  .book:active .cover-frame{
-    transform:scale(0.98);
+  .cover-frame img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: saturate(.93) contrast(1.02);
   }
-  .book:active .acessar{
-    color:var(--void);
-    background:var(--gold);
-    border-color:var(--gold);
+  .book-caption {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: end;
+    padding-top: 18px;
   }
-
-  .book-title{
-    font-family:'Playfair Display', serif;
-    font-weight:600;
-    font-size:16px;
-    letter-spacing:0.02em;
-    color:var(--cream);
-    margin:18px 0 4px;
-    text-align:center;
+  .book-caption h3 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(1.45rem, 2vw, 1.9rem);
+    line-height: 1;
+    font-weight: 600;
+    color: var(--parchment);
   }
-  .book-sub{
-    font-size:13px;
-    font-style:italic;
-    color:var(--stone);
-    text-align:center;
-    margin:0 0 14px;
+  .book-caption p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 1.06rem;
+    font-style: italic;
   }
-  .acessar{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:38px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--gold);
-    border:1px solid var(--line);
-    border-radius:20px;
-    padding:0 22px;
-    transition:all .2s ease;
+  .book-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 32px;
+    padding: 0 11px;
+    border: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
   }
-
-  /* ---------- filters (only shown if >1 category present) ---------- */
-  .filters{
-    max-width:1160px;
-    margin:0 auto;
-    padding:0 32px 40px;
-    display:none;
-    gap:8px;
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-  .filters.show{ display:flex; }
-  .filters .tag{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    padding:9px 16px;
-    min-height:36px;
-    display:inline-flex;
-    align-items:center;
-    border:1px solid var(--line);
-    border-radius:20px;
-    color:var(--stone);
-    background:transparent;
-    cursor:pointer;
-    transition:all .15s ease;
-  }
-  @media (hover:hover) and (pointer:fine){
-    .filters .tag:hover{ border-color:var(--gold); color:var(--gold); }
-  }
-  .filters .tag.active{ background:var(--gold); border-color:var(--gold); color:var(--void); }
-
-  /* ---------- footer / discreet csv loader ---------- */
-  footer{
-    max-width:1160px;
-    margin:0 auto;
-    padding:0 32px 70px;
-    text-align:center;
-  }
-  footer p{
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:14px;
-    color:var(--stone);
-    letter-spacing:0.02em;
-    margin:0 0 10px;
-  }
-  footer .rule{
-    width:60px;
-    height:1px;
-    margin:0 auto 22px;
-    background:linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-  }
-  footer .signature{
-    font-family:'JetBrains Mono', monospace;
-    font-size:9.5px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--gold-dim);
-  }
-  footer .privacy{
-    max-width:420px;
-    margin:26px auto 0;
-    font-family:'JetBrains Mono', monospace;
-    font-style:normal;
-    font-size:9.5px;
-    line-height:1.7;
-    letter-spacing:0.02em;
-    color:var(--stone);
-    opacity:0.6;
-    text-transform:none;
+  .book:hover .book-open {
+    border-color: var(--gold);
+    color: var(--gold-hi);
   }
 
-  /* ---------- responsivo ---------- */
-  @media (max-width:900px){
-    header{ padding:64px 24px 44px; }
-    main{ padding:6px 24px 70px; gap:44px 28px; }
-    footer{ padding:0 24px 56px; }
+  /* ---------- principles ---------- */
+  .principles {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 78px;
+    align-items: start;
+  }
+  .principles-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 1px;
+    background: rgba(199,160,90,.10);
+    border: 1px solid rgba(199,160,90,.12);
+  }
+  .principle {
+    padding: 28px 24px;
+    background: #070504;
+  }
+  .principle .n {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .14em;
+    color: var(--gold-dim);
+  }
+  .principle h3 {
+    margin: 10px 0 6px;
+    font-family: var(--display);
+    font-size: 1.05rem;
+    line-height: 1.15;
+    color: #d8c79f;
+  }
+  .principle p {
+    margin: 0;
+    font-size: .98rem;
+    line-height: 1.45;
+    color: #8f8169;
   }
 
-  @media (max-width:600px){
-    header{ padding:48px 20px 36px; }
-    .mark{ width:38px; height:38px; margin-bottom:20px; }
-    h1{ letter-spacing:0.1em; margin-bottom:12px; }
-    .lede{ font-size:15px; }
-    main{
-      padding:4px 20px 60px;
-      grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
-      gap:36px 18px;
-    }
-    .book{ max-width:100%; }
-    .book-title{ font-size:15px; margin-top:14px; }
-    .book-sub{ font-size:12px; margin-bottom:12px; }
-    .filters{ padding:0 20px 32px; gap:8px; }
-    footer{ padding:0 20px 48px; }
+  /* ---------- privacy / LGPD ---------- */
+  .privacy-section {
+    padding: 34px 0 18px;
+    border-top: 1px solid rgba(199,160,90,.08);
+  }
+  .privacy-box {
+    max-width: 980px;
+    margin: 0 auto;
+    border: 1px solid rgba(199,160,90,.13);
+    background: rgba(10,8,6,.58);
+  }
+  .privacy-summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 20px;
+    color: #b9a87f;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .privacy-summary::-webkit-details-marker { display:none; }
+  .privacy-summary::after { content: "+"; color: var(--gold-dim); font-size: 12px; }
+  .privacy-box[open] .privacy-summary::after { content: "−"; }
+  .privacy-content {
+    padding: 0 20px 20px;
+    color: #85775f;
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+  .privacy-content strong { color: #cfc09b; }
+  .privacy-content a { color: #c7a05a; }
+  .privacy-short {
+    margin-top: 13px;
+    text-align: center;
+    color: #5d5140;
+    font-family: var(--mono);
+    font-size: 7px;
+    line-height: 1.7;
+    letter-spacing: .03em;
   }
 
-  @media (max-width:380px){
-    main{ grid-template-columns:1fr; max-width:340px; }
+  /* ---------- ending ---------- */
+  .ending {
+    padding: 130px 0 100px;
+    text-align: center;
+    border-top: 1px solid rgba(199,160,90,.10);
+  }
+  .ending .sigil-small {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 26px;
+  }
+  .ending h2 {
+    margin: 0 auto 16px;
+    max-width: 850px;
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: var(--gold-hi);
+    font-weight: 600;
+  }
+  .ending p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 1.15rem;
+    line-height: 1.5;
+  }
+  .signature {
+    margin-top: 34px;
+    font-family: var(--fell);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: #d1c19b;
+  }
+  footer {
+    padding: 0 0 55px;
+    text-align: center;
+  }
+  footer .rule {
+    width: 80px;
+    height: 1px;
+    margin: 0 auto 18px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+  footer p {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #635640;
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 900px) {
+    .shell { width: min(var(--max), calc(100% - 36px)); }
+    .hero { padding: 90px 0 100px; }
+    .manifesto-grid, .principles { grid-template-columns: 1fr; gap: 48px; }
+    .library-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 30px; }
+    .principles-list { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 620px) {
+    .shell { width: min(var(--max), calc(100% - 28px)); }
+    .topbar-inner { min-height: 62px; }
+    .brand-copy span { display: none; }
+    .nav { gap: 12px; }
+    .nav a { font-size: 8px; letter-spacing: .11em; }
+    .hero { min-height: auto; padding: 86px 0 104px; }
+    .hero::before { width: 510px; height: 510px; }
+    .hero::after { width: 350px; height: 350px; }
+    .sigil { width: 64px; height: 64px; margin-bottom: 26px; }
+    .hero h1 { font-size: clamp(3rem, 15vw, 5rem); }
+    .hero-lede { font-size: 1.08rem; }
+    .hero-quote { margin-top: 50px; font-size: 1.08rem; }
+    .section { padding: 78px 0; }
+    .library-head { display: grid; gap: 12px; margin-bottom: 34px; }
+    .library-grid { grid-template-columns: 1fr; gap: 54px; max-width: 410px; margin: 0 auto; }
+    .library-note { margin-bottom: 24px; }
+    .book-caption h3 { font-size: 1.3rem; }
+    .book-index { transform: translateY(-14px); }
+    .principles-list { grid-template-columns: 1fr; }
+    .ending { padding: 90px 0 72px; }
   }
 </style>
 </head>
-<body>
 
-<header>
-  <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="20" cy="20" r="18.5" stroke="#7a5a1a" stroke-width="0.5" opacity="0.55"/>
-    <polygon points="20,5 32.99,27.5 7.01,27.5" stroke="url(#markGrad)" stroke-width="0.9" fill="none" stroke-linejoin="round"/>
-    <polygon points="20,35 7.01,12.5 32.99,12.5" stroke="url(#markGrad)" stroke-width="0.9" fill="none" stroke-linejoin="round"/>
-    <defs>
-      <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#f0cf7e"/>
-        <stop offset="100%" stop-color="#8a651f"/>
-      </linearGradient>
-    </defs>
-  </svg>
-  <h1>Biblioteca</h1>
-  <p class="lede">Obras escritas por Adriano Benedet</p>
+<body>
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <a class="brand" href="#top" aria-label="Adriano Benedet — início">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="18.2" stroke="#765b2f" stroke-width=".7"/>
+        <path d="M20 5.5 32.6 27H7.4L20 5.5Z" stroke="#f1d993" stroke-width=".8"/>
+        <path d="M20 34.5 7.4 13h25.2L20 34.5Z" stroke="#c7a05a" stroke-width=".8"/>
+        <circle cx="20" cy="20" r="2.1" fill="#c7a05a"/>
+      </svg>
+      <span class="brand-copy">
+        <strong>Adriano Benedet</strong>
+        <span>Arquivo do Escriba</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#biblioteca">Biblioteca</a>
+    </nav>
+  </div>
 </header>
 
-<div class="filters" id="filters"></div>
+<main id="top">
+  <section class="hero">
+    <div class="hero-inner">
+      <svg class="sigil" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+        <circle cx="45" cy="45" r="39" stroke="#765b2f" stroke-width=".8"/>
+        <circle cx="45" cy="45" r="31" stroke="#765b2f" stroke-width=".35" opacity=".8"/>
+        <path d="M45 10 75.3 62H14.7L45 10Z" stroke="#f1d993" stroke-width="1.1"/>
+        <path d="M45 80 14.7 28h60.6L45 80Z" stroke="#c7a05a" stroke-width="1.1"/>
+        <circle cx="45" cy="45" r="4" fill="#c7a05a"/>
+        <path d="M45 18v54M18 45h54" stroke="#765b2f" stroke-width=".45" opacity=".65"/>
+      </svg>
 
-<main id="grid"></main>
+      <p class="eyebrow">Biblioteca · Arquivo pessoal · 2026</p>
+      <h1>
+        O Escriba
+        <span>na borda da tempestade</span>
+      </h1>
+
+      <div class="hero-rule"></div>
+
+      <p class="hero-quote"><em>“Verba volant, scripta manent”</em></p>
+
+      <p class="hero-lede">
+        Livros, tratados e sistemas para ler, examinar e colocar à prova —
+        uma biblioteca construída para <em>transmitir</em>.
+      </p>
+
+      <div class="hero-meta">
+        <span class="seal">Conhecimento como ferramenta</span>
+        <span class="seal">Dúvida como princípio</span>
+        <span class="seal">Independência como destino</span>
+      </div>
+
+      <p class="hero-quote">
+        “Cada livro é uma camada do mesmo edifício: a <strong>libertação humana.</strong>”
+        <br><strong>— Adriano Benedet · Manifesto</strong>
+      </p>
+    </div>
+
+    <div class="scroll-cue">descer para o arquivo<i></i></div>
+  </section>
+
+  <section class="section" id="biblioteca">
+    <div class="shell">
+      <div class="library-head reveal">
+        <div>
+          <p class="section-kicker">I · Arquivo de obras</p>
+          <h2 class="section-title">A Biblioteca</h2>
+          <div class="filters" id="filters" aria-label="Filtrar obras"></div>
+        </div>
+        <p>
+          Livros para serem lidos como <em>manuais de campo</em>:
+          examinados, testados, anotados e levados para fora destas páginas.
+        </p>
+      </div>
+      <div class="library-note reveal">
+        <span>ARQUIVO DE OBRAS</span>
+        <i></i>
+        <span>Selecione um tomo para entrar na obra</span>
+      </div>
+      <div class="library-grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="manifesto">
+    <div class="shell manifesto-grid">
+      <div class="reveal">
+        <p class="section-kicker">II · O eixo da obra</p>
+        <h2 class="section-title">Não é uma coleção.<br>É uma <em>linha de transmissão.</em></h2>
+        <p class="manifesto-copy">
+          O manifesto apresenta esta biblioteca como o <b>eixo</b> de uma obra maior:
+          cada livro é uma ramificação de uma mesma jornada, construída para restaurar
+          memória, devolver a chave ao buscador e transformar conhecimento em ferramenta.
+        </p>
+      </div>
+
+      <aside class="manifesto-card reveal">
+        <div class="quote-mark">“</div>
+        <blockquote>
+          Eu escrevo para que você, que lê, possa um dia escrever também.
+          Não meus livros — mas os seus. Não minha jornada — mas a sua.
+        </blockquote>
+        <div class="source">
+          <span>Manifesto do Escriba</span>
+          <span>Adriano Benedet · 2026</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="principios">
+    <div class="shell principles">
+      <div class="reveal">
+        <p class="section-kicker">III · Operação</p>
+        <h2 class="section-title">Os princípios<br><em>do buscador</em></h2>
+        <p class="manifesto-copy">
+          Não mandamentos. Princípios operacionais extraídos da experiência:
+          continuar, questionar, integrar, escrever e usar o poder com consciência.
+        </p>
+      </div>
+
+      <div class="principles-list reveal">
+        <article class="principle">
+          <div class="n">01</div>
+          <h3>Honrar a tempestade</h3>
+          <p>O caos não é apenas ameaça; também pode ser treinamento.</p>
+        </article>
+        <article class="principle">
+          <div class="n">02</div>
+          <h3>Escrever sem vaidade</h3>
+          <p>A transmissão importa mais que a imagem de quem transmite.</p>
+        </article>
+        <article class="principle">
+          <div class="n">03</div>
+          <h3>O conhecimento não tem dono</h3>
+          <p>O guardião indica a passagem em vez de trancar o portal.</p>
+        </article>
+        <article class="principle">
+          <div class="n">04</div>
+          <h3>Não temer o erro</h3>
+          <p>Tentativa, queda e recomeço fazem parte da mecânica do aprendizado.</p>
+        </article>
+        <article class="principle">
+          <div class="n">05</div>
+          <h3>Integrar o sagrado e o profano</h3>
+          <p>Não fragmentar aquilo que a experiência apresenta como uno.</p>
+        </article>
+        <article class="principle">
+          <div class="n">06</div>
+          <h3>Influência como ferramenta</h3>
+          <p>Despertar e abrir portas, não dominar ou impor certezas.</p>
+        </article>
+        <article class="principle">
+          <div class="n">07</div>
+          <h3>Escutar o sonho</h3>
+          <p>Registrar, lembrar e investigar o que surge no espaço noturno.</p>
+        </article>
+        <article class="principle">
+          <div class="n">08</div>
+          <h3>Não se curvar ao sistema</h3>
+          <p>Quando um espaço não comporta sua busca, construa outro.</p>
+        </article>
+        <article class="principle">
+          <div class="n">09</div>
+          <h3>Presença antes do intermediário</h3>
+          <p>A experiência direta ocupa o centro da relação com o sagrado.</p>
+        </article>
+        <article class="principle">
+          <div class="n">10</div>
+          <h3>Continuar</h3>
+          <p>Mesmo sem mapa completo, continuar é parte do caminho.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="privacy-section" id="privacidade">
+    <div class="shell">
+      <details class="privacy-box">
+        <summary class="privacy-summary">Aviso de Privacidade · LGPD</summary>
+        <div class="privacy-content">
+          <p><strong>Este arquivo não utiliza formulários, contas, publicidade personalizada ou ferramentas próprias de análise de comportamento.</strong> Esta página também não cria cookies próprios para essas finalidades.</p>
+          <p>Para exibir a tipografia da interface, o site solicita recursos externos do Google Fonts. Essa requisição pode envolver dados técnicos de conexão, como endereço IP, tratados pelo respectivo fornecedor conforme suas próprias políticas.</p>
+          <p>Ao selecionar um livro, você pode ser encaminhado para outra página. O tratamento de dados realizado nesse destino é de responsabilidade do respectivo serviço e deve ser consultado em seu próprio aviso de privacidade.</p>
+          <p>Nos termos da LGPD, o titular possui direitos relativos ao tratamento de seus dados pessoais, como informação, confirmação, acesso e correção. Consulte também a orientação oficial da <a href="https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados-1/direito-dos-titulares" target="_blank" rel="noopener noreferrer">ANPD sobre os direitos do titular</a>.</p>
+        </div>
+      </details>
+      <p class="privacy-short">AVISO DE PRIVACIDADE · LGPD · Transparência sobre dados e recursos externos utilizados nesta página.</p>
+    </div>
+  </section>
+
+  <section class="ending">
+    <div class="shell reveal">
+      <svg class="sigil-small" viewBox="0 0 50 50" fill="none" aria-hidden="true">
+        <circle cx="25" cy="25" r="21.5" stroke="#765b2f" stroke-width=".7"/>
+        <path d="M25 9 39 33H11L25 9Z" stroke="#c7a05a" stroke-width=".9"/>
+        <path d="M25 41 11 17h28L25 41Z" stroke="#f1d993" stroke-width=".9"/>
+        <circle cx="25" cy="25" r="2.4" fill="#c7a05a"/>
+      </svg>
+      <h2>A chama não é para ser guardada.<br>É para ser transmitida.</h2>
+      <p>
+        A biblioteca começa aqui. O restante pertence à jornada de quem atravessa estas páginas.
+      </p>
+      <div class="signature">Adriano Benedet · Na borda da tempestade.</div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  <div class="rule"></div>
-  <p>&ldquo;Verba volant, scripta manent&rdquo;</p>
-  <div class="signature">Adriano Benedet &mdash; Arquivo Pessoal</div>
-  <p class="privacy">Este site não coleta, armazena ou compartilha dados pessoais. Nenhum formulário, cookie ou rastreador é utilizado — apenas fontes tipográficas são carregadas do Google Fonts.</p>
+  <div class="shell">
+    <div class="rule"></div>
+    <p>Verba volant, scripta manent · Arquivo pessoal · 2026 · <a href="#privacidade" style="color:inherit;text-decoration:none">Privacidade & LGPD</a></p>
+  </div>
 </footer>
 
 <script>
-// Formato esperado do CSV: titulo, subtitulo, categoria, capa, link_acesso
-// "capa" = URL de imagem da capa (se vazio, usa uma capa neutra padrão)
-const fallbackCover = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgdmlld0JveD0iMCAwIDY5MCAxMDEwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI2OTAiIGhlaWdodD0iMTAxMCIgZmlsbD0iIzBhMDgwNSIvPjxyZWN0IHg9IjI2IiB5PSIyNiIgd2lkdGg9IjYzOCIgaGVpZ2h0PSI5NTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdhNWExYSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+';
-
-let data = [
+  const data = [
   {
     titulo:'LIBER IESUS',
     subtitulo:'O Cristo e a Fórmula do Abismo',
@@ -328,44 +941,69 @@ let data = [
     link_acesso:'https://adrianobenedetsc-pixel.github.io/adrianobenedet/vigilantes'
   }
 ];
-let activeCat = 'Todos';
+  let activeCat = 'Todos';
 
-function render(){
-  const grid = document.getElementById('grid');
-  const cats = [...new Set(data.map(d => d.categoria).filter(Boolean))];
-  const filters = document.getElementById('filters');
-  if(cats.length > 1){
-    filters.classList.add('show');
-    filters.innerHTML = ['Todos', ...cats].map(c =>
-      `<button class="tag ${c===activeCat?'active':''}" data-cat="${c}">${c}</button>`
-    ).join('');
-    filters.querySelectorAll('.tag').forEach(btn=>{
-      btn.addEventListener('click', ()=>{ activeCat = btn.dataset.cat; render(); });
-    });
-  } else {
-    filters.classList.remove('show');
-    activeCat = 'Todos';
+  const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m => (
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]
+  ));
+
+  function renderLibrary() {
+    const grid = document.getElementById('grid');
+    const filters = document.getElementById('filters');
+    const cats = [...new Set(data.map(d => d.categoria).filter(Boolean))];
+
+    if (cats.length > 1) {
+      filters.innerHTML = ['Todos', ...cats].map(c =>
+        `<button class="filter ${c === activeCat ? 'active' : ''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`
+      ).join('');
+      filters.querySelectorAll('.filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCat = btn.dataset.cat;
+          renderLibrary();
+        });
+      });
+    } else {
+      filters.innerHTML = '';
+    }
+
+    const visible = activeCat === 'Todos' ? data : data.filter(d => d.categoria === activeCat);
+
+    grid.innerHTML = visible.map((d, i) => `
+      <a class="book reveal" href="${d.link_acesso || '#'}" target="_blank" rel="noopener noreferrer" style="transition-delay:${Math.min(i * .07, .35)}s">
+        <span class="book-index">${String(i + 1).padStart(2, '0')} / TOMO</span>
+        <div class="cover-frame">
+          <img src="${d.capa}" alt="Capa de ${escapeHtml(d.titulo)}" loading="lazy">
+        </div>
+        <div class="book-caption">
+          <div>
+            <h3>${escapeHtml(d.titulo)}</h3>
+            <p>${escapeHtml(d.subtitulo || '')}</p>
+          </div>
+          <span class="book-open">Abrir ↗</span>
+        </div>
+      </a>
+    `).join('');
+
+    observeReveals();
   }
 
-  const visible = activeCat === 'Todos' ? data : data.filter(d => d.categoria === activeCat);
+  let observer;
+  function observeReveals() {
+    if (observer) observer.disconnect();
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
 
-  grid.innerHTML = visible.map((d, i) => `
-    <a class="book" href="${d.link_acesso || '#'}" target="_blank" rel="noopener noreferrer" style="animation-delay:${Math.min(i*0.05,0.4)}s">
-      <div class="cover-frame">
-        <img src="${d.capa || fallbackCover}" alt="Capa de ${escapeHtml(d.titulo)}">
-      </div>
-      <div class="book-title">${escapeHtml(d.titulo)}</div>
-      ${d.subtitulo ? `<div class="book-sub">${escapeHtml(d.subtitulo)}</div>` : ''}
-      <span class="acessar">Acessar</span>
-    </a>
-  `).join('');
-}
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
 
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
-
-render();
+  renderLibrary();
+  observeReveals();
 </script>
 </body>
 </html>
