@@ -1155,6 +1155,89 @@
     }
   }
 
+
+  /* ===== HERO CINEMATOGRÁFICO · O ESCRIBA ===== */
+  .hero {
+    position: relative;
+    /* Usa a proporção natural da arte para não cortar a pena, as letras ou os ornamentos. */
+    height: clamp(460px, 47.43vw, 793px);
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: #050403;
+    background-image:
+      linear-gradient(180deg, rgba(5,4,3,.10) 0%, rgba(5,4,3,.01) 34%, rgba(5,4,3,.10) 72%, rgba(5,4,3,.96) 100%),
+      url('hero-escriba.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center top;
+    box-shadow: inset 0 0 90px rgba(0,0,0,.72);
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    opacity: 1;
+    transform: none;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(5,4,3,.28) 0%, transparent 18%, transparent 82%, rgba(5,4,3,.28) 100%),
+      radial-gradient(circle at 50% 48%, transparent 35%, rgba(0,0,0,.28) 100%);
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    width: auto;
+    height: 180px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(180deg, transparent, rgba(5,4,3,.94));
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 940px;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .scroll-cue {
+    z-index: 3;
+    color: #c7a05a;
+    text-shadow: 0 2px 18px rgba(0,0,0,.8);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      /* No celular a arte continua inteira na altura do hero, sem ampliar até cortar a pena. */
+      height: clamp(390px, 100svh, 620px);
+      background-image:
+        linear-gradient(180deg, rgba(5,4,3,.12) 0%, rgba(5,4,3,.03) 32%, rgba(5,4,3,.18) 68%, rgba(5,4,3,.97) 100%),
+        url('hero-escriba-mobile.png');
+      background-size: auto 100%;
+      background-repeat: no-repeat;
+      background-position: center top;
+    }
+
+    .hero::before {
+      background: radial-gradient(circle at 50% 44%, transparent 25%, rgba(0,0,0,.34) 100%);
+    }
+  }
+
 </style>
 </head>
 
