@@ -1223,18 +1223,28 @@
 
   @media (max-width: 640px) {
     .hero {
-      /* No celular a arte continua inteira na altura do hero, sem ampliar até cortar a pena. */
-      height: clamp(390px, 100svh, 620px);
+      /* No celular, a arte cabe inteira na largura da tela.
+         A altura acompanha a proporção original (1152×715), evitando cortar a pena e os ornamentos. */
+      height: max(220px, calc(100vw * 715 / 1152));
+      min-height: 0;
       background-image:
-        linear-gradient(180deg, rgba(5,4,3,.12) 0%, rgba(5,4,3,.03) 32%, rgba(5,4,3,.18) 68%, rgba(5,4,3,.97) 100%),
+        linear-gradient(180deg, rgba(5,4,3,.08) 0%, rgba(5,4,3,.02) 36%, rgba(5,4,3,.12) 72%, rgba(5,4,3,.96) 100%),
         url('hero-escriba-mobile.png');
-      background-size: auto 100%;
+      background-size: 100% auto;
       background-repeat: no-repeat;
       background-position: center top;
     }
 
     .hero::before {
-      background: radial-gradient(circle at 50% 44%, transparent 25%, rgba(0,0,0,.34) 100%);
+      background: radial-gradient(circle at 50% 44%, transparent 30%, rgba(0,0,0,.25) 100%);
+    }
+
+    .hero::after {
+      height: 70px;
+    }
+
+    .scroll-cue {
+      bottom: 10px;
     }
   }
 
