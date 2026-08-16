@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="O MILAGRE — Tratado Operacional de Curas, Hipnose, Teatro e Magia Cerimonial, por Adriano Benedet.">
+<title>O MILAGRE — Adriano Benedet</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#070605;
+  --bg2:#0d0a08;
+  --panel:#120d0a;
+  --panel2:#17110d;
+  --ink:#eee4d4;
+  --dim:#afa08d;
+  --faint:#706355;
+  --gold:#b98543;
+  --gold2:#e1b873;
+  --gold3:#6e4722;
+  --ember:#8f2f1f;
+  --ember2:#d35b31;
+  --line:rgba(185,133,67,.20);
+  --line2:rgba(185,133,67,.10);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(211,91,49,.10), transparent 55%),
+    radial-gradient(ellipse at 50% 25%, rgba(185,133,67,.035), transparent 48%),
+    var(--bg);
+  font-family:'EB Garamond',serif;
+  font-size:18px;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:30;
+  opacity:.18;
+  background:repeating-linear-gradient(
+    0deg, rgba(255,255,255,.018) 0, rgba(255,255,255,.018) 1px,
+    transparent 1px, transparent 4px
+  );
+}
+a{color:inherit}
+.wrap{width:min(1040px, calc(100% - 56px)); margin:0 auto}
+h1,h2,h3,h4{font-family:'Cinzel',serif; margin:0; color:var(--ink)}
+.eyebrow{
+  display:block;
+  font:700 11px/1.2 'Cinzel',serif;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--gold2);
+}
+.rule{
+  height:1px; width:70px; margin:22px 0;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.rule.center{
+  width:180px; margin:26px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  min-height:100vh;
+  padding:120px 24px 92px;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  text-align:center; overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero::after{
+  content:""; position:absolute; left:50%; top:50%;
+  width:900px; height:900px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(211,91,49,.09), transparent 66%);
+  animation:breathe 9s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{opacity:.55; transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:1; transform:translate(-50%,-50%) scale(1.07)}
+}
+.sigil{
+  position:relative; z-index:1;
+  width:92px; height:92px; margin-bottom:30px;
+  filter:drop-shadow(0 0 24px rgba(225,184,115,.15));
+  animation:ember 6s ease-in-out infinite;
+}
+@keyframes ember{
+  0%,100%{opacity:.72; transform:scale(1) rotate(0)}
+  50%{opacity:1; transform:scale(1.035) rotate(1deg)}
+}
+.hero .kicker{
+  position:relative; z-index:1;
+  font:500 11px 'Cinzel',serif; letter-spacing:.45em;
+  text-transform:uppercase; color:var(--dim);
+  margin-bottom:18px;
+}
+.hero h1{
+  position:relative; z-index:1;
+  font-size:clamp(55px, 10vw, 114px);
+  line-height:.93; letter-spacing:.06em;
+  text-transform:uppercase;
+  background:linear-gradient(180deg,#fbf0de 5%,var(--gold2) 48%,#7b4a23 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 70px rgba(185,133,67,.15);
+}
+.hero .subtitle{
+  position:relative; z-index:1;
+  max-width:760px; margin:24px auto 0;
+  color:var(--dim);
+  font:italic clamp(20px, 3vw, 28px)/1.45 'Cormorant Garamond',serif;
+}
+.hero .author{
+  position:relative; z-index:1;
+  margin-top:34px;
+  font:600 13px 'Cinzel',serif; letter-spacing:.30em;
+  text-transform:uppercase; color:var(--gold2);
+}
+.hero .meta{
+  position:relative; z-index:1;
+  margin-top:9px; color:var(--faint);
+  font-size:14px; letter-spacing:.04em;
+}
+.cta-row{
+  position:relative; z-index:1;
+  display:flex; justify-content:center; flex-wrap:wrap;
+  gap:14px; margin-top:44px;
+}
+.btn{
+  display:inline-block; text-decoration:none; cursor:pointer;
+  padding:16px 30px; border-radius:2px;
+  border:1px solid transparent;
+  font:600 12px 'Cinzel',serif;
+  letter-spacing:.15em; text-transform:uppercase;
+  transition:.25s ease;
+}
+.btn-primary{
+  color:#160f08;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));
+  box-shadow:0 10px 35px -10px rgba(185,133,67,.6);
+}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 15px 40px -8px rgba(211,91,49,.55)}
+.btn-ghost{
+  color:var(--gold2); border-color:var(--gold3);
+  background:rgba(185,133,67,.015);
+}
+.btn-ghost:hover{background:rgba(185,133,67,.07); border-color:var(--gold)}
+.scroll-hint{
+  position:absolute; z-index:1; bottom:30px; left:50%;
+  transform:translateX(-50%);
+  font:500 10px 'Cinzel',serif;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--faint);
+}
+
+/* DIVISOR */
+.ritual-divider{
+  padding:0; overflow:hidden; text-align:center;
+  background:var(--bg);
+}
+.ritual-divider svg{display:block; width:100%; height:72px}
+.divider-label{
+  margin:-12px auto 0; padding:0 22px; width:max-content; max-width:90%;
+  background:var(--bg);
+  color:var(--faint);
+  font:italic 15px 'Cormorant Garamond',serif;
+}
+.divider-label em{color:var(--gold2)}
+
+/* SECTIONS */
+section{padding:110px 0}
+.section-head{max-width:710px; margin-bottom:54px}
+.section-head h2{
+  font-size:clamp(28px,4vw,40px); line-height:1.2;
+  margin-top:10px; letter-spacing:.015em;
+}
+.section-head p{color:var(--dim); margin-top:15px}
+
+/* AUTHOR */
+.authorsnote{
+  background:linear-gradient(90deg,var(--panel),var(--bg2));
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+blockquote{
+  margin:0; max-width:800px;
+  font:italic clamp(23px,3vw,32px)/1.5 'Cormorant Garamond',serif;
+  color:var(--ink);
+}
+blockquote span{color:var(--gold2)}
+.signoff{
+  margin-top:26px; color:var(--faint);
+  font:600 11px 'Cinzel',serif;
+  letter-spacing:.22em; text-transform:uppercase;
+}
+
+/* TRIADE */
+.triade-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--line);
+}
+.triade{
+  position:relative; padding:42px 34px;
+  min-height:260px;
+  background:rgba(255,255,255,.008);
+}
+.triade + .triade{border-left:1px solid var(--line)}
+.triade .number{
+  font:700 12px 'Cinzel',serif;
+  letter-spacing:.20em; color:var(--gold);
+}
+.triade h3{font-size:23px; margin:15px 0 10px}
+.triade p{margin:0; color:var(--dim); font-size:16px}
+.triade .pct{
+  position:absolute; right:26px; top:25px;
+  font:700 32px 'Cinzel',serif; color:rgba(225,184,115,.18);
+}
+.triade.sug{box-shadow:inset 0 -3px 0 var(--gold)}
+.triade.theatre{box-shadow:inset 0 -3px 0 var(--ember)}
+.triade.fire{box-shadow:inset 0 -3px 0 var(--ember2)}
+.triade-note{
+  padding:26px 28px; border:1px solid var(--line2); border-top:0;
+  color:var(--dim); text-align:center;
+  font:italic 16px 'Cormorant Garamond',serif;
+}
+@media(max-width:760px){
+  .triade-grid{grid-template-columns:1fr}
+  .triade + .triade{border-left:0;border-top:1px solid var(--line)}
+}
+
+/* METHOD */
+.method{background:var(--panel)}
+.method-grid{
+  display:grid; grid-template-columns:1fr 1fr;
+  border:1px solid var(--line);
+}
+.method-col{padding:44px 40px; position:relative}
+.method-col:first-child{
+  border-right:1px solid var(--line);
+  background:rgba(255,255,255,.012)
+}
+.method-col .tag{
+  display:block; margin-bottom:13px;
+  font:700 10px 'Cinzel',serif;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--gold2);
+}
+.method-col h3{font-size:21px; margin-bottom:14px; font-weight:600}
+.method-col p{margin:0; color:var(--dim); font-size:16px}
+.method-arrow{
+  position:absolute; top:50%; left:100%;
+  transform:translate(-50%,-50%);
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--gold3); background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold2); z-index:2;
+}
+@media(max-width:720px){
+ .method-grid{grid-template-columns:1fr}
+ .method-col:first-child{border-right:0;border-bottom:1px solid var(--line)}
+ .method-arrow{top:100%;left:50%}
+}
+
+/* STRUCTURE */
+.parts{display:flex; flex-direction:column; border-top:1px solid var(--line)}
+.part-row{
+  display:grid; grid-template-columns:55px 1fr 145px;
+  align-items:baseline; gap:18px;
+  padding:21px 0; border-bottom:1px solid var(--line);
+  transition:.2s ease;
+}
+.part-row:hover{background:rgba(185,133,67,.025); padding-left:10px; padding-right:10px}
+.part-num{font:600 15px 'Cinzel',serif; color:var(--gold3)}
+.part-title{font-size:18px; color:var(--ink)}
+.part-title small{
+  display:block; margin-top:3px;
+  color:var(--faint); font:italic 14px 'Cormorant Garamond',serif;
+}
+.part-caps{
+  text-align:right; color:var(--faint);
+  font:600 10px 'Cinzel',serif;
+  letter-spacing:.12em; text-transform:uppercase
+}
+.stats-row{display:flex;gap:52px;flex-wrap:wrap;margin-top:48px}
+.stat b{display:block;font:600 30px 'Cinzel',serif;color:var(--gold2)}
+.stat span{font:600 11px 'Cinzel',serif;letter-spacing:.10em;text-transform:uppercase;color:var(--faint)}
+@media(max-width:640px){
+ .part-row{grid-template-columns:42px 1fr}
+ .part-caps{grid-column:2;text-align:left}
+}
+
+/* WHO */
+.whowho{
+  background:var(--panel2);
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line)
+}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:52px}
+.split h4{
+  font:600 12px 'Cinzel',serif; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--dim); margin-bottom:17px
+}
+.split ul{list-style:none;padding:0;margin:0}
+.split li{
+  position:relative; padding:10px 0 10px 27px;
+  color:var(--dim); font-size:16px
+}
+.split.not li::before{content:"×";position:absolute;left:0;top:9px;color:var(--ember2)}
+.split.is li::before{content:"◆";position:absolute;left:1px;top:10px;color:var(--gold2);font-size:8px}
+@media(max-width:680px){.split{grid-template-columns:1fr}}
+
+/* DOWNLOAD */
+.download{
+  text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(225,184,115,.09),transparent 62%),var(--bg)
+}
+.download .section-head{margin:0 auto 20px;text-align:center}
+.download p.lead{max-width:610px;margin:0 auto 36px;color:var(--dim)}
+.download-box{
+  max-width:500px;margin:0 auto;
+  padding:42px 34px;border:1px solid var(--gold3);
+  background:rgba(185,133,67,.025)
+}
+.format-tags{display:flex;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.format-tags span{
+  border:1px solid var(--line);padding:5px 11px;
+  color:var(--faint);font:600 10px 'Cinzel',serif;
+  letter-spacing:.10em;text-transform:uppercase
+}
+
+/* CONTRIBUTION */
+.contribute{background:var(--panel)}
+.contribute .inner{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:48px;
+  border:1px solid var(--line);padding:56px 48px
+}
+.contribute p{color:var(--dim);font-size:16px}
+.give-panel{background:var(--bg);border:1px solid var(--gold3);padding:32px}
+.give-panel .tag{
+ display:block;margin-bottom:18px;color:var(--gold2);
+ font:700 10px 'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase
+}
+.give-value{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ border:1px dashed var(--line);padding:12px 14px;color:var(--dim);font-size:15px
+}
+.give-value code{color:var(--gold2);font:italic 15px 'EB Garamond',serif;overflow-wrap:anywhere}
+.copy-btn{
+ border:1px solid var(--gold3);background:none;color:var(--gold2);
+ padding:7px 10px;cursor:pointer;border-radius:2px;
+ font:600 9px 'Cinzel',serif;letter-spacing:.08em;text-transform:uppercase
+}
+.amounts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.amounts button{
+ flex:1;min-width:70px;padding:11px 0;cursor:pointer;
+ border:1px solid var(--line);background:transparent;color:var(--dim);
+ font:600 11px 'Cinzel',serif
+}
+.amounts button:hover,.amounts button.active{
+ border-color:var(--gold);color:var(--gold2);background:rgba(185,133,67,.06)
+}
+.editnote{
+ margin-top:19px;padding-top:14px;border-top:1px dashed var(--line);
+ color:var(--faint);font:italic 12px 'Cormorant Garamond',serif
+}
+@media(max-width:760px){
+ .contribute .inner{grid-template-columns:1fr;padding:40px 26px}
+}
+
+/* CONTACT / FOOTER */
+.contact{
+ background:var(--panel2);border-top:1px solid var(--line);padding:78px 0
+}
+.contact-inner{
+ display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap
+}
+.contact-email{
+ color:var(--gold2);text-decoration:none;
+ border-bottom:1px solid var(--gold3);padding-bottom:6px;
+ font:600 clamp(17px,2.6vw,24px) 'Cinzel',serif
+}
+footer{padding:58px 0 48px;text-align:center;border-top:1px solid var(--line)}
+.footer-sigil{width:34px;height:34px;margin:0 auto 16px}
+.footer-name{
+ font:600 12px 'Cinzel',serif;letter-spacing:.20em;
+ color:var(--gold2);text-transform:uppercase
+}
+footer p{color:var(--faint);font-size:13px}
+.privacy-link{
+ margin-top:20px; border:0; background:none; cursor:pointer;
+ color:var(--faint); text-decoration:underline; text-underline-offset:4px;
+ font:600 10px 'Cinzel',serif;letter-spacing:.12em;text-transform:uppercase
+}
+
+/* PRIVACY */
+.privacy-overlay{
+ position:fixed;inset:0;z-index:100;padding:24px;
+ display:flex;align-items:center;justify-content:center;
+ background:rgba(0,0,0,.83);opacity:0;pointer-events:none;transition:.2s
+}
+.privacy-overlay.open{opacity:1;pointer-events:auto}
+.privacy-box{
+ position:relative;max-width:650px;max-height:80vh;overflow:auto;
+ padding:44px 40px;background:var(--panel);
+ border:1px solid var(--gold3)
+}
+.privacy-box h3{font-size:22px}
+.privacy-box p,.privacy-box li{color:var(--dim);font-size:15px}
+.privacy-box li{margin-bottom:11px}
+.privacy-box a{color:var(--gold2)}
+.privacy-close{
+ position:absolute;right:15px;top:12px;
+ border:0;background:none;color:var(--faint);cursor:pointer;font-size:16px
+}
+::selection{background:var(--gold3);color:#fff}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+ *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="sigil" viewBox="-160 -160 320 320" aria-hidden="true">
+    <defs>
+      <radialGradient id="sigilGlow">
+        <stop offset="0%" stop-color="#e1b873" stop-opacity=".75"/>
+        <stop offset="100%" stop-color="#8f2f1f" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="0" cy="0" r="120" fill="url(#sigilGlow)" opacity=".18"/>
+    <circle cx="0" cy="0" r="118" fill="none" stroke="#b98543" stroke-width="2" opacity=".65"/>
+    <circle cx="0" cy="0" r="103" fill="none" stroke="#6e4722" stroke-width="1"/>
+    <g fill="#e1b873" opacity=".78">
+      <circle cx="0" cy="-118" r="3.2"/><circle cx="36.5" cy="-112.2" r="3.2"/>
+      <circle cx="69.4" cy="-94.8" r="3.2"/><circle cx="95.5" cy="-68.6" r="3.2"/>
+      <circle cx="111.6" cy="-35.6" r="3.2"/><circle cx="116.5" cy="0" r="3.2"/>
+      <circle cx="111.6" cy="35.6" r="3.2"/><circle cx="95.5" cy="68.6" r="3.2"/>
+      <circle cx="69.4" cy="94.8" r="3.2"/><circle cx="36.5" cy="112.2" r="3.2"/>
+      <circle cx="0" cy="118" r="3.2"/><circle cx="-36.5" cy="112.2" r="3.2"/>
+      <circle cx="-69.4" cy="94.8" r="3.2"/><circle cx="-95.5" cy="68.6" r="3.2"/>
+      <circle cx="-111.6" cy="35.6" r="3.2"/><circle cx="-116.5" cy="0" r="3.2"/>
+      <circle cx="-111.6" cy="-35.6" r="3.2"/><circle cx="-95.5" cy="-68.6" r="3.2"/>
+      <circle cx="-69.4" cy="-94.8" r="3.2"/><circle cx="-36.5" cy="-112.2" r="3.2"/>
+    </g>
+    <!-- Tríade de Ferro -->
+    <polygon points="0,-76 72,48 -72,48" fill="none" stroke="#d35b31" stroke-width="2.5"/>
+    <circle cx="0" cy="-76" r="7" fill="#070605" stroke="#e1b873" stroke-width="2"/>
+    <circle cx="-72" cy="48" r="7" fill="#070605" stroke="#e1b873" stroke-width="2"/>
+    <circle cx="72" cy="48" r="7" fill="#070605" stroke="#e1b873" stroke-width="2"/>
+    <path d="M0 28 C-12 12,-8 0,0 -12 C8 0,12 12,0 28Z" fill="none" stroke="#e1b873" stroke-width="2.5"/>
+    <circle cx="0" cy="8" r="4.2" fill="#e1b873"/>
+  </svg>
+
+  <div class="kicker">Um tratado para quem não quer apenas acreditar</div>
+  <h1>O MILAGRE</h1>
+  <p class="subtitle">Tratado Operacional de Curas, Hipnose, Teatro e Magia Cerimonial</p>
+  <p class="author">Adriano Benedet</p>
+  <p class="meta">2026 · ciência, arte, ritual e o resíduo inexplicável</p>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://drive.google.com/file/d/1UdoZs35ulytWyYRt0JNaiNcxn0rJi4gP/view?usp=sharing" target="_blank" rel="noopener">Ler o Livro — Grátis</a>
+    <a class="btn btn-ghost" href="#triade">Conhecer a Tríade</a>
+  </div>
+  <div class="scroll-hint">role para descer</div>
+</section>
+
+<!-- DIVISOR -->
+<section class="ritual-divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 72" preserveAspectRatio="none">
+    <path d="M0 36 L100 35 L155 15 L235 52 L310 28 L385 41 L475 18 L560 50 L640 27 L730 43 L810 18 L900 47 L980 30 L1060 51 L1125 23 L1200 36"
+      fill="none" stroke="#6e4722" stroke-width="1"/>
+    <path d="M0 36 L1200 36" fill="none" stroke="rgba(185,133,67,.08)" stroke-width="1"/>
+  </svg>
+  <div class="divider-label">A travessia começa na mente — e termina onde <em>a explicação termina.</em></div>
+</section>
+
+<!-- NOTA DO AUTOR -->
+<section class="authorsnote">
+  <div class="wrap reveal">
+    <span class="eyebrow">Nota do Autor</span>
+    <div class="rule"></div>
+    <blockquote>
+      “Este livro não é para os que buscam conforto. É para os que buscam o fogo.
+      <span>Não foi escrito para ser apenas lido — foi escrito para ser executado.</span>”
+    </blockquote>
+    <p class="signoff">— Adriano Benedet · 2026</p>
+  </div>
+</section>
+
+<!-- A TRÍADE -->
+<section id="triade">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">A Espinha Dorsal</span>
+      <h2>A Tríade de Ferro</h2>
+      <p>O livro organiza sua proposta em três pilares simultâneos: sugestão, teatro e fogo. A intenção é integrar ciência, performance e mistério em um único sistema operacional.</p>
+    </div>
+
+    <div class="triade-grid">
+      <article class="triade sug">
+        <span class="number">01 · SUGESTÃO</span>
+        <span class="pct">60%</span>
+        <h3>A Engenharia da Mente</h3>
+        <p>Expectativa, placebo, hipnose, visualização e neuroplasticidade formam a base racional apresentada pelo tratado.</p>
+      </article>
+      <article class="triade theatre">
+        <span class="number">02 · TEATRO</span>
+        <span class="pct">30%</span>
+        <h3>A Dramaturgia</h3>
+        <p>Ambiente, voz, gesto, objetos e gestão da expectativa são tratados como engenharia da percepção e da experiência.</p>
+      </article>
+      <article class="triade fire">
+        <span class="number">03 · FOGO</span>
+        <span class="pct">10%</span>
+        <h3>O Resíduo</h3>
+        <p>O livro reserva uma parcela ao que chama de “resíduo inexplicável”: o mistério que não pretende reduzir às ferramentas anteriores.</p>
+      </article>
+    </div>
+    <div class="triade-note">A sugestão é a mensagem · o teatro é o meio · o fogo é a fonte.</div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="method">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">O Método</span>
+      <h2>Da teoria à operação</h2>
+      <p>As partes do livro foram construídas como uma descida progressiva: primeiro a mente, depois a vontade, então a performance, o mistério e, por fim, a integração operacional.</p>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-col">
+        <span class="tag">01 — Fundamento</span>
+        <h3>Ciência, história e linhagem</h3>
+        <p>Mesmer, Charcot, Erickson, neurociência da crença, magia cerimonial, Salomão, Agrippa, Paracelso, Dee, Levi, Crowley, Bardon, Fortune e Spare entram como peças de uma linhagem que o autor procura sintetizar.</p>
+        <div class="method-arrow">→</div>
+      </div>
+      <div class="method-col">
+        <span class="tag">02 — Integração</span>
+        <h3>Prática, protocolos e disciplina</h3>
+        <p>O tratado avança para performance, Vigilantes, protocolos, limites éticos, diário do operador e uma prática contínua — transformando o conhecimento em um sistema de trabalho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTRUTURA -->
+<section class="structure">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Estrutura da Obra</span>
+      <h2>Sete partes — da engenharia da mente à síntese do operador</h2>
+    </div>
+
+    <div class="parts">
+      <div class="part-row">
+        <span class="part-num">I</span>
+        <span class="part-title">A Engenharia da Mente<small>Mesmer · Charcot · Erickson · Derren Brown · neurociência da crença</small></span>
+        <span class="part-caps">5 capítulos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">II</span>
+        <span class="part-title">A Forja da Vontade<small>Magia cerimonial como tecnologia · Salomão · Agrippa · Paracelso · Dee · Crowley</small></span>
+        <span class="part-caps">7 capítulos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">III</span>
+        <span class="part-title">A Dramaturgia do Impossível<small>Espaço sagrado · voz · gestos · toque · gestão da expectativa</small></span>
+        <span class="part-caps">4 capítulos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">IV</span>
+        <span class="part-title">O Resíduo Inexplicável<small>Enoque · Vigilantes · Apkallu · tradições e o “fogo real”</small></span>
+        <span class="part-caps">8 capítulos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">V</span>
+        <span class="part-title">As Obras Completas<small>Protocolos, diagnóstico, preparação, operação, selamento e acompanhamento</small></span>
+        <span class="part-caps">7 protocolos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VI</span>
+        <span class="part-title">A Transgressão Final<small>Ressurreição, necromancia, tradição hermética, limite e ética do impossível</small></span>
+        <span class="part-caps">8 capítulos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VII</span>
+        <span class="part-title">A Síntese do Operador<small>Tríade de Ferro · ética · jornada · prática · futuro</small></span>
+        <span class="part-caps">6 capítulos</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">+</span>
+        <span class="part-title">Apêndices<small>Glossário · diário · calendário · bibliografia · expansões e manifesto</small></span>
+        <span class="part-caps">5 apêndices</span>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><b>7</b><span>Partes centrais</span></div>
+      <div class="stat"><b>45</b><span>Capítulos</span></div>
+      <div class="stat"><b>7</b><span>Protocolos</span></div>
+      <div class="stat"><b>5</b><span>Apêndices</span></div>
+      <div class="stat"><b>R$0</b><span>Para ler</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="whowho">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Para Quem é Este Livro</span>
+      <h2>Não é uma leitura neutra</h2>
+    </div>
+
+    <div class="split">
+      <div>
+        <h4>Este livro não é</h4>
+        <ul class="not">
+          <li>Um romance ou obra de fantasia convencional</li>
+          <li>Um manual de autoajuda</li>
+          <li>Um tratado teológico tradicional</li>
+          <li>Uma defesa de fé cega ou de imprudência</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Este livro é</h4>
+        <ul class="is">
+          <li>Um tratado operacional que combina ciência, arte e mistério</li>
+          <li>Uma síntese pessoal de diferentes linhagens e ferramentas</li>
+          <li>Uma obra voltada ao conceito de “operador” e à prática disciplinada</li>
+          <li>Um sistema que declara limites, advertências e responsabilidade do leitor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="baixar">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Leitura Gratuita</span>
+      <h2>Abra O Milagre</h2>
+    </div>
+    <p class="lead">A obra completa está disponível gratuitamente. Entre pelo primeiro capítulo e percorra a jornada até a síntese final do operador.</p>
+
+    <div class="download-box">
+      <a class="btn btn-primary" style="width:100%" href="https://drive.google.com/file/d/1UdoZs35ulytWyYRt0JNaiNcxn0rJi4gP/view?usp=sharing" target="_blank" rel="noopener">↓ Ler / Baixar Agora</a>
+      <div class="format-tags">
+        <span>Google Drive</span>
+        <span>Obra completa</span>
+        <span>Grátis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUIÇÃO -->
+<section class="contribute" id="contribuir">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Sustentar a Obra</span>
+      <h2>O livro é livre. A contribuição é uma escolha.</h2>
+    </div>
+
+    <div class="inner">
+      <div>
+        <p>Uma obra desse tipo depende de tempo, pesquisa, escrita, revisão e continuidade. O acesso permanece gratuito; quem quiser apoiar a criação dos próximos trabalhos pode fazê-lo por livre contribuição.</p>
+        <p style="color:var(--faint);font-size:14px">Nenhuma contribuição é necessária para ler, baixar ou compartilhar o livro.</p>
+      </div>
+
+      <div class="give-panel">
+        <span class="tag">Chave Pix</span>
+        <div class="give-value">
+          <code id="pixKey">adrianobenedetsc@gmail.com</code>
+          <button class="copy-btn" onclick="copyPix()">Copiar</button>
+        </div>
+        <div class="amounts">
+          <button type="button">R$10</button>
+          <button type="button">R$25</button>
+          <button type="button">R$50</button>
+          <button type="button">Livre</button>
+        </div>
+        <div class="editnote">A mesma chave pode ser usada como canal de contato com o autor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact">
+  <div class="wrap reveal contact-inner">
+    <div>
+      <span class="eyebrow">Contato</span>
+      <h2 style="font-size:28px;margin-top:10px">Fale com o autor</h2>
+      <p style="color:var(--dim);max-width:480px;margin-top:14px">Dúvidas sobre a obra, parcerias, feedback ou questões relacionadas ao projeto podem ser enviadas diretamente.</p>
+    </div>
+    <a class="contact-email" href="mailto:adrianobenedetsc@gmail.com">adrianobenedetsc@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <svg class="footer-sigil" viewBox="-50 -50 100 100" aria-hidden="true">
+    <circle cx="0" cy="0" r="36" fill="none" stroke="#b98543" stroke-width="1.5"/>
+    <polygon points="0,-25 25,18 -25,18" fill="none" stroke="#d35b31" stroke-width="1.6"/>
+    <circle cx="0" cy="4" r="4" fill="none" stroke="#e1b873" stroke-width="1.4"/>
+  </svg>
+  <div class="footer-name">Adriano Benedet</div>
+  <p>O MILAGRE — Tratado Operacional de Curas, Hipnose, Teatro e Magia Cerimonial</p>
+  <button class="privacy-link" onclick="document.getElementById('privacyModal').classList.add('open')">Política de Privacidade</button>
+</footer>
+
+<!-- PRIVACIDADE / LGPD -->
+<div class="privacy-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-box">
+    <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('open')" aria-label="Fechar">✕</button>
+    <h3 id="privacyTitle">Aviso de Privacidade</h3>
+    <div class="rule"></div>
+    <p>Esta página é um site simples de apresentação. Ela não possui cadastro, login, formulário ou sistema próprio de armazenamento de dados pessoais.</p>
+    <ul>
+      <li><strong>Dados:</strong> esta página não possui mecanismo próprio de coleta ou armazenamento de dados pessoais.</li>
+      <li><strong>Livro:</strong> o arquivo é hospedado no Google Drive. Ao clicar no botão de leitura/download, você é direcionado para os servidores do Google e fica sujeito à política de privacidade do Google.</li>
+      <li><strong>Pix:</strong> a contribuição ocorre diretamente pelo aplicativo bancário do usuário. A página apenas exibe a chave e não processa transações.</li>
+      <li><strong>Contato:</strong> mensagens enviadas por e-mail passam a ser tratadas pelo provedor do remetente e do autor, fora desta página.</li>
+      <li><strong>Fontes:</strong> esta página utiliza Google Fonts, o que implica uma requisição aos servidores do Google conforme as condições de uso e privacidade do serviço.</li>
+    </ul>
+    <p>Para dúvidas sobre privacidade, entre em contato pelo e-mail <a href="mailto:adrianobenedetsc@gmail.com">adrianobenedetsc@gmail.com</a>.</p>
+  </div>
+</div>
+
+<script>
+function copyPix(){
+  const text = document.getElementById('pixKey').textContent;
+  const buttons = document.querySelectorAll('.copy-btn');
+  const btn = buttons[0];
+  navigator.clipboard?.writeText(text).catch(()=>{});
+  const original = btn.textContent;
+  btn.textContent = 'Copiado!';
+  setTimeout(()=>btn.textContent = original, 1400);
+}
+
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+},{threshold:.14});
+revealEls.forEach(el=>io.observe(el));
+
+const amountBtns = document.querySelectorAll('.amounts button');
+amountBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    amountBtns.forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.querySelector('.privacy-overlay').addEventListener('click',(e)=>{
+  if(e.target.classList.contains('privacy-overlay')){
+    e.currentTarget.classList.remove('open');
+  }
+});
+</script>
+
+</body>
+</html>
