@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHEMYAZA — O Líder dos Vigilantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0807;
+    --bg-panel: #120e0c;
+    --bg-panel-2: #17120f;
+    --line: rgba(140,47,23,0.18);
+    --ink: #ece3d2;
+    --ink-dim: #a89a86;
+    --ink-faint: #6e6255;
+    --gold: #8c2f17;
+    --gold-bright: #d97a2e;
+    --gold-deep: #5c1d0e;
+    --crimson: #6b2a2a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(140,47,23,0.08), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'EB Garamond', serif;
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    font-family:'Cinzel', serif;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--gold);
+    opacity:.85;
+  }
+  h1,h2,h3{
+    font-family:'Cinzel', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+  .rule{
+    width:64px;height:1px;
+    background:linear-gradient(90deg, var(--gold), transparent);
+    margin:22px 0;
+  }
+  .rule.center{margin:26px auto;background:linear-gradient(90deg, transparent, var(--gold), transparent);width:180px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 24px 80px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    top:50%; left:50%;
+    width:900px; height:900px;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(140,47,23,0.10) 0%, transparent 68%);
+    pointer-events:none;
+    animation:breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{opacity:.65; transform:translate(-50%,-50%) scale(1);}
+    50%{opacity:1; transform:translate(-50%,-50%) scale(1.06);}
+  }
+  .sigil{
+    width:52px;height:52px;
+    margin-bottom:28px;
+    opacity:.9;
+    animation:flicker 5s ease-in-out infinite;
+    position:relative; z-index:1;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:.75;}
+    45%{opacity:1;}
+    50%{opacity:.6;}
+    55%{opacity:1;}
+  }
+  .hero h1{
+    position:relative; z-index:1;
+    font-size:clamp(42px, 7.5vw, 86px);
+    letter-spacing:.06em;
+    line-height:1;
+    background:linear-gradient(180deg, #f1e6cd 0%, var(--gold-bright) 55%, var(--gold-deep) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 60px rgba(140,47,23,0.25);
+  }
+  .hero .subtitle{
+    position:relative; z-index:1;
+    font-family:'Cormorant', serif;
+    font-style:italic;
+    font-size:clamp(19px,2.6vw,26px);
+    color:var(--ink-dim);
+    margin-top:18px;
+    max-width:640px;
+  }
+  .hero .author{
+    position:relative; z-index:1;
+    margin-top:34px;
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .hero .meta-row{
+    position:relative; z-index:1;
+    margin-top:10px;
+    font-size:14px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+  }
+  .cta-row{
+    position:relative; z-index:1;
+    margin-top:46px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:17px 34px;
+    border-radius:2px;
+    display:inline-block;
+    transition:all .25s ease;
+    cursor:pointer;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color:#191008;
+    box-shadow:0 8px 30px -8px rgba(140,47,23,0.55);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 34px -6px rgba(140,47,23,0.7);}
+  .btn-ghost{
+    border-color:var(--gold-deep);
+    color:var(--gold-bright);
+    background:transparent;
+  }
+  .btn-ghost:hover{background:rgba(140,47,23,0.08); border-color:var(--gold);}
+  .scroll-hint{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-faint);
+    font-family:'Cinzel', serif;
+  }
+
+  /* ---------- ABYSS DIVIDER ---------- */
+  .abyss{
+    position:relative;
+    padding:0;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow:hidden;
+  }
+  .abyss-crack{
+    width:100%; max-width:1200px;
+    height:60px;
+    opacity:.55;
+  }
+  .abyss-crack svg{width:100%; height:100%;}
+  .abyss-label{
+    position:relative;
+    margin:-10px 0 0;
+    padding:6px 22px;
+    background:var(--bg);
+    font-family:'Cormorant', serif;
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:.02em;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+  .abyss-label em{color:var(--gold);}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:110px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,4vw,38px); margin-top:10px; letter-spacing:.02em;}
+
+  /* Nota do autor */
+  .authorsnote{background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  blockquote{
+    font-family:'Cormorant', serif;
+    font-style:italic;
+    font-size:clamp(22px,3vw,30px);
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 28px;
+    max-width:760px;
+  }
+  blockquote span{color:var(--gold-bright);}
+  .signoff{color:var(--ink-faint); font-family:'Cinzel',serif; font-size:12px; letter-spacing:.2em; text-transform:uppercase;}
+
+  /* Método / dualidade */
+  .method-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:1px solid var(--line);
+  }
+  .method-col{padding:44px 40px; position:relative;}
+  .method-col:first-child{border-right:1px solid var(--line); background:rgba(255,255,255,0.012);}
+  .method-col .tag{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.24em; text-transform:uppercase; margin-bottom:14px; display:block;}
+  .method-col.data .tag{color:var(--ink-dim);}
+  .method-col.op .tag{color:var(--gold-bright);}
+  .method-col h3{font-size:21px; margin-bottom:14px; font-weight:500;}
+  .method-col p{color:var(--ink-dim); font-size:16px; margin:0;}
+  .method-arrow{
+    position:absolute; top:50%; left:100%; transform:translate(-50%,-50%);
+    width:34px; height:34px; border-radius:50%;
+    background:var(--bg); border:1px solid var(--gold-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel',serif; color:var(--gold); font-size:14px;
+    z-index:2;
+  }
+  @media (max-width:720px){
+    .method-grid{grid-template-columns:1fr;}
+    .method-col:first-child{border-right:none; border-bottom:1px solid var(--line);}
+    .method-arrow{top:100%; left:50%; transform:translate(-50%,-50%);}
+  }
+
+  /* Estrutura / partes */
+  .parts{display:flex; flex-direction:column; border-top:1px solid var(--line);}
+  .part-row{
+    display:grid;
+    grid-template-columns:70px 1fr 130px;
+    align-items:baseline;
+    gap:18px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    transition:background .2s ease;
+  }
+  .part-row:hover{background:rgba(140,47,23,0.04);}
+  .part-num{font-family:'Cinzel',serif; color:var(--gold-deep); font-size:15px; letter-spacing:.05em;}
+  .part-title{font-size:17px; color:var(--ink);}
+  .part-title small{display:block; color:var(--ink-faint); font-size:14px; margin-top:3px; font-style:italic; font-family:'Cormorant',serif;}
+  .part-caps{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.12em; color:var(--ink-faint); text-align:right; text-transform:uppercase;}
+
+  .stats-row{display:flex; gap:52px; flex-wrap:wrap; margin-top:48px;}
+  .stat b{display:block; font-family:'Cinzel',serif; font-size:30px; color:var(--gold-bright);}
+  .stat span{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-family:'Cinzel',serif;}
+
+  /* Para quem */
+  .whowho{background:var(--bg-panel-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
+  .split ul{list-style:none; padding:0; margin:0;}
+  .split li{padding:10px 0 10px 26px; position:relative; color:var(--ink-dim); font-size:16px;}
+  .split.not li::before{content:"✕"; position:absolute; left:0; color:var(--crimson); font-size:13px; top:12px;}
+  .split.is li::before{content:"✓"; position:absolute; left:0; color:var(--gold); font-size:13px; top:12px;}
+  .split h4{font-family:'Cinzel',serif; font-size:13px; letter-spacing:.18em; text-transform:uppercase; margin-bottom:18px; color:var(--ink-dim);}
+  @media (max-width:680px){.split{grid-template-columns:1fr;}}
+
+  /* Download */
+  .download{
+    text-align:center;
+    background:radial-gradient(ellipse at 50% 0%, rgba(140,47,23,0.10), transparent 65%), var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .download .section-head{margin:0 auto 20px; text-align:center;}
+  .download p.lead{color:var(--ink-dim); max-width:520px; margin:0 auto 40px;}
+  .download-box{
+    max-width:420px; margin:0 auto;
+    border:1px solid var(--gold-deep);
+    padding:40px 36px;
+    background:rgba(140,47,23,0.03);
+  }
+  .format-tags{display:flex; gap:10px; justify-content:center; margin-top:20px;}
+  .format-tags span{
+    font-family:'Cinzel',serif; font-size:11px; letter-spacing:.1em; color:var(--ink-faint);
+    border:1px solid var(--line); padding:5px 12px; text-transform:uppercase;
+  }
+
+  /* Contribuição */
+  .contribute{background:var(--bg-panel);}
+  .contribute .inner{
+    border:1px solid var(--line);
+    padding:56px 48px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:48px;
+  }
+  @media (max-width:760px){.contribute .inner{grid-template-columns:1fr; padding:40px 26px;}}
+  .contribute p{color:var(--ink-dim); font-size:16px;}
+  .give-panel{background:var(--bg); border:1px solid var(--gold-deep); padding:32px;}
+  .give-panel .tag{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; display:block;}
+  .give-field{margin-bottom:18px;}
+  .give-field label{display:block; font-size:12px; letter-spacing:.08em; color:var(--ink-faint); margin-bottom:6px; font-family:'Cinzel',serif; text-transform:uppercase;}
+  .give-value{
+    display:flex; align-items:center; justify-content:space-between;
+    border:1px dashed var(--line); padding:12px 14px; font-size:15px; color:var(--ink-dim);
+  }
+  .give-value code{color:var(--gold-bright); font-family:'EB Garamond',serif; font-style:italic;}
+  .copy-btn{
+    font-family:'Cinzel',serif; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold); background:none; border:1px solid var(--gold-deep); padding:6px 10px; cursor:pointer; border-radius:2px;
+  }
+  .copy-btn:hover{background:rgba(140,47,23,0.1);}
+  .editnote{
+    margin-top:20px; font-size:12px; color:var(--ink-faint); font-style:italic; font-family:'Cormorant', serif;
+    border-top:1px dashed var(--line); padding-top:14px;
+  }
+  .amounts{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px;}
+  .amounts button{
+    flex:1; min-width:70px;
+    background:transparent; border:1px solid var(--line); color:var(--ink-dim);
+    font-family:'Cinzel',serif; font-size:13px; padding:12px 0; cursor:pointer; transition:all .2s ease;
+  }
+  .amounts button:hover, .amounts button.active{border-color:var(--gold); color:var(--gold-bright); background:rgba(140,47,23,0.06);}
+
+  .contact{
+    background:var(--bg-panel-2);
+    border-top:1px solid var(--line);
+    padding:80px 0;
+  }
+  .contact-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:32px;
+    flex-wrap:wrap;
+  }
+  .contact-email{
+    font-family:'Cinzel', serif;
+    font-size:clamp(18px,2.6vw,24px);
+    letter-spacing:.03em;
+    color:var(--gold-bright);
+    text-decoration:none;
+    border-bottom:1px solid var(--gold-deep);
+    padding-bottom:6px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .contact-email:hover{color:var(--gold); border-color:var(--gold);}
+
+  footer{
+    padding:60px 0 50px;
+    text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .sigil-small{width:22px;height:22px;margin:0 auto 18px; opacity:.7;}
+  footer .fname{font-family:'Cinzel',serif; letter-spacing:.2em; font-size:13px; color:var(--gold); text-transform:uppercase;}
+  footer p{color:var(--ink-faint); font-size:13px; margin-top:10px;}
+  .privacy-link{
+    background:none; border:none; cursor:pointer;
+    margin-top:22px;
+    font-family:'Cinzel',serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-faint); text-decoration:underline; text-underline-offset:4px;
+  }
+  .privacy-link:hover{color:var(--gold);}
+
+  .privacy-overlay{
+    position:fixed; inset:0; z-index:50;
+    background:rgba(2,2,2,0.82);
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .privacy-overlay.open{opacity:1; pointer-events:auto;}
+  .privacy-box{
+    position:relative;
+    max-width:620px; max-height:80vh; overflow-y:auto;
+    background:var(--bg-panel); border:1px solid var(--gold-deep);
+    padding:44px 40px;
+  }
+  .privacy-box h3{font-size:22px; letter-spacing:.02em;}
+  .privacy-box p{color:var(--ink-dim); font-size:15px; margin:16px 0;}
+  .privacy-box ul{padding-left:20px; margin:16px 0; color:var(--ink-dim); font-size:15px;}
+  .privacy-box li{margin-bottom:12px;}
+  .privacy-box a{color:var(--gold-bright); text-decoration:underline;}
+  .privacy-close{
+    position:absolute; top:18px; right:18px;
+    background:none; border:none; color:var(--ink-faint); font-size:16px; cursor:pointer;
+  }
+  .privacy-close:hover{color:var(--gold);}
+
+  ::selection{background:var(--gold-deep); color:#fff;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Sigilo: anel de 20 nós (Vigilantes), triângulo invertido do Hermon, olho, e alusão a Órion (três pontos do cinto) -->
+  <svg class="sigil" viewBox="-160 -160 320 320" fill="none">
+    <g stroke="var(--gold)" stroke-width="2" opacity="0.55">
+      <circle cx="0" cy="0" r="118" fill="none"/>
+    </g>
+    <g fill="var(--gold)" opacity="0.85">
+      <circle cx="0" cy="-118" r="3.4"/>
+      <circle cx="36.5" cy="-112.2" r="3.4"/>
+      <circle cx="69.4" cy="-94.8" r="3.4"/>
+      <circle cx="95.5" cy="-68.6" r="3.4"/>
+      <circle cx="111.6" cy="-35.6" r="3.4"/>
+      <circle cx="116.5" cy="0" r="3.4"/>
+      <circle cx="111.6" cy="35.6" r="3.4"/>
+      <circle cx="95.5" cy="68.6" r="3.4"/>
+      <circle cx="69.4" cy="94.8" r="3.4"/>
+      <circle cx="36.5" cy="112.2" r="3.4"/>
+      <circle cx="0" cy="118" r="3.4"/>
+      <circle cx="-36.5" cy="112.2" r="3.4"/>
+      <circle cx="-69.4" cy="94.8" r="3.4"/>
+      <circle cx="-95.5" cy="68.6" r="3.4"/>
+      <circle cx="-111.6" cy="35.6" r="3.4"/>
+      <circle cx="-116.5" cy="0" r="3.4"/>
+      <circle cx="-111.6" cy="-35.6" r="3.4"/>
+      <circle cx="-95.5" cy="-68.6" r="3.4"/>
+      <circle cx="-69.4" cy="-94.8" r="3.4"/>
+      <circle cx="-36.5" cy="-112.2" r="3.4"/>
+    </g>
+    <!-- Triângulo invertido (Hermon) -->
+    <g stroke="var(--gold)" stroke-width="2.6" stroke-linejoin="round" opacity="0.9">
+      <polygon points="0,88 76,-44 -76,-44" fill="none"/>
+    </g>
+    <!-- Três pontos do cinto de Órion -->
+    <g fill="var(--gold-bright)" opacity="0.95">
+      <circle cx="-18" cy="8" r="3.2"/>
+      <circle cx="0" cy="8" r="3.2"/>
+      <circle cx="18" cy="8" r="3.2"/>
+    </g>
+    <!-- Olho central -->
+    <g>
+      <ellipse cx="0" cy="-28" rx="22" ry="11" fill="none" stroke="var(--gold-bright)" stroke-width="2"/>
+      <circle cx="0" cy="-28" r="5" fill="var(--gold-bright)" opacity="0.9"/>
+      <circle cx="0" cy="-28" r="1.8" fill="var(--bg)"/>
+    </g>
+  </svg>
+  <h1>SHEMYAZA</h1>
+  <p class="subtitle">O Líder dos Vigilantes — A Queda, o Ensino e o Preço da Transmissão</p>
+  <p class="author">Adriano Benedet</p>
+  <p class="meta-row">9 partes · 15+ variantes do nome · grimório operacional · leitura gratuita</p>
+  <div class="cta-row">
+    <a href="https://drive.google.com/file/d/1XYgygdWIHFigneOibUEDuCluMSidmRpX/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" id="downloadBtn">Baixar o Livro — Grátis</a>
+    <a href="#contribuir" class="btn btn-ghost">Apoiar a Obra</a>
+  </div>
+  <div class="scroll-hint">role para descer</div>
+</section>
+
+<!-- O ABISMO — divisor -->
+<section class="abyss">
+  <div class="abyss-crack" aria-hidden="true">
+    <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+      <path d="M0,30 L120,32 L180,10 L260,48 L340,26 L410,40 L480,14 L560,34 L640,22 L720,44 L800,18 L880,36 L960,28 L1040,46 L1120,20 L1200,30" stroke="var(--gold-deep)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <p class="abyss-label">Suspenso entre o céu e a terra — <em>a constelação de Órion</em></p>
+</section>
+
+<!-- NOTA DO AUTOR -->
+<section class="authorsnote">
+  <div class="wrap reveal">
+    <span class="eyebrow">Nota do Autor</span>
+    <div class="rule"></div>
+    <blockquote>
+      "Este não é um livro para curiosos. É um grimório operacional — um manual de campo escrito por um sobrevivente do abismo que retornou com as mãos queimadas e os olhos abertos. <span>Shemyaza não é um demônio a ser temido — é um mestre a ser compreendido.</span>"
+    </blockquote>
+    <p class="signoff">— Adriano Benedet · Na borda da tempestade, 2026</p>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="method">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">O Método</span>
+      <h2>Fonte e prática, lado a lado</h2>
+      <p style="color:var(--ink-dim); margin-top:14px;">Cada camada da tradição de Shemyaza é catalogada com rigor textual e depois reaberta pela leitura operacional — o nome, a queda, o ensino e o preço, sempre juntos.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-col data">
+        <span class="tag">01 — As Fontes</span>
+        <h3>Nome, etimologia e manuscritos</h3>
+        <p>Mais de 15 variantes do nome — de Qumran ao Midrash, do Zohar ao ocultismo moderno — cruzadas com a leitura de Idel, Charles e Nickelsburg.</p>
+      </div>
+      <div class="method-arrow">→</div>
+      <div class="method-col op">
+        <span class="tag">02 — A Operação</span>
+        <h3>Rituais, selos e princípios</h3>
+        <p>Master Key, Blockage Key, pathworkings, evocações e os 5 princípios operacionais — a corrente viva do líder dos 200.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTRUTURA -->
+<section class="structure">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Estrutura da Obra</span>
+      <h2>Nove partes, do nome ao grimório</h2>
+    </div>
+    <div class="parts">
+      <div class="part-row">
+        <span class="part-num">I</span>
+        <span class="part-title">Fundamentos<small>Nome, etimologia, hierarquia e fontes vivas</small></span>
+        <span class="part-caps">15+ variantes</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">II</span>
+        <span class="part-title">A Queda e o Pacto<small>Monte Hermon, juramento e a versão do Midrash</small></span>
+        <span class="part-caps">1 En. 6</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">III</span>
+        <span class="part-title">O Conhecimento Transmitido<small>Encantamentos, raízes e o Nome de Istahar</small></span>
+        <span class="part-caps">Ensino</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">IV</span>
+        <span class="part-title">A Prole, o Julgamento e o Castigo<small>Nephilim, Órion e o choro de Shemyaza</small></span>
+        <span class="part-caps">Órion</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">V</span>
+        <span class="part-title">A Distinção Chave<small>Shemyaza × Azazel — desfazendo a confusão</small></span>
+        <span class="part-caps">Clarificação</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VI</span>
+        <span class="part-title">Shemyaza no Ocultismo<small>Luciferianismo, Kundalini, astrologia e correntes modernas</small></span>
+        <span class="part-caps">Ocultismo</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VII</span>
+        <span class="part-title">Ética, Preço e Legado<small>Os 5 princípios operacionais</small></span>
+        <span class="part-caps">Princípios</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">VIII</span>
+        <span class="part-title">Princípios Operacionais e Gnose Pessoal<small>A queda como movimento, a palavra como veículo</small></span>
+        <span class="part-caps">Gnose</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">IX</span>
+        <span class="part-title">Rituais, Selos e Práticas<small>Master Key, Blockage Key, evocações e pathworkings</small></span>
+        <span class="part-caps">Grimório</span>
+      </div>
+      <div class="part-row">
+        <span class="part-num">+</span>
+        <span class="part-title">Capítulo Especial · Pathworkings · FAQ · Glossário · Bibliografia · Apêndices<small>Istahar, a menina do porão · Calendário ritual · Relatos de praticantes</small></span>
+        <span class="part-caps">Complementar</span>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><b>9</b><span>Partes</span></div>
+      <div class="stat"><b>15+</b><span>Variantes do nome</span></div>
+      <div class="stat"><b>200</b><span>Vigilantes sob seu comando</span></div>
+      <div class="stat"><b>R$0</b><span>Para baixar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="whowho">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Para Quem é Este Livro</span>
+      <h2>Grimório, não ficção</h2>
+    </div>
+    <div class="split">
+      <div>
+        <h4>Este livro não é</h4>
+        <ul class="not">
+          <li>Ficção ou narrativa de entretenimento</li>
+          <li>Tratado teológico devocional</li>
+          <li>Um chamado à fé cega ou ao culto de personalidade</li>
+          <li>Um manual de dominação material</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Este livro é</h4>
+        <ul class="is">
+          <li>Um grimório operacional sobre o líder dos Vigilantes</li>
+          <li>Fonte textual e prática lado a lado</li>
+          <li>Feito para buscadores dispostos a pagar o preço</li>
+          <li>Um mapa entre a queda e a transmissão</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="baixar">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Leitura Gratuita</span>
+      <h2>Baixe SHEMYAZA</h2>
+    </div>
+    <p class="lead">A obra completa, sem custo, sem cadastro obrigatório. Comece a leitura agora.</p>
+    <div class="download-box">
+      <a href="https://drive.google.com/file/d/1XYgygdWIHFigneOibUEDuCluMSidmRpX/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;">↓ Baixar Agora</a>
+      <div class="format-tags">
+        <span>PDF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUIR -->
+<section class="contribute" id="contribuir">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow">Sustentar a Obra</span>
+      <h2>O livro é livre. A contribuição é uma escolha.</h2>
+    </div>
+    <div class="inner">
+      <div>
+        <p>SHEMYAZA nasceu de anos de pesquisa em manuscritos, tradições midráshicas, fontes acadêmicas e prática de campo — e continua disponível gratuitamente para qualquer buscador. Se a obra te trouxe valor, você pode apoiar sua continuidade com qualquer quantia. Isso ajuda a financiar a pesquisa dos próximos volumes e manter tudo aberto para quem não pode pagar.</p>
+        <p style="color:var(--ink-faint); font-size:14px;">Nenhuma contribuição é obrigatória para ler ou compartilhar o livro.</p>
+      </div>
+      <div class="give-panel">
+        <span class="tag">Chave Pix</span>
+        <div class="give-field">
+          <div class="give-value">
+            <code id="pixKey">adrianobenedetsc@gmail.com</code>
+            <button class="copy-btn" onclick="copyPix()">Copiar</button>
+          </div>
+        </div>
+        <div class="amounts">
+          <button>R$10</button>
+          <button>R$25</button>
+          <button>R$50</button>
+          <button>Livre</button>
+        </div>
+        <div class="editnote">* Esta chave Pix (e-mail) é também o canal de contato com o autor — dúvidas, feedback ou parcerias sobre a obra podem ser enviados para o mesmo endereço.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact">
+  <div class="wrap reveal contact-inner">
+    <div>
+      <span class="eyebrow">Contato</span>
+      <h2 style="font-size:28px; margin-top:10px;">Fale com o autor</h2>
+      <p style="color:var(--ink-dim); max-width:480px; margin-top:14px;">Dúvidas sobre a obra, parcerias, imprensa ou qualquer outra questão — escreva diretamente.</p>
+    </div>
+    <a class="contact-email" href="mailto:adrianobenedetsc@gmail.com">
+      adrianobenedetsc@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer>
+  <svg class="sigil-small" viewBox="-160 -160 320 320" fill="none">
+    <circle cx="0" cy="0" r="118" fill="none" stroke="var(--gold)" stroke-width="4" opacity="0.7"/>
+    <polygon points="0,88 76,-44 -76,-44" fill="none" stroke="var(--gold)" stroke-width="5" opacity="0.9"/>
+    <circle cx="-18" cy="8" r="4" fill="var(--gold-bright)"/>
+    <circle cx="0" cy="8" r="4" fill="var(--gold-bright)"/>
+    <circle cx="18" cy="8" r="4" fill="var(--gold-bright)"/>
+  </svg>
+  <p class="fname">Adriano Benedet</p>
+  <p>SHEMYAZA — O Líder dos Vigilantes</p>
+  <button class="privacy-link" onclick="document.getElementById('privacyModal').classList.add('open')">Política de Privacidade</button>
+</footer>
+
+<!-- AVISO DE PRIVACIDADE / LGPD -->
+<div class="privacy-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+  <div class="privacy-box">
+    <button class="privacy-close" onclick="document.getElementById('privacyModal').classList.remove('open')" aria-label="Fechar">✕</button>
+    <h3 id="privacyTitle">Aviso de Privacidade</h3>
+    <div class="rule"></div>
+    <p>Esta página é um site simples de divulgação: ela apenas apresenta o livro <em>SHEMYAZA</em> e direciona para download e contato. Ela não possui cadastro, login, formulário ou sistema próprio de coleta de dados.</p>
+    <ul>
+      <li><strong>Nenhum dado pessoal é coletado ou armazenado por este site.</strong> Não há cookies de rastreamento, pixels de analytics ou formulários.</li>
+      <li><strong>Download do livro:</strong> o arquivo é hospedado no Google Drive. Ao clicar em "Baixar", você é direcionado para os servidores do Google, sujeitos à própria política de privacidade do Google.</li>
+      <li><strong>Contribuição via Pix:</strong> qualquer transação é feita diretamente no aplicativo do seu banco. Este site não processa, recebe nem armazena dados financeiros — apenas exibe a chave Pix do autor.</li>
+      <li><strong>Contato por e-mail:</strong> ao escrever para o autor, os dados que você inclui na sua mensagem (nome, e-mail, conteúdo) ficam na sua caixa de e-mail e na do autor, fora deste site — regidos pela política do seu provedor de e-mail.</li>
+      <li><strong>Fontes tipográficas:</strong> esta página carrega fontes do Google Fonts, o que gera uma requisição ao servidor do Google e pode transmitir seu endereço IP a ele, conforme a política de privacidade do Google.</li>
+    </ul>
+    <p>Como não há coleta ou tratamento de dados pessoais por este site (art. 5º, X, LGPD), não se aplicam mecanismos de consentimento ou exclusão de cadastro. Ainda assim, dúvidas sobre privacidade podem ser enviadas para <a href="mailto:adrianobenedetsc@gmail.com">adrianobenedetsc@gmail.com</a>.</p>
+  </div>
+</div>
+
+<script>
+  function copyPix(){
+    const el = document.getElementById('pixKey');
+    navigator.clipboard.writeText(el.textContent).catch(()=>{});
+    const btn = event.target;
+    const original = btn.textContent;
+    btn.textContent = 'Copiado!';
+    setTimeout(()=>{btn.textContent = original;}, 1500);
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  const amountBtns = document.querySelectorAll('.amounts button');
+  amountBtns.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      amountBtns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
