@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Carta do Passageiro do Abismo — uma carta escrita a partir do fogo. Por Adriano Benedet.">
+  <meta name="theme-color" content="#070707">
+  <meta name="robots" content="index,follow">
+  <title>Carta do Passageiro do Abismo — Adriano Benedet</title>
+
+  <style>
+    :root {
+      --bg: #070707;
+      --panel: #0d0c0c;
+      --text: #eee7dd;
+      --muted: #9b9287;
+      --dim: #6e665e;
+      --line: rgba(238, 231, 221, .12);
+      --gold: #d7b979;
+      --ember: #b9361d;
+      --ember-2: #ee6333;
+      --max: 1120px;
+      --reading: 860px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -5%, rgba(185, 54, 29, .20), transparent 34rem),
+        radial-gradient(circle at 85% 60%, rgba(112, 23, 12, .10), transparent 24rem),
+        var(--bg);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .05;
+      background-image:
+        radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, #fff 0 1px, transparent 1px);
+      background-size: 170px 170px, 230px 230px;
+      z-index: 0;
+    }
+
+    a { color: inherit; }
+    main, footer { position: relative; z-index: 1; }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: min(860px, 100svh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 72px 0 84px;
+      position: relative;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 980px;
+      margin-inline: auto;
+    }
+
+    .sigil {
+      width: 94px;
+      height: 94px;
+      margin: 0 auto 28px;
+      border: 1px solid rgba(215, 185, 121, .58);
+      border-radius: 50%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 38px rgba(185, 54, 29, .10), inset 0 0 25px rgba(185, 54, 29, .08);
+    }
+
+    .sigil::before,
+    .sigil::after {
+      content: "";
+      position: absolute;
+      background: rgba(215, 185, 121, .56);
+    }
+
+    .sigil::before { width: 1px; height: 116px; }
+    .sigil::after { width: 116px; height: 1px; }
+
+    .sigil span {
+      width: 30px;
+      height: 44px;
+      border: 1px solid var(--ember-2);
+      border-radius: 52% 48% 58% 42%;
+      transform: rotate(45deg);
+      box-shadow: 0 0 18px rgba(238, 99, 51, .26);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--gold);
+      font-size: .74rem;
+      letter-spacing: .30em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.9rem, 8vw, 7rem);
+      line-height: .90;
+      font-weight: 500;
+      letter-spacing: -.055em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      text-shadow: 0 0 35px rgba(185, 54, 29, .12);
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 26px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.28rem);
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    .author {
+      margin-top: 25px;
+      color: #cfc5b6;
+      font-size: .82rem;
+      letter-spacing: .18em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 38px;
+    }
+
+    .button {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border: 1px solid rgba(215, 185, 121, .62);
+      color: #f5ecdf;
+      background: linear-gradient(180deg, rgba(185, 54, 29, .15), rgba(75, 13, 8, .08));
+      text-decoration: none;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: inherit;
+      font-size: .76rem;
+      line-height: 1;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--ember-2);
+      box-shadow: 0 16px 40px rgba(185, 54, 29, .16);
+      background: rgba(185, 54, 29, .12);
+      outline: none;
+    }
+
+    .button svg { width: 17px; height: 17px; flex: 0 0 auto; }
+
+    .scroll-note {
+      position: absolute;
+      left: 50%;
+      bottom: 25px;
+      transform: translateX(-50%);
+      color: var(--dim);
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* COMMON */
+    section { padding: 28px 0 84px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 0 56px;
+      color: #6f6459;
+      font-size: .68rem;
+      letter-spacing: .34em;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+    }
+
+    /* CARTA */
+    .letter-shell {
+      width: min(var(--reading), 100%);
+      margin-inline: auto;
+      padding: clamp(26px, 5vw, 62px);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.020), rgba(255,255,255,.007));
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .30);
+    }
+
+    .letter-kicker {
+      margin-bottom: 24px;
+      color: var(--gold);
+      font-size: .76rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    blockquote {
+      margin: 0;
+      padding-left: 24px;
+      border-left: 1px solid rgba(185, 54, 29, .62);
+      color: #ddd3c5;
+      font-size: clamp(1.35rem, 3vw, 1.9rem);
+      line-height: 1.48;
+      font-style: italic;
+    }
+
+    .themes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 52px;
+    }
+
+    .theme {
+      min-width: 0;
+      padding-top: 15px;
+      border-top: 1px solid var(--line);
+    }
+
+    .theme strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #e4d8c5;
+      font-size: .70rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .theme span {
+      color: #8e867d;
+      font-size: .94rem;
+      line-height: 1.7;
+    }
+
+    /* DOWNLOAD */
+    .download-section {
+      padding-top: 35px;
+      padding-bottom: 85px;
+      text-align: center;
+    }
+
+    .download-card {
+      width: min(760px, 100%);
+      margin-inline: auto;
+      padding: 36px clamp(22px, 5vw, 54px);
+      border: 1px solid rgba(215, 185, 121, .20);
+      background: rgba(255,255,255,.012);
+    }
+
+    .download-card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 500;
+      line-height: 1.1;
+    }
+
+    .download-card p {
+      max-width: 570px;
+      margin: 0 auto 26px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* PRIVACIDADE */
+    .privacy {
+      padding: 0 0 84px;
+    }
+
+    .privacy-card {
+      width: min(860px, 100%);
+      margin-inline: auto;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+
+    .privacy-card h2 {
+      margin: 0 0 13px;
+      color: #ded5ca;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .privacy-card p {
+      margin: 0 0 10px;
+      color: #857d75;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+
+    .privacy-card p:last-child { margin-bottom: 0; }
+
+    .privacy-card strong { color: #b7aea4; }
+
+    /* FINAL */
+    .final {
+      padding: 30px 0 112px;
+      text-align: center;
+    }
+
+    .final-line {
+      width: 80px;
+      height: 1px;
+      margin: 0 auto 24px;
+      background: var(--ember);
+    }
+
+    .final p {
+      max-width: 720px;
+      margin: 0 auto 12px;
+      color: #eee6da;
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      line-height: 1.45;
+    }
+
+    .final small {
+      color: #7f766b;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .67rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 26px 0 max(34px, env(safe-area-inset-bottom));
+      text-align: center;
+      color: #5f5851;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: .68rem;
+      line-height: 1.7;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    /* MOBILE */
+    @media (max-width: 760px) {
+      .container { width: min(100% - 28px, var(--max)); }
+
+      .hero {
+        min-height: 100svh;
+        padding: 56px 0 82px;
+      }
+
+      .sigil {
+        width: 74px;
+        height: 74px;
+        margin-bottom: 24px;
+      }
+
+      .sigil::before { height: 92px; }
+      .sigil::after { width: 92px; }
+      .sigil span { width: 24px; height: 36px; }
+
+      .eyebrow {
+        max-width: 300px;
+        margin-inline: auto;
+        font-size: .62rem;
+        letter-spacing: .22em;
+      }
+
+      h1 {
+        font-size: clamp(2.55rem, 14vw, 5rem);
+        letter-spacing: -.045em;
+      }
+
+      .subtitle {
+        margin-top: 20px;
+        font-size: .98rem;
+        line-height: 1.68;
+      }
+
+      .author {
+        max-width: 330px;
+        margin-inline: auto;
+        font-size: .68rem;
+        letter-spacing: .13em;
+      }
+
+      .actions { margin-top: 30px; }
+
+      .button {
+        width: 100%;
+        max-width: 360px;
+        min-height: 54px;
+      }
+
+      .scroll-note {
+        bottom: 19px;
+        font-size: .56rem;
+      }
+
+      section { padding: 20px 0 66px; }
+
+      .divider { margin-bottom: 36px; }
+
+      .letter-shell {
+        padding: 26px 21px 34px;
+      }
+
+      blockquote {
+        padding-left: 17px;
+        font-size: 1.30rem;
+      }
+
+      .themes {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 38px;
+      }
+
+      .theme span {
+        font-size: .91rem;
+      }
+
+      .download-section {
+        padding-top: 20px;
+        padding-bottom: 65px;
+      }
+
+      .download-card {
+        padding: 30px 20px;
+      }
+
+      .privacy { padding-bottom: 66px; }
+      .privacy-card { padding-top: 24px; }
+      .privacy-card p { font-size: .84rem; }
+
+      .final { padding-bottom: 78px; }
+      .final p { font-size: 1.45rem; }
+    }
+
+    @media (max-width: 380px) {
+      h1 { font-size: 2.45rem; }
+      .letter-shell { padding-inline: 18px; }
+      blockquote { font-size: 1.22rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+      .button:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header class="hero">
+      <div class="container hero-inner">
+        <div class="sigil" aria-hidden="true"><span></span></div>
+
+        <p class="eyebrow">Uma carta escrita a partir do fogo</p>
+
+        <h1>Carta do<br>Passageiro<br>do Abismo</h1>
+
+        <p class="subtitle">
+          Um registro de travessia, exaustão, silêncio e continuidade — escrito na borda onde o fogo ainda permanece aceso.
+        </p>
+
+        <p class="author">Adriano Benedet · Na borda da tempestade</p>
+
+        <div class="actions">
+          <a
+            class="button"
+            href="https://drive.google.com/uc?export=download&id=1Xx0kjFfZjdw85ZX8hh-bEbP0N9NKJelh"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Baixar a Carta do Passageiro do Abismo pelo Google Drive"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14"/>
+            </svg>
+            Baixar a carta
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-note">Desça para entrar</div>
+    </header>
+
+    <section aria-labelledby="travessia-title">
+      <div class="container">
+        <div class="divider" aria-hidden="true">✦</div>
+
+        <article class="letter-shell">
+          <div class="letter-kicker" id="travessia-title">A travessia</div>
+
+          <blockquote>
+            “Eu não estou sendo consumido pelo fogo. Eu estou usando o fogo.”
+          </blockquote>
+
+          <div class="themes">
+            <div class="theme">
+              <strong>O fogo</strong>
+              <span>A força que move a criação e, ao mesmo tempo, cobra seu preço.</span>
+            </div>
+
+            <div class="theme">
+              <strong>O abismo</strong>
+              <span>O lugar de onde se volta diferente, levando consigo o que foi encontrado.</span>
+            </div>
+
+            <div class="theme">
+              <strong>O caminho</strong>
+              <span>A continuidade que permanece mesmo quando existem exaustão, dor e silêncio.</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="download-section" aria-labelledby="download-title">
+      <div class="container">
+        <div class="download-card">
+          <h2 id="download-title">A carta está aqui.</h2>
+          <p>
+            Leia o registro completo no documento original e percorra a travessia até a última linha.
+          </p>
+
+          <a
+            class="button"
+            href="https://drive.google.com/uc?export=download&id=1Xx0kjFfZjdw85ZX8hh-bEbP0N9NKJelh"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Abrir e baixar a carta no Google Drive"
+          >
+            Abrir e baixar a carta
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy" aria-labelledby="privacy-title">
+      <div class="container">
+        <div class="privacy-card">
+          <h2 id="privacy-title">Privacidade e LGPD</h2>
+
+          <p>
+            <strong>Esta página não possui formulário, cadastro, área de login, cookies, pixels de rastreamento ou ferramentas de analytics.</strong>
+            Ela foi estruturada para apresentar a obra e disponibilizar o acesso ao arquivo.
+          </p>
+
+          <p>
+            O clique no botão de download direciona você para o Google Drive, que é um serviço de terceiros. A partir desse momento,
+            a navegação e eventual tratamento de dados passam a seguir as políticas e os termos aplicáveis ao próprio Google.
+          </p>
+
+          <p>
+            Esta página, por si só, não solicita nem armazena nome, e-mail, telefone, endereço ou qualquer outro dado pessoal para liberar o download.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" aria-labelledby="final-title">
+      <div class="container">
+        <div class="final-line" aria-hidden="true"></div>
+        <p id="final-title">“Enquanto houver caminho,<br>há fogo.”</p>
+        <small>— Adriano Benedet</small>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © Adriano Benedet · Carta do Passageiro do Abismo
+    </div>
+  </footer>
+</body>
+</html>
